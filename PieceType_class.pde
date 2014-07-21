@@ -125,6 +125,7 @@ class PieceType {
   }//End matchField()
   
   void checkAllowableMoves(){
+    
     int originXIfPieceGoesLeft = originX - 1;
     int originXIfPieceGoesRight = originX + 1;
     int originYIfPieceGoesDown = originY + 1;
@@ -134,45 +135,42 @@ class PieceType {
     
     checkLeft = true;
     checkRight = true;
+    //print(canGoLeft);
+    
     test:
       for(int i = 0; i < pieceHeight; i++){
-        println();
-        for(int j = 0; j < pieceWidth; j++){ 
-    
-          //print("piece design = ", pieceDesign[i][j]);
-          //print("("+j+","+originX+")");
-          
+        for(int j = 0; j < pieceWidth; j++){           
           if (pieceDesign[i][j] == 1 && j + originX == 0 &&  checkLeft == true){
-            //print("ifCalled ");
             canGoLeft = false;
             checkLeft = false;
+            print("hit");
           } 
-          else if(pieceDesign[i][j] == 0 && j + originX == 0 &&  checkLeft == true){
-            //print("elseCalled ");
+          else if(pieceDesign[i][j] == 1 && j + originX != 0 &&  checkLeft == true){
             canGoLeft = true;
+            print("nohit");
           }
-          //else print("noneCalled");
-          if (pieceDesign[i][j] == 1 && j + originX == 9 && checkRight == true){
-            canGoRight = false;
-            checkRight = false;
-            //break test;
+          else {
+
           } 
-          else if(pieceDesign[i][j] == 0 && j + originX == 9 && checkRight == true) {
-            //canGoRight = true;
+          
+          if (pieceDesign[i][j] == 1 && j + originX == 9 &&  checkRight == true){
+            canGoRight = false; 
+            checkRight = false;
+          } 
+          else if(pieceDesign[i][j] == 1 && j + originX != 9 &&  checkRight == true){
             canGoRight = true;
-          }
+          }         
           if (pieceDesign[i][j] == 1 && i + originY > 15){
-            
             canGoDown = false;
             stopPieceFromMoving = true;
-            println("***************************************** HIT BOTTOM ************************");
             break test;
           } 
           else{
             canGoDown = true;
           }
-        }  
-      
+          //print(pieceDesign[i][j]);
+        }//end inner loop j  
+      println();
       }//end "test" loop
     tempOriginX = originX;
     tempOriginY = originY+1;
@@ -243,7 +241,7 @@ class PieceType {
       rotation_status = 1;
       canGoDown = true;
       stopPieceFromMoving = false;
-      canGoRight = true;
+      
   }
   
   //Draw Field- Based on the value of the field element, draw a block (empty space, space occupied by piece have diff. colors

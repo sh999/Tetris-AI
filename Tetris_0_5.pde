@@ -16,8 +16,13 @@ version 0.4: Can move around pieces and have collision detection.  Bug in that s
 7/14: fix piece falling through bug, check checkallowablemoves().  FIxed 7/15.  Problem was when piece is on the edge
 7/15: after fixing previous bug, another bug occurs where if piece touches wall, it can't move toward that edge even
   after it has been moved to middle
+7/21: Fixed left collision.  Right collision has issue where I piece once horizontal and pushed to the well can't go right anymore
+  bug occurs due to piecedesign[i][j] = 1 on the boundary.  Can be replicated if I piece's horizontal rotation is changed so that
+  instead of looking like 01111 it is changed to 11110; in this case the piece will hit the left wall and can't be moved left anymore
+  in effect mirroring the bug to the left side... 7/21
+    fixed else if cause....not really sure why it didn't work before 7/21
 Bugs:
-sometimes a piece falls through. Fixed 7/15
+sometimes a piece falls through. Fixed 7/15  Never mind 7/21
 
 */
 //**********FIELD
@@ -98,7 +103,7 @@ void setup() {
   T_piece = new PieceType("T block",T_pieceDesign,"Tblock.svg");
   square_piece = new PieceType("square block",square_pieceDesign,"squareblock.svg");
   I_piece = new PieceType("I block",I_pieceDesign,"Iblock.svg");
-  currentPiece = I_piece; //Piece that is currently falling
+  currentPiece = T_piece; //Piece that is currently falling
   backgroundDesign = loadShape("Gamebackgroundv1.svg");
   shape(backgroundDesign);
   int x = 1;
