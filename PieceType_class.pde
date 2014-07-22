@@ -131,7 +131,6 @@ class PieceType {
     int originYIfPieceGoesDown = originY + 1;
     boolean keepLooping = true;
    
-    println("\n\n");
     
     checkLeft = true;
     checkRight = true;
@@ -147,7 +146,7 @@ class PieceType {
           } 
           else if(pieceDesign[i][j] == 1 && j + originX != 0 &&  checkLeft == true){
             canGoLeft = true;
-            print("nohit");
+            
           }
           else {
 
@@ -160,7 +159,7 @@ class PieceType {
           else if(pieceDesign[i][j] == 1 && j + originX != 9 &&  checkRight == true){
             canGoRight = true;
           }         
-          if (pieceDesign[i][j] == 1 && i + originY > 15){
+          if (pieceDesign[i][j] == 1 && i + originY > 23){
             canGoDown = false;
             stopPieceFromMoving = true;
             break test;
@@ -170,13 +169,12 @@ class PieceType {
           }
           //print(pieceDesign[i][j]);
         }//end inner loop j  
-      println();
       }//end "test" loop
     tempOriginX = originX;
     tempOriginY = originY+1;
     
     //Checks if there are already fallen pieces below the falling piece (collision detection)
-    /*if (canGoDown == true){
+    if (canGoDown == true){
       for(int i = 0; i < pieceHeight; i++){
         for(int j = 0; j < pieceWidth; j++){        
           if (pieceDesign[i][j] == 1 && field[i+tempOriginY][j+tempOriginX] == FILLED_PERM){
@@ -187,7 +185,7 @@ class PieceType {
           } 
         }  
       }
-    }*/
+    }
     
     //Check floor
     if (originY>133) {
@@ -354,6 +352,9 @@ class PieceType {
     case DOWN:
       if(canGoDown == true) originY = originY+1;
       break;
+    
+      
+
     case RIGHT:
       if(canGoRight == true) originX = originX+1;
       break;
@@ -362,16 +363,23 @@ class PieceType {
       else rotation_status = rotation_status - 1;
 
       break;  
-      default:;
+    default:
+      if(key == ' '){
+          instantDrop();
+          
+      }
+      break;
+        
     }//switch
     pieceDesign = updateArray(rotation_status);
-    /*for(int i = 0; i < pieceHeight; i++){//print array in console
-      for(int j = 0; j < pieceWidth; j++){
-        print(pieceDesign[i][j]);
-      }
-      println();
-    }*/
+    
   }//userInput
+  
+  void instantDrop(){
+    print("space");
+
+  }
+  
   
   int[][] updateArray(int rotation_status) { //Has information for piece rotation
     int[][] newArray = new int[5][5];

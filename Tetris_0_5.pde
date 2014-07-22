@@ -21,8 +21,11 @@ version 0.4: Can move around pieces and have collision detection.  Bug in that s
   instead of looking like 01111 it is changed to 11110; in this case the piece will hit the left wall and can't be moved left anymore
   in effect mirroring the bug to the left side... 7/21
     fixed else if cause....not really sure why it didn't work before 7/21
+7/22: Drop piece feature.  
+7/22: Rotate collision detection
 Bugs:
 sometimes a piece falls through. Fixed 7/15  Never mind 7/21
+7:22: starting with i piece, changing direction left/right raises position by 1. Fixed 7/22
 
 */
 //**********FIELD
@@ -87,11 +90,11 @@ int[][] square_pieceDesign = new int[][]{{0,0,0,0,0},
                                         {0,1,1,0,0},
                                         {0,0,0,0,0},
                                         {0,0,0,0,0}};
-int[][] I_pieceDesign = new int[][]{ {0,0,0,0,0},
+int[][] I_pieceDesign = new int[][]{ {0,0,1,0,0},
                                      {0,0,1,0,0},
                                      {0,0,1,0,0},
                                      {0,0,1,0,0},
-                                     {0,0,1,0,0}};
+                                     {0,0,0,0,0}};
 void setup() {
   smooth();
   size(800, 600);
@@ -103,7 +106,7 @@ void setup() {
   T_piece = new PieceType("T block",T_pieceDesign,"Tblock.svg");
   square_piece = new PieceType("square block",square_pieceDesign,"squareblock.svg");
   I_piece = new PieceType("I block",I_pieceDesign,"Iblock.svg");
-  currentPiece = T_piece; //Piece that is currently falling
+  currentPiece = I_piece; //Piece that is currently falling
   backgroundDesign = loadShape("Gamebackgroundv1.svg");
   shape(backgroundDesign);
   int x = 1;
