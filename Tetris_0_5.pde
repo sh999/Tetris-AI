@@ -29,6 +29,7 @@ version 0.4: Can move around pieces and have collision detection.  Bug in that s
   7/22: Working on instantMethod().  Done 7/23!
 
 7/22: Rotate collision detection
+  7/23: Working on checkValidRotation()
 
 Bugs:
 sometimes a piece falls through. Fixed 7/15  Never mind 7/21

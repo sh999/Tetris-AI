@@ -137,7 +137,9 @@ class PieceType {
     test:
       for(int i = 0; i < pieceHeight; i++){
         for(int j = 0; j < pieceWidth; j++){           
-          if (pieceDesign[i][j] == 1 && j + originX == 0 &&  checkLeft == true){
+          if ((pieceDesign[i][j] == 1 && j + originX == 0) ||
+              (pieceDesign[i][j] == 1 && field[i+originY][j+originX-1] == FILLED_PERM) &&
+              checkLeft == true){
             canGoLeft = false;
             checkLeft = false;
           } 
@@ -149,7 +151,9 @@ class PieceType {
 
           } 
           
-          if (pieceDesign[i][j] == 1 && j + originX == 9 &&  checkRight == true){
+          if ((pieceDesign[i][j] == 1 && j + originX == 9) || 
+              (pieceDesign[i][j] == 1 && field[i+originY][j+originX+1] == FILLED_PERM) &&
+              checkRight == true){
             canGoRight = false; 
             checkRight = false;
           } 
@@ -334,10 +338,13 @@ class PieceType {
   void userInput() {
     switch(keyCode) {
     case UP:
+      checkValidRotation();
+      /*
       if (rotation_status == 4) rotation_status = 1;
       else rotation_status = rotation_status + 1;
+      */
       break; 
-    case 'X':
+    case 'X': //Clockwise turn
       if (rotation_status == 4) rotation_status = 1;
       else rotation_status = rotation_status + 1;
       break;
@@ -346,9 +353,7 @@ class PieceType {
       break;
     case DOWN:
       if(canGoDown == true) originY = originY+1;
-      break;
-    
-      
+      break;  
 
     case RIGHT:
       if(canGoRight == true) originX = originX+1;
@@ -366,9 +371,45 @@ class PieceType {
       break;
         
     }//switch
-    pieceDesign = updateArray(rotation_status);
+    pieceDesign = updateArray(rotation_status);    
+  }//end userInput
+  
+  void checkValidRotation(){
     
-  }//userInput
+    int phantom_rotation_status = rotation_status;
+    int[][] phantom_pieceDesign = pieceDesign;
+    boolean canRotate = true;
+    
+    if (phantom_rotation_status == 4) phantom_rotation_status = 1;
+    else phantom_rotation_status = phantom_rotation_status + 1;
+    phantom_pieceDesign = updateArray(phantom_rotation_status);
+    rotate:
+    for(int i = 0; i < pieceHeight; i++){
+        for(int j = 0; j < pieceWidth; j++){
+          if(phantom_pieceDesign[i][j] == 1 && j+originX > 9){ //right wall rotation check
+            println("\nrotation hit");
+            canRotate = false;
+            break rotate;
+          }
+          if(phantom_pieceDesign[i][j] == 1 && j+originX < 0){ //left wall rotation check
+            println("\nrotation hit");
+            canRotate = false;
+            break rotate;
+          }
+          if(phantom_pieceDesign[i][j] == 1 && field[i+originY][j+originX] == FILLED_PERM){
+            canRotate = false;
+            break rotate;
+          }
+        }
+    }
+    
+    if(canRotate == true){
+      if (rotation_status == 4) rotation_status = 1;
+      else rotation_status = rotation_status + 1;  
+    }
+    
+    
+  }
   
   void instantDrop(){
     //Drop phantom piece down until it hits something
