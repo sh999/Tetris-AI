@@ -8,21 +8,28 @@ Two ends up with Tetris redesign with animation:  Has no graphics but has collis
 Another important program is Tetris_2D_field_study
 version 0.4: Can move around pieces and have collision detection.  Bug in that some pieces stay on field randomly.  Has bad
   OOP structure.  Version 0.5 will be more readable and have better OOP structure.
-7/3: change color every piece. Done 7/7!
+
+7/3(Done): change color every piece. Done 7/7!
   create block class?
   7/7: Prevent disappearing permanent field
-7/7: Check bottom, side, collisions
+
+7/7(Done!): Check bottom, side, collisions
   7/7: Make booleans to know status of where piece can move.  Do this for left, right, bottom wall collisions. Done, with some bugs.
 7/14: fix piece falling through bug, check checkallowablemoves().  FIxed 7/15.  Problem was when piece is on the edge
 7/15: after fixing previous bug, another bug occurs where if piece touches wall, it can't move toward that edge even
   after it has been moved to middle
-7/21: Fixed left collision.  Right collision has issue where I piece once horizontal and pushed to the well can't go right anymore
+
+7/21 (Done): Fixed left collision.  Right collision has issue where I piece once horizontal and pushed to the well can't go right anymore
   bug occurs due to piecedesign[i][j] = 1 on the boundary.  Can be replicated if I piece's horizontal rotation is changed so that
   instead of looking like 01111 it is changed to 11110; in this case the piece will hit the left wall and can't be moved left anymore
   in effect mirroring the bug to the left side... 7/21
     fixed else if cause....not really sure why it didn't work before 7/21
-7/22: Drop piece feature.  
+
+7/22(Done): Drop piece feature.  Done 7/23!
+  7/22: Working on instantMethod().  Done 7/23!
+
 7/22: Rotate collision detection
+
 Bugs:
 sometimes a piece falls through. Fixed 7/15  Never mind 7/21
 7:22: starting with i piece, changing direction left/right raises position by 1. Fixed 7/22

@@ -133,16 +133,13 @@ class PieceType {
    
     
     checkLeft = true;
-    checkRight = true;
-    //print(canGoLeft);
-    
+    checkRight = true;    
     test:
       for(int i = 0; i < pieceHeight; i++){
         for(int j = 0; j < pieceWidth; j++){           
           if (pieceDesign[i][j] == 1 && j + originX == 0 &&  checkLeft == true){
             canGoLeft = false;
             checkLeft = false;
-            print("hit");
           } 
           else if(pieceDesign[i][j] == 1 && j + originX != 0 &&  checkLeft == true){
             canGoLeft = true;
@@ -159,7 +156,7 @@ class PieceType {
           else if(pieceDesign[i][j] == 1 && j + originX != 9 &&  checkRight == true){
             canGoRight = true;
           }         
-          if (pieceDesign[i][j] == 1 && i + originY > 23){
+          if (pieceDesign[i][j] == 1 && i + originY > 22){
             canGoDown = false;
             stopPieceFromMoving = true;
             break test;
@@ -167,7 +164,6 @@ class PieceType {
           else{
             canGoDown = true;
           }
-          //print(pieceDesign[i][j]);
         }//end inner loop j  
       }//end "test" loop
     tempOriginX = originX;
@@ -180,7 +176,6 @@ class PieceType {
           if (pieceDesign[i][j] == 1 && field[i+tempOriginY][j+tempOriginX] == FILLED_PERM){
             stopPieceFromMoving = true;
             canGoDown = false;
-            println("check = "+check+" down");
             break;
           } 
         }  
@@ -364,7 +359,7 @@ class PieceType {
 
       break;  
     default:
-      if(key == ' '){
+      if(key == 'v'){
           instantDrop();
           
       }
@@ -376,7 +371,33 @@ class PieceType {
   }//userInput
   
   void instantDrop(){
-    print("space");
+    //Drop phantom piece down until it hits something
+    boolean droppable = true; //Assume piece can be dropped
+    int phantomOriginY = originY;
+    int phantomOriginX = originX;
+    while(droppable == true){
+      phantomOriginY = phantomOriginY + 1;
+      //check if there is overlap between field and pieceDesign
+      //Iterate over pieceDesign
+      for(int i = 0; i < pieceHeight; i++){
+        for(int j = 0; j < pieceWidth; j++){
+          if(pieceDesign[i][j] == 1 && i+phantomOriginY > 24){ //prevents going out of bounds down
+            droppable = false;
+          }
+          else if(pieceDesign[i][j] == 1 && field[i+phantomOriginY][j+phantomOriginX] == FILLED_PERM){  //Drops piece on top of existing ones
+            droppable = false;  
+          }
+          if(droppable == false){
+            originY = i+phantomOriginY-5;
+          }
+          
+        }
+      }
+
+        
+      
+      
+    }
 
   }
   
