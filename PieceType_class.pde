@@ -72,7 +72,9 @@ class PieceType {
     matchField();
     checkAllowableMoves();
     if (stopPieceFromMoving == true){
+      
       make_piece_permanent();//Piece will stop and change field permanently
+      checkTetris();
     }
     
     drawField();
@@ -81,8 +83,10 @@ class PieceType {
     
     if (canGoDown == false) {
       resetPiece(); 
+      println("reset");
     }
     dropSlowly();
+    checkTetris();
     
     
   }//End voidDisplay()
@@ -160,7 +164,7 @@ class PieceType {
           else if(pieceDesign[i][j] == 1 && j + originX != 9 &&  checkRight == true){
             canGoRight = true;
           }         
-          if (pieceDesign[i][j] == 1 && i + originY > 22){
+          if (pieceDesign[i][j] == 1 && i + originY > 23){
             canGoDown = false;
             stopPieceFromMoving = true;
             break test;
@@ -238,8 +242,58 @@ class PieceType {
       rotation_status = 1;
       canGoDown = true;
       stopPieceFromMoving = false;
-      
   }
+  
+  // Check if there is a completed line (tetris) and clear line if there is.
+  void checkTetris(){
+    int[] lineStatus = new int[a];
+    int INCOMPLETE = 0;
+    int COMPLETE = 1;
+    boolean checkNextBox = true;
+    for(int i = 0; i < a; i++){
+      lineStatus[i] = INCOMPLETE;
+    }
+    
+    //Check if there is completed line in every row of pieceDesign
+    //Iterate from line 1 to line 5 (relative to where falling piece is)
+    for(int i = originY; i < originY + pieceHeight; i++){
+      //Iterate from j=0 to j=10 (left to right)
+      //print(i+" ");
+      println();
+      for(int j = 0; j < 9; j++){
+          //Do checking only if field[i][j] is inside the field
+          if(i<22){
+            //If block is filled, rotate to the next blok.  Line[i] = complete
+            
+            if(field[i][j] == FILLED_PERM){
+              checkNextBox = true;
+              
+              //print("c");
+              if(j == 6){
+                lineStatus[i] = COMPLETE;
+              }
+            }
+            //If not filled, cancel iteration.  Line[i] = incomplete
+            else if(field[i][j] == EMPTY){
+              checkNextBox = false;
+              lineStatus[i] = INCOMPLETE;
+            }
+            println("i = "+i+" j =  "+j+" field[i][j] = "+field[i][j]+" status = "+lineStatus[i]);
+
+          }
+          
+      }//end inner for
+    }//end outer for 
+    
+    for(int i = 0; i < a; i++){
+      //print(lineStatus[i]); 
+    }
+    print("\n\n");
+    
+      
+        
+  }
+  
   
   //Draw Field- Based on the value of the field element, draw a block (empty space, space occupied by piece have diff. colors
     void drawField(){
@@ -279,9 +333,6 @@ class PieceType {
   }
   
   
-  
-  
-  
   void make_piece_permanent(){//Called when piece is supposed to be fixed on field
     for(int i = 0; i < pieceHeight; i++){
       for(int j = 0; j < pieceWidth; j++){
@@ -317,22 +368,6 @@ class PieceType {
     }
       
   }//End make piece permanent()
-  
-  /*void color_fallen_pieces(){
-     
-    for(int i = 0; i < a; i++){
-      for(int j = 0; j < b; j++){
-        x = j*gridSize+width/2-(gridSize*b/2); //x and y are grid locations
-        y = i*gridSize+height/2-(gridSize*a/2);
-        if(field[i][j] == FILLED_PERM){
-          if(fieldColor[i][j] == "Iblock"){
-            shape(Iblock, x, y, blockSize, blockSize);  
-          }
-        }
-      }
-    }
-    
-  }*/
   
   //Decide what happens when the user presses a button
   void userInput() {
@@ -387,12 +422,10 @@ class PieceType {
     for(int i = 0; i < pieceHeight; i++){
         for(int j = 0; j < pieceWidth; j++){
           if(phantom_pieceDesign[i][j] == 1 && j+originX > 9){ //right wall rotation check
-            println("\nrotation hit");
             canRotate = false;
             break rotate;
           }
           if(phantom_pieceDesign[i][j] == 1 && j+originX < 0){ //left wall rotation check
-            println("\nrotation hit");
             canRotate = false;
             break rotate;
           }
@@ -422,6 +455,7 @@ class PieceType {
       //Iterate over pieceDesign
       for(int i = 0; i < pieceHeight; i++){
         for(int j = 0; j < pieceWidth; j++){
+          
           if(pieceDesign[i][j] == 1 && i+phantomOriginY > 24){ //prevents going out of bounds down
             droppable = false;
           }
