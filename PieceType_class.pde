@@ -17,6 +17,7 @@ class PieceType {
   boolean checkLeft = true;
   boolean checkDown = true;
   boolean checkRight = true;
+  int[] lineStatus = new int[a];
 
   
   String pieceName;
@@ -246,51 +247,36 @@ class PieceType {
   
   // Check if there is a completed line (tetris) and clear line if there is.
   void checkTetris(){
+    //works by checking every line in field of play 
+    //every line is checked the row is complete.  If not, lineStatus[row] = incomplete
+    //every time function is called, status is changed to default which lets the changing to complete possible
+    //Can make a better algorithm which checks only the rows that the piece is traveling through, 
+    //But it can be more complicated.  Possibly make this in the future.
     int[] lineStatus = new int[a];
-    int INCOMPLETE = 0;
+    int DEFAULT = 0;
+    int INCOMPLETE = -1;
     int COMPLETE = 1;
     boolean checkNextBox = true;
     for(int i = 0; i < a; i++){
-      lineStatus[i] = INCOMPLETE;
+      lineStatus[i] = DEFAULT; //need to reset to default for algorithm to work
     }
-    
-    //Check if there is completed line in every row of pieceDesign
-    //Iterate from line 1 to line 5 (relative to where falling piece is)
-    for(int i = originY; i < originY + pieceHeight; i++){
-      //Iterate from j=0 to j=10 (left to right)
-      //print(i+" ");
-      println();
-      for(int j = 0; j < 9; j++){
-          //Do checking only if field[i][j] is inside the field
-          if(i<22){
-            //If block is filled, rotate to the next blok.  Line[i] = complete
-            
-            if(field[i][j] == FILLED_PERM){
-              checkNextBox = true;
-              
-              //print("c");
-              if(j == 6){
-                lineStatus[i] = COMPLETE;
-              }
-            }
-            //If not filled, cancel iteration.  Line[i] = incomplete
-            else if(field[i][j] == EMPTY){
-              checkNextBox = false;
-              lineStatus[i] = INCOMPLETE;
-            }
-            println("i = "+i+" j =  "+j+" field[i][j] = "+field[i][j]+" status = "+lineStatus[i]);
-
-          }
+   
+    for(int row = 0; row < a; row++){
+      for(int col = 0; col < b; col++){
+        if(field[row][col] == FILLED_PERM && lineStatus[row] != INCOMPLETE ){
+          lineStatus[row] = COMPLETE;
           
-      }//end inner for
-    }//end outer for 
+        }
+        else if(field[row][col] == EMPTY){
+          lineStatus[row] = INCOMPLETE;
+        }
+      }
+    }
     
     for(int i = 0; i < a; i++){
-      //print(lineStatus[i]); 
+      print(lineStatus[i]+" ");
     }
-    print("\n\n");
-    
-      
+    println();
         
   }
   
