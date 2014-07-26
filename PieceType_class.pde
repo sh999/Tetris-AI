@@ -14,11 +14,15 @@ class PieceType {
   int EMPTY = 0;
   int FILLED_TEMP = 1;
   int FILLED_PERM = 2;
+  int TOBECLEARED = 3;
   boolean checkLeft = true;
   boolean checkDown = true;
   boolean checkRight = true;
   int[] lineStatus = new int[a];
-
+  int DEFAULT = 0;
+  int INCOMPLETE = -1;
+  int COMPLETE = 1;
+  boolean tetris = false;
   
   String pieceName;
   int[][] pieceDesign;
@@ -73,23 +77,19 @@ class PieceType {
     matchField();
     checkAllowableMoves();
     if (stopPieceFromMoving == true){
-      
       make_piece_permanent();//Piece will stop and change field permanently
       checkTetris();
     }
-    
-    drawField();
-    //color_fallen_pieces();
-    
-    
     if (canGoDown == false) {
       resetPiece(); 
-      println("reset");
     }
     dropSlowly();
     checkTetris();
-    
-    
+    if (tetris == true){
+      clearLines();
+    }
+    drawField();  
+
   }//End voidDisplay()
   
   
@@ -252,34 +252,48 @@ class PieceType {
     //every time function is called, status is changed to default which lets the changing to complete possible
     //Can make a better algorithm which checks only the rows that the piece is traveling through, 
     //But it can be more complicated.  Possibly make this in the future.
-    int[] lineStatus = new int[a];
-    int DEFAULT = 0;
-    int INCOMPLETE = -1;
-    int COMPLETE = 1;
+    /*for(int i = 0; i < a; i++){
+      print(lineStatus[i]+" ");
+    }*/
+    println();
     boolean checkNextBox = true;
     for(int i = 0; i < a; i++){
-      lineStatus[i] = DEFAULT; //need to reset to default for algorithm to work
+      if(lineStatus[i] != COMPLETE){
+        lineStatus[i] = DEFAULT; //need to reset to default for algorithm to work
+      }
     }
    
     for(int row = 0; row < a; row++){
       for(int col = 0; col < b; col++){
         if(field[row][col] == FILLED_PERM && lineStatus[row] != INCOMPLETE ){
           lineStatus[row] = COMPLETE;
-          
+          tetris = true;
         }
         else if(field[row][col] == EMPTY){
           lineStatus[row] = INCOMPLETE;
         }
       }
     }
-    
-    for(int i = 0; i < a; i++){
-      print(lineStatus[i]+" ");
-    }
-    println();
-        
   }
-  
+
+// If lineStatus[row] == complete, clear that row and bring pieces above below.
+void clearLines(){
+  for(int row = 0; row < a; row++){
+      for(int col = 0; col < b; col++){
+        if (lineStatus[row] == COMPLETE){
+          field[row][col] = TOBECLEARED;
+        }
+      }
+  }
+  for(int row = 0; row < a; row++){
+      for(int col = 0; col < b; col++){
+        //print("lol");  
+      }
+  }
+    
+  tetris = false;
+}//End clearLines()
+
   
   //Draw Field- Based on the value of the field element, draw a block (empty space, space occupied by piece have diff. colors
     void drawField(){

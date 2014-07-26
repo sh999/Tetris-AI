@@ -31,9 +31,9 @@ version 0.4: Can move around pieces and have collision detection.  Bug in that s
 7/22 (Done): Rotate collision detection
   7/23: Working on checkValidRotation(). Done!
  
-7/24: Working on checkTetris()
+7/24: Working on checkTetris() Done
   array out of bounds exception due to out of bounds on j when comparing field with empty part of piecedesign that's out of bounds
-
+7/25: Work on clearlines()
 Bugs:
 sometimes a piece falls through. Fixed 7/15  Never mind 7/21
 7:22: starting with i piece, changing direction left/right raises position by 1. Fixed 7/22
