@@ -23,6 +23,7 @@ class PieceType {
   int INCOMPLETE = -1;
   int COMPLETE = 1;
   boolean tetris = false;
+  int[][] tempField = new int[a][b];
   
   String pieceName;
   int[][] pieceDesign;
@@ -72,6 +73,7 @@ class PieceType {
   
   //Controls how the program methods flow
   void display() {
+    //println(tetris);
     initialize();
     clearSpace();
     matchField();
@@ -85,11 +87,17 @@ class PieceType {
     }
     dropSlowly();
     checkTetris();
+    print(tetris);
     if (tetris == true){
       clearLines();
+      tetris = false;
     }
     drawField();  
-
+    /*for(int i = 0; i < a; i++){
+      
+         print(lineStatus[i]+" ");
+      
+    }*/
   }//End voidDisplay()
   
   
@@ -256,34 +264,66 @@ class PieceType {
       print(lineStatus[i]+" ");
     }*/
     println();
-    boolean checkNextBox = true;
-    for(int i = 0; i < a; i++){
+    
+    /*for(int i = 0; i < a; i++){
       if(lineStatus[i] != COMPLETE){
         lineStatus[i] = DEFAULT; //need to reset to default for algorithm to work
       }
+    }*/
+    for(int i = 0; i < a; i++){
+      lineStatus[i] = DEFAULT;
     }
-   
     for(int row = 0; row < a; row++){
       for(int col = 0; col < b; col++){
-        if(field[row][col] == FILLED_PERM && lineStatus[row] != INCOMPLETE ){
-          lineStatus[row] = COMPLETE;
-          tetris = true;
-        }
-        else if(field[row][col] == EMPTY){
+        if(field[row][col] == EMPTY){
           lineStatus[row] = INCOMPLETE;
         }
+        else if(field[row][col] == FILLED_PERM){
+        }
+        if(field[row][9] == FILLED_PERM && lineStatus[row] == DEFAULT){
+          lineStatus[row] = COMPLETE;
+          tetris = true;          
+        }
+        
+        
       }
     }
-  }
+    for(int i = 0; i < a; i++){
+      
+        print(lineStatus[i]+" ");
+      
+    }
+    
+    
+    
+  }//end checkTetris()
 
 // If lineStatus[row] == complete, clear that row and bring pieces above below.
 void clearLines(){
+  //int[][] tempField = field;
+  for(int i = 1; i < a; i++){
+    for(int j = 0; j < b; j++){
+      tempField[i][j] = field[i-1][j];
+    }
+  }
+  for(int i = 0; i < a; i++){
+    for(int j = 0; j < b; j++){
+      print(field[i][j]+"ha");
+      field[i][j] = tempField[i][j];
+    }println();
+  }
+  tetris = false;
+  /*
   for(int row = 0; row < a; row++){
       for(int col = 0; col < b; col++){
+        if(row == 3){
+          fieldColor[row][col] = Iblock; 
+        }
         if (lineStatus[row] == COMPLETE){
           field[row][col] = TOBECLEARED;
         }
-      }
+        print(tempField[row][col]);
+      }println();
   }
   for(int row = 0; row < a; row++){
       for(int col = 0; col < b; col++){
@@ -291,7 +331,7 @@ void clearLines(){
       }
   }
     
-  tetris = false;
+  tetris = false;*/
 }//End clearLines()
 
   
@@ -396,13 +436,16 @@ void clearLines(){
     case 'Z':
       if (rotation_status == 1) rotation_status = 4;
       else rotation_status = rotation_status - 1;
-
       break;  
+    
     default:
       if(key == 'v'){
           instantDrop();
           
       }
+      /*else if(key == 'f'){
+        clearLines();
+      }*/
       break;
         
     }//switch
