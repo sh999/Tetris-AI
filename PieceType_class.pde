@@ -271,7 +271,7 @@ class PieceType {
       }
     }*/
     for(int i = 0; i < a; i++){
-      lineStatus[i] = DEFAULT;
+      lineStatus[i] = DEFAULT; //line status at the beginning is neither incomplete or complete.  Will be determined in next block.
     }
     for(int row = 0; row < a; row++){
       for(int col = 0; col < b; col++){
@@ -280,7 +280,7 @@ class PieceType {
         }
         else if(field[row][col] == FILLED_PERM){
         }
-        if(field[row][9] == FILLED_PERM && lineStatus[row] == DEFAULT){
+        if(field[row][9] == FILLED_PERM && lineStatus[row] == DEFAULT){ // if the last column has iterated and line hasn't been incomplete
           lineStatus[row] = COMPLETE;
           tetris = true;          
         }
