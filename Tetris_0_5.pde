@@ -35,10 +35,16 @@ version 0.4: Can move around pieces and have collision detection.  Bug in that s
   array out of bounds exception due to out of bounds on j when comparing field with empty part of piecedesign that's out of bounds
 7/25: Work on clearlines().
   Can clear line.  Make algorithm for when multiple lines have tetris. 7/26
+  
 Bugs:
+7:30:  In raretimes there is array out of bounds exception when i barely moved a piece.  Not sure when triggered.
 sometimes a piece falls through. Fixed 7/15  Never mind 7/21
 7:22: starting with i piece, changing direction left/right raises position by 1. Fixed 7/22
-
+7/28: Checktetris clears more than one line.
+  Clearline() is called multiple times regardless of how many lines have tetris
+  If I press 'f' which is set to call clearline, getes called once per key, which is correct.  The problem is in the flow control
+  calling clearline().  Problem is I called checktetris twice which can set tetris = true
+  Fixed mess that is checkTetris with while loops.  Still doesn't work 100% but mostly works 7/30.
 */
 //**********FIELD
 import java.util.Arrays;
