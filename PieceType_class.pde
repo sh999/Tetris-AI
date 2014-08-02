@@ -35,8 +35,6 @@ class PieceType {
   int blockSize = 20; //Pixelsize of svg object  
   int pieceHeight;
   int pieceWidth;
-  float rect_width;
-  float rect_height;
   String svgFileURL;
   int bottomBound = height-blockSize*2; //bottom of gameplay
   PShape nonEmptySpace, emptySpace;
@@ -80,48 +78,26 @@ class PieceType {
     checkAllowableMoves();
     if (stopPieceFromMoving == true){
       make_piece_permanent();//Piece will stop and change field permanently
-      //checkTetris();
-    }
-    if (canGoDown == false) {
-      resetPiece(); 
-    }
-    checkTetris();
-    if (tetris == true){
-      //clearLines();
-      //tetris = false;
-    }
-    drawField();  
-    dropSlowly();
-  }//End voidDisplay()
-/* Here is the flow before I messed with it
-initialize();
-    clearSpace();
-    matchField();
-    checkAllowableMoves();
-    if (stopPieceFromMoving == true){
-      make_piece_permanent();//Piece will stop and change field permanently
       checkTetris();
     }
     if (canGoDown == false) {
       resetPiece(); 
-    }
+    } 
+    /*if (tetris == true){
+      //clearLines();
+      //tetris = false;
+    }*/
+    drawField();  
     dropSlowly();
-    checkTetris();
-    if (tetris == true){
-      clearLines();
-      tetris = false;
-    }
-    drawField();
-*/  
+  }// End voidDisplay()
+  
   void initialize(){ 
-    //rect_width = 200; 
-    //rect_height = 500;
     nonEmptySpace = loadShape(svgFileURL);
     emptySpace = loadShape("blank.svg");
     stroke(255);
-  }//end initialize()
+  }// End initialize()
   
-  //Clear space-clears space where piece is moving but leaves filled field intact
+  // Clears space where piece is moving but leaves filled field intact
   void clearSpace(){
     for(int i = 0; i < a; i++){
       for(int j = 0; j < b; j++){
@@ -130,7 +106,7 @@ initialize();
         }
       }
     }
-  }//end clearSpace()
+  }// End clearSpace()
   
   //Match field- //match field with piece information.  Wherever piece is, that location will be "marked on the field"
   void matchField(){
@@ -149,23 +125,22 @@ initialize();
   }//End matchField()
   
   void checkAllowableMoves(){
-    
     int originXIfPieceGoesLeft = originX - 1;
     int originXIfPieceGoesRight = originX + 1;
     int originYIfPieceGoesDown = originY + 1;
     boolean keepLooping = true;
-   
-    
     checkLeft = true;
     checkRight = true;    
+    
     test:
       for(int i = 0; i < pieceHeight; i++){
         for(int j = 0; j < pieceWidth; j++){           
+          // Check collision to left wall
           if ((pieceDesign[i][j] == 1 && j + originX == 0) ||
               (pieceDesign[i][j] == 1 && field[i+originY][j+originX-1] == FILLED_PERM) &&
               checkLeft == true){
             canGoLeft = false;
-            checkLeft = false;
+            checkLeft = false; 
           } 
           else if(pieceDesign[i][j] == 1 && j + originX != 0 &&  checkLeft == true){
             canGoLeft = true;
@@ -197,7 +172,7 @@ initialize();
     tempOriginX = originX;
     tempOriginY = originY+1;
     
-    //Checks if there are already fallen pieces below the falling piece (collision detection)
+    //Checks if there are already fallen pieces below the falling piece 
     if (canGoDown == true){
       for(int i = 0; i < pieceHeight; i++){
         for(int j = 0; j < pieceWidth; j++){        
@@ -283,8 +258,9 @@ initialize();
             if(col == 9){
               continueCheckingRight = false;
               lineStatus[row] = COMPLETE;
-              clearLines();
+              //clearLines();
               tetris = true;
+              println("tetris");
             }
           } 
           else if(field[row][col] == EMPTY){
@@ -295,28 +271,31 @@ initialize();
           col = col + 1;  
         }while(continueCheckingRight);
     }
+    
+    for(int row = 0; row < a; row++){
+      print(lineStatus[row]+" ");
+    }println();
       
   }//end checkTetris()
 
 // If lineStatus[row] == complete, clear that row and bring pieces above below.
 void clearLines(){
   //int[][] tempField = field;
-  print("clearlines ");
-  for(int i = 0; i < a; i++){
+  /*for(int i = 0; i < a; i++){  // Initialize temps.  Temp is now field.  NOt sure if this is necessary
     for(int j = 0; j < b; j++){
       
       tempField[i][j] = field[i][j];
       tempFieldColor[i][j] = fieldColor[i][j];
     }
-  }
+  }*/
   
-  for(int i = 1; i < a; i++){
+  for(int i = 1; i < a; i++){ // Temp equals row that is above current one
     for(int j = 0; j < b; j++){
       tempField[i][j] = field[i-1][j];
       tempFieldColor[i][j] = fieldColor[i-1][j];
     }
   }
-  for(int i = 0; i < a; i++){
+  for(int i = 0; i < a; i++){ // Current field set to temp, creating shift 
     for(int j = 0; j < b; j++){
       
       field[i][j] = tempField[i][j];
