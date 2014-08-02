@@ -10,15 +10,17 @@ Check if where piece will go/rotate will have clash with another piece/wall.
   If so, can't move there.
 */
 class PieceType {
-  int check = 0;
+  int check = 0; //unused?
   int EMPTY = 0;
-  int FILLED_TEMP = 1;
+  int FILLED_TEMP = 1; //Status of field cells
   int FILLED_PERM = 2;
   int TOBECLEARED = 3;
-  boolean checkLeft = true;
+  boolean checkLeft = true; //Collision detection
   boolean checkDown = true;
   boolean checkRight = true;
-  int[] lineStatus = new int[a];
+  boolean canGoLeft = true;
+  boolean canGoRight = true;
+  int[] lineStatus = new int[a];  //Tetris detection
   int UNDETERMINED = 0;
   int INCOMPLETE = -1;
   int COMPLETE = 1;
@@ -44,10 +46,8 @@ class PieceType {
   boolean canGoDown = true;
   boolean stopPieceFromMoving = false;
   boolean colorFallenPieces = false;
-  PShape blah = loadShape("Iblock.svg");
   PShape Iblock, squareblock, Tblock, Sblock, Zblock, Lblock, Jblock;
-  boolean canGoLeft = true;
-  boolean canGoRight = true;
+  
   
 
   PieceType(String pieceName_, int[][] pieceDesign_, String svgFileURL_) {
@@ -112,13 +112,10 @@ initialize();
       tetris = false;
     }
     drawField();
-*/
-
-
-  
-  void initialize(){
-    rect_width = 200; 
-    rect_height = 500;
+*/  
+  void initialize(){ 
+    //rect_width = 200; 
+    //rect_height = 500;
     nonEmptySpace = loadShape(svgFileURL);
     emptySpace = loadShape("blank.svg");
     stroke(255);
@@ -137,7 +134,6 @@ initialize();
   
   //Match field- //match field with piece information.  Wherever piece is, that location will be "marked on the field"
   void matchField(){
-    
     for(int i = 0; i < pieceHeight; i++){
       for(int j = 0; j < pieceWidth; j++){
         x = j*gridSize+width/2-(gridSize*b/2); //x and y are grid locations
