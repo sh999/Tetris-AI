@@ -79,10 +79,12 @@ class PieceType {
     if (stopPieceFromMoving == true){
       make_piece_permanent();//Piece will stop and change field permanently
       checkTetris();
+      multiClear();
     }
     if (canGoDown == false) {
       resetPiece(); 
-    } 
+    }
+          
     /*if (tetris == true){
       //clearLines();
       //tetris = false;
@@ -267,7 +269,6 @@ class PieceType {
             continueCheckingRight = false;
             lineStatus[row] = INCOMPLETE;
           }
-           
           col = col + 1;  
         }while(continueCheckingRight);
     }
@@ -279,16 +280,7 @@ class PieceType {
   }//end checkTetris()
 
 // If lineStatus[row] == complete, clear that row and bring pieces above below.
-void clearLines(){
-  //int[][] tempField = field;
-  /*for(int i = 0; i < a; i++){  // Initialize temps.  Temp is now field.  NOt sure if this is necessary
-    for(int j = 0; j < b; j++){
-      
-      tempField[i][j] = field[i][j];
-      tempFieldColor[i][j] = fieldColor[i][j];
-    }
-  }*/
-  
+void clearLines(){/*
   for(int i = 1; i < a; i++){ // Temp equals row that is above current one
     for(int j = 0; j < b; j++){
       tempField[i][j] = field[i-1][j];
@@ -306,8 +298,51 @@ void clearLines(){
   for(int row = 0; row < a; row++){
     lineStatus[row] = INCOMPLETE;
   }
-  tetris = false;
+  tetris = false;*/
 }//End clearLines()
+
+
+void multiClear(){ //Testing if multiple tetris works
+  print("ha");
+  for(int i = 0; i < a; i++){
+    if(lineStatus[i] == COMPLETE){
+      print(i);
+      field = processField(field, i);
+      fieldColor = processFieldColor(fieldColor, i);
+    }
+  }
+  
+}//End multiClear()
+
+int[][] processField(int[][] _field, int lineToClear){
+  int[][] temp = new int[a][b];
+  for(int i = 0; i < a; i++){ // Temp equals row that is above current one
+    for(int j = 0; j < b; j++){
+      temp[i][j] = _field[i][j];
+    }
+  }
+  print (lineToClear);
+  for(int i = 1; i < lineToClear+1; i++){ // Temp equals row that is above current one
+      for(int j = 0; j < b; j++){
+        temp[i][j] = _field[i-1][j];
+      }
+  }
+  return temp;
+}//End processField
+PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
+  PShape[][] temp = new PShape[a][b];
+  for(int i = 0; i < a; i++){ // Temp equals row that is above current one
+    for(int j = 0; j < b; j++){
+      temp[i][j] = _field[i][j];
+    }
+  }
+  for(int i = 1; i < lineToClear+1; i++){ // Temp equals row that is above current one
+      for(int j = 0; j < b; j++){
+        temp[i][j] = _field[i-1][j];
+      }
+  }
+  return temp;
+}//End processFieldColor
 
   
   //Draw Field- Based on the value of the field element, draw a block (empty space, space occupied by piece have diff. colors
@@ -420,6 +455,9 @@ void clearLines(){
       }
       else if(key == 'f'){
         clearLines();
+      }
+      else if(key == 'y'){
+        multiClear();
       }
       break;
         

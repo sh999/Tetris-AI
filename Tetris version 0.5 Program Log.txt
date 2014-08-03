@@ -38,7 +38,9 @@ version 0.4: Can move around pieces and have collision detection.  Bug in that s
   Can clear line.  Make algorithm for when multiple lines have tetris. 7/26
 8/2:
   Starting to work on checkTetris and clearline to fix issue where line clearing should affect tetris position and above not whole field
-  
+8/3:
+  Multiline tetris algorithm Done!!!!!!!!!!!!!
+
 Bugs:
 7:30:  In raretimes there is array out of bounds exception when i barely moved a piece.  Not sure when triggered.
 sometimes a piece falls through. Fixed 7/15  Never mind 7/21
