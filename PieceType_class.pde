@@ -1,14 +1,5 @@
 ///////////////////////Begin PieceType Class////////////////////
-/*
-Functions:r
-  display
-  userInput
-  updateArray
-  
-Notes:
-Check if where piece will go/rotate will have clash with another piece/wall. 
-  If so, can't move there.
-*/
+
 class PieceType {
   int check = 0; //unused?
   int EMPTY = 0;
@@ -84,13 +75,9 @@ class PieceType {
     if (canGoDown == false) {
       resetPiece(); 
     }
-          
-    /*if (tetris == true){
-      //clearLines();
-      //tetris = false;
-    }*/
     drawField();  
     dropSlowly();
+
   }// End voidDisplay()
   
   void initialize(){ 
@@ -193,8 +180,7 @@ class PieceType {
     }
   }
   //End CheckAllowableMoves()
-  
-  
+    
   //Called when a piece has fallen and another random one has to appear on top
   void resetPiece(){
       
@@ -243,11 +229,6 @@ class PieceType {
   
   // Check if there is a completed line (tetris) and clear line if there is.
   void checkTetris(){
-    //works by checking every line in field of play 
-    //every line is checked the row is complete.  If not, lineStatus[row] = incomplete
-    //every time function is called, status is changed to default which lets the changing to complete possible
-    //Can make a better algorithm which checks only the rows that the piece is traveling through, 
-    //But it can be more complicated.  Possibly make this in the future.
     for(int i = 0; i < a; i++){
       lineStatus[i] = UNDETERMINED; 
     }
@@ -260,9 +241,7 @@ class PieceType {
             if(col == 9){
               continueCheckingRight = false;
               lineStatus[row] = COMPLETE;
-              //clearLines();
               tetris = true;
-              println("tetris");
             }
           } 
           else if(field[row][col] == EMPTY){
@@ -271,12 +250,7 @@ class PieceType {
           }
           col = col + 1;  
         }while(continueCheckingRight);
-    }
-    
-    for(int row = 0; row < a; row++){
-      print(lineStatus[row]+" ");
-    }println();
-      
+    }       
   }//end checkTetris()
 
 // If lineStatus[row] == complete, clear that row and bring pieces above below.
@@ -303,10 +277,8 @@ void clearLines(){/*
 
 
 void multiClear(){ //Testing if multiple tetris works
-  print("ha");
   for(int i = 0; i < a; i++){
     if(lineStatus[i] == COMPLETE){
-      print(i);
       field = processField(field, i);
       fieldColor = processFieldColor(fieldColor, i);
     }
@@ -321,7 +293,6 @@ int[][] processField(int[][] _field, int lineToClear){
       temp[i][j] = _field[i][j];
     }
   }
-  print (lineToClear);
   for(int i = 1; i < lineToClear+1; i++){ // Temp equals row that is above current one
       for(int j = 0; j < b; j++){
         temp[i][j] = _field[i-1][j];
@@ -434,7 +405,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
       else rotation_status = rotation_status + 1;
       break;
     case LEFT:
-      if(canGoLeft == true) originX = originX-1;
+      if(canGoLeft == true) moveLeft(); 
       break;
     case DOWN:
       if(canGoDown == true) originY = originY+1;
@@ -464,6 +435,10 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
     }//switch
     pieceDesign = updateArray(rotation_status);    
   }//end userInput
+  
+  void moveLeft(){
+    originX = originX-1;
+  }
   
   void checkValidRotation(){
     
@@ -524,12 +499,12 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
           
         }
       }
-
-        
-      
-      
     }
-
+  }
+  
+  void getComputerResponse(Computer _computer){
+    _computer.respond(field);
+    
   }
   
   

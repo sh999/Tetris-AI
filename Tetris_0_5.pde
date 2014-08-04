@@ -14,11 +14,16 @@ PShape[][] fieldColor = new PShape[a][b];
 //**********FIELD
 
 PShape backgroundDesign;
+
 //Piecetype defines the Illustrator svg files for each piece. 
 //Each svg file holds a different collor, corresponding to each piece
 PieceType L_piece, J_piece, Z_piece, S_piece, T_piece, square_piece, I_piece, currentPiece;
+
 int rotation_status = 1; //Default rotation status (upright piece)
 //Piecedesign defines the array info for each piece type
+
+Computer computer;
+
 int[][] L_pieceDesign = new int[][]{ {0,0,0,0,0},
                                      {0,0,1,0,0},
                                      {0,0,1,0,0},
@@ -58,6 +63,7 @@ void setup() {
   smooth();
   size(800, 600);
   
+  
   L_piece = new PieceType("L block",L_pieceDesign,"Lblock.svg");  //The svg file has information for color of block.  Edit svg's in illustrator
   J_piece = new PieceType("J block",J_pieceDesign,"Jblock.svg");
   Z_piece = new PieceType("Z block",Z_pieceDesign,"Zblock.svg");
@@ -81,11 +87,13 @@ void setup() {
   }
   //**********FIELD
   
+  computer = new Computer(a, b);
+  
 }
 
 void draw() {
   currentPiece.display(); 
-
+  currentPiece.getComputerResponse(currentPiece, computer);
 }
 
 void keyPressed(){
