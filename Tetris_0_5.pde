@@ -1,5 +1,4 @@
 /*Tetris version 0.5
-
 */
 
 //**********FIELD
@@ -87,13 +86,13 @@ void setup() {
   }
   //**********FIELD
   
-  computer = new Computer(a, b);
+  computer = new Computer(a, b, currentPiece);
   
 }
 
 void draw() {
   currentPiece.display(); 
-  currentPiece.getComputerResponse(currentPiece, computer);
+  currentPiece.getComputerResponse(computer);
 }
 
 void keyPressed(){

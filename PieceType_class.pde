@@ -342,7 +342,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   
   void dropSlowly(){
     //Drop piece slowly  
-    if (clock == 100) {
+    if (clock == 20) {
       //Check for collision here?
       originY = originY+1;
       clock = 0;
@@ -394,29 +394,26 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   void userInput() {
     switch(keyCode) {
     case UP:
-      checkValidRotation();
+      pieceRotate("clockwise");
       /*
       if (rotation_status == 4) rotation_status = 1;
       else rotation_status = rotation_status + 1;
       */
       break; 
     case 'X': //Clockwise turn
-      if (rotation_status == 4) rotation_status = 1;
-      else rotation_status = rotation_status + 1;
+      pieceRotate("clockwise");
       break;
     case LEFT:
-      if(canGoLeft == true) moveLeft(); 
+      moveLeft(); 
       break;
     case DOWN:
-      if(canGoDown == true) originY = originY+1;
+      moveDown();
       break;  
-
     case RIGHT:
-      if(canGoRight == true) originX = originX+1;
+      moveRight();
       break;
-    case 'Z':
-      if (rotation_status == 1) rotation_status = 4;
-      else rotation_status = rotation_status - 1;
+    case 'Z': //Anticlockwise turn.  Still need to implement
+      pieceRotate("clockwise");
       break;  
     
     default:
@@ -437,10 +434,25 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   }//end userInput
   
   void moveLeft(){
-    originX = originX-1;
+    if(canGoLeft == true) originX = originX-1;
   }
   
-  void checkValidRotation(){
+  void moveRight(){
+    if(canGoRight == true) originX = originX+1;
+  }
+  
+  void moveDown(){
+    if(canGoDown == true) originY = originY+1;
+  }
+  
+  void rotateRight(){
+  }
+  
+  void rotateLeft(){
+  }
+  
+  
+  void pieceRotate(String direction){
     
     int phantom_rotation_status = rotation_status;
     int[][] phantom_pieceDesign = pieceDesign;
@@ -468,12 +480,14 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
     }
     
     if(canRotate == true){
-      if (rotation_status == 4) rotation_status = 1;
-      else rotation_status = rotation_status + 1;  
+      if(direction == "clockwise"){
+        if (rotation_status == 4) rotation_status = 1;
+        else rotation_status = rotation_status + 1;
+      }  
     }
     
     
-  }
+  } //End checkValidRotation()
   
   void instantDrop(){
     //Drop phantom piece down until it hits something
