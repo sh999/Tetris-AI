@@ -77,6 +77,12 @@ class PieceType {
     }
     drawField();  
     dropSlowly();
+    /*
+    for(int i = 0; i < a; i++){
+      for(int j = 0; j < b; j++){
+        print(field[i][j]);
+      }println();
+    }print(rotation_status);println();*/
 
   }// End voidDisplay()
   
@@ -430,7 +436,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
       break;
         
     }//switch
-    pieceDesign = updateArray(rotation_status);    
+//    pieceDesign = updateArray(rotation_status);    
   }//end userInput
   
   void moveLeft(){
@@ -446,9 +452,11 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   }
   
   void rotateRight(){
+    pieceRotate("clockwise"); print(" rotate... ");
   }
   
   void rotateLeft(){
+    pieceRotate("clockwise");
   }
   
   
@@ -483,6 +491,8 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
       if(direction == "clockwise"){
         if (rotation_status == 4) rotation_status = 1;
         else rotation_status = rotation_status + 1;
+        print(rotation_status+" ");
+        pieceDesign = updateArray(rotation_status);
       }  
     }
     
@@ -523,6 +533,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   
   
   int[][] updateArray(int rotation_status) { //Has information for piece rotation
+    println(" updateArray() ");
     int[][] newArray = new int[5][5];
     if (pieceName == "L block") {
       switch(rotation_status) {

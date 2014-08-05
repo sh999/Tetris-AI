@@ -31,10 +31,9 @@ class Computer {
   
   void computeMove(){
     int r = int(random(0,100));
-    println(r);
     if(r > 75) movement = "right";
     else if(r < 75 && r > 50) movement = "left";
-    else if(r < 50 && r > 25) { print("rotate");movement = "rotate right";}
+    else if(r < 50 && r > 25) { movement = "rotate right";}
     else if(r < 25 && r > 10) movement = "down";
     else movement = "drop";
     movement = "rotate right";
@@ -42,7 +41,10 @@ class Computer {
   }
   
   void sendMove(){
+//    print(" "+movement+" ");
     if (clock > 20){  
+      piece.pieceRotate("clockwise");
+      
       if(movement == "left"){
         piece.moveLeft();
       }
@@ -66,7 +68,7 @@ class Computer {
       clock = 0;
     }
     clock += 1;
-    
+   
   }// End sendMove()
 
 

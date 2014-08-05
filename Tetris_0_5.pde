@@ -92,7 +92,7 @@ void setup() {
 
 void draw() {
   currentPiece.display(); 
-  currentPiece.getComputerResponse(computer);
+//  currentPiece.getComputerResponse(computer);
 }
 
 void keyPressed(){
