@@ -30,10 +30,10 @@ version 0.4: Can move around pieces and have collision detection.  Bug in that s
 7/25 (Done): Work on clearlines(). Can clear line.  Make algorithm for when multiple lines have tetris. 7/26
 8/2 (Done): Starting to work on checkTetris and clearline to fix issue where line clearing should affect tetris position and above not whole field
 8/3 (Done): Multiline tetris algorithm Done!!!!!!!!!!!!!
-8/4: Create AI class (class Computer).  Pass messages from main game or piecetype class to Computer and send back a basic response where AI controls piece.
+8/4 (Done 8/6): Create AI class (class Computer).  Pass messages from main game or piecetype class to Computer and send back a basic response where AI controls piece.
   8/4 Done: Working on class Computer
   8/5 Done: Basic communication and movement by Computer established.  Now create intelligence
-  8/5 Fix issue where AI can't rotate.  movement = "rotate right" doesn't work"?
+  8/5 (Done 8/6) Fix issue where AI can't rotate.  movement = "rotate right" doesn't work"? 
 
 To implement:
   AI

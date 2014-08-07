@@ -75,6 +75,8 @@ class PieceType {
     if (canGoDown == false) {
       resetPiece(); 
     }
+    
+    getComputerResponse(computer);
     drawField();  
     dropSlowly();
     /*
@@ -352,6 +354,9 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
       //Check for collision here?
       originY = originY+1;
       clock = 0;
+//      getComputerResponse(computer);
+//      pieceRotate("clockwise");
+
     }
     else clock++;
 
@@ -452,7 +457,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   }
   
   void rotateRight(){
-    pieceRotate("clockwise"); print(" rotate... ");
+    pieceRotate("clockwise"); 
   }
   
   void rotateLeft(){
@@ -491,7 +496,6 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
       if(direction == "clockwise"){
         if (rotation_status == 4) rotation_status = 1;
         else rotation_status = rotation_status + 1;
-        print(rotation_status+" ");
         pieceDesign = updateArray(rotation_status);
       }  
     }
@@ -533,7 +537,6 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   
   
   int[][] updateArray(int rotation_status) { //Has information for piece rotation
-    println(" updateArray() ");
     int[][] newArray = new int[5][5];
     if (pieceName == "L block") {
       switch(rotation_status) {
