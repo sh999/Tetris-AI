@@ -34,11 +34,12 @@ version 0.4: Can move around pieces and have collision detection.  Bug in that s
   8/4 Done: Working on class Computer
   8/5 Done: Basic communication and movement by Computer established.  Now create intelligence
   8/5 (Done 8/6) Fix issue where AI can't rotate.  movement = "rotate right" doesn't work"? 
+8/7 (Done): Death scenario
 
 To implement:
-  AI
+
   Scoring
-  Death scenario
+
   
 
 Bugs:
@@ -50,3 +51,4 @@ sometimes a piece falls through. Fixed 7/15  Never mind 7/21. Fixed.
   If I press 'f' which is set to call clearline, getes called once per key, which is correct.  The problem is in the flow control
   calling clearline().  Problem is I called checktetris twice which can set tetris = true
   Fixed mess that is checkTetris with while loops.  Still doesn't work 100% but mostly works 7/30.
+8/6: Side collision not working rarely.  Arrayoutofbounds rarely.

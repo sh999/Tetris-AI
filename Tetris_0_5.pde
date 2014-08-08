@@ -3,7 +3,7 @@
 
 //**********FIELD
 import java.util.Arrays;
-int a = 25;
+int a = 29;
 int b = 10;
 int x, y;
 int gridSize = 20;
@@ -92,7 +92,7 @@ void setup() {
 
 void draw() {
   currentPiece.display(); 
-//  currentPiece.getComputerResponse(computer);
+  currentPiece.getComputerResponse(computer);
 }
 
 void keyPressed(){

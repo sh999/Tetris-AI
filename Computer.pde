@@ -16,35 +16,21 @@ class Computer {
   // Obtains field info from the game, process, then 
   void respond(int[][] _field){
     field = _field;
-    
-    /*println("\n");
-    for(int i = 0; i < a; i++){ // Temp equals row that is above current one
-      for(int j = 0; j < b; j++){
-        print(field[i][j]);
-      }println();
-    }*/
-    
-    
     computeMove();
-    sendMove();   
-    
+    sendMove();
   }// End Respond()
   
   void computeMove(){
     int r = int(random(0,100));
     if(r > 75) movement = "right";
-    
     else if(r < 75 && r > 50) movement = "left";
     else if(r < 50 && r > 25) { movement = "rotate right";}
     else if(r < 25 && r > 10) movement = "down";
     else movement = "drop";
-    
   }
   
   void sendMove(){
-    print(clock);
-    if (clock == 20){  
-      
+    if (clock == 20){
       if(movement == "left"){
         piece.moveLeft();
       }

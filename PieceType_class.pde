@@ -37,9 +37,14 @@ class PieceType {
   boolean colorFallenPieces = false;
   PShape Iblock, squareblock, Tblock, Sblock, Zblock, Lblock, Jblock;
   
+  int gameStatus;
+  int PLAYING = 1;
+  int GAMEOVER = 0;
   
 
   PieceType(String pieceName_, int[][] pieceDesign_, String svgFileURL_) {
+    gameStatus = PLAYING;
+    
     pieceName = pieceName_;
     svgFileURL = svgFileURL_;
     pieceDesign = pieceDesign_;
@@ -58,27 +63,35 @@ class PieceType {
     Zblock = loadShape("Zblock.svg");
     Lblock = loadShape("Lblock.svg");
     Jblock = loadShape("Jblock.svg");
+    resetPiece();
     
   }
   
   //Controls how the program methods flow
   void display() {
-    initialize();
-    clearSpace();
-    matchField();
-    checkAllowableMoves();
-    if (stopPieceFromMoving == true){
-      make_piece_permanent();//Piece will stop and change field permanently
-      checkTetris();
-      multiClear();
+    if(gameStatus == PLAYING){
+      initialize();
+      clearSpace();
+      matchField();
+      checkAllowableMoves();
+      
+      if (stopPieceFromMoving == true){
+        make_piece_permanent();//Piece will stop and change field permanently 
+        checkTetris(); 
+        multiClear(); 
+      } 
+      if (canGoDown == false) {  
+        if(isGameOver() == true){
+          gameStatus = GAMEOVER;
+        }
+         resetPiece();
+      }
+          drawField(); 
+          dropSlowly();
     }
-    if (canGoDown == false) {
-      resetPiece(); 
+    if(gameStatus == GAMEOVER){
+      print("all dead!");
     }
-    
-    getComputerResponse(computer);
-    drawField();  
-    dropSlowly();
     /*
     for(int i = 0; i < a; i++){
       for(int j = 0; j < b; j++){
@@ -89,6 +102,7 @@ class PieceType {
   }// End voidDisplay()
   
   void initialize(){ 
+    
     nonEmptySpace = loadShape(svgFileURL);
     emptySpace = loadShape("blank.svg");
     stroke(255);
@@ -146,7 +160,6 @@ class PieceType {
           else {
 
           } 
-          
           if ((pieceDesign[i][j] == 1 && j + originX == 9) || 
               (pieceDesign[i][j] == 1 && field[i+originY][j+originX+1] == FILLED_PERM) &&
               checkRight == true){
@@ -156,7 +169,7 @@ class PieceType {
           else if(pieceDesign[i][j] == 1 && j + originX != 9 &&  checkRight == true){
             canGoRight = true;
           }         
-          if (pieceDesign[i][j] == 1 && i + originY > 23){
+          if (pieceDesign[i][j] == 1 && i + originY > a-2){
             canGoDown = false;
             stopPieceFromMoving = true;
             break test;
@@ -191,7 +204,6 @@ class PieceType {
     
   //Called when a piece has fallen and another random one has to appear on top
   void resetPiece(){
-      
       int randompiece = int(random(1, 8));
       if (randompiece==1) {
         pieceDesign = L_pieceDesign;
@@ -228,11 +240,34 @@ class PieceType {
         pieceName = "I block";
         svgFileURL = "Iblock.svg";
       }
-      originY = 1;
+//      int[][] topCoord = new int[][];
+      
+      int topY = topY();
+      originY = 4 - topY;
       originX = 2;
       rotation_status = 1;
       canGoDown = true;
       stopPieceFromMoving = false;
+  }
+  
+  int topY(){
+    int i, j, topY;
+    topY = 0;
+    i = 0;
+    j = 0;
+    boolean searchTop = true;
+    while(i < pieceHeight && searchTop == true){
+      while(j < pieceWidth && searchTop == true){
+        if(pieceDesign[i][j] == 1){
+          topY = i;    
+          searchTop = false;
+        }
+        j = j + 1;
+      } 
+      j = 0;
+      i = i + 1;
+    }
+    return topY;
   }
   
   // Check if there is a completed line (tetris) and clear line if there is.
@@ -260,29 +295,6 @@ class PieceType {
         }while(continueCheckingRight);
     }       
   }//end checkTetris()
-
-// If lineStatus[row] == complete, clear that row and bring pieces above below.
-void clearLines(){/*
-  for(int i = 1; i < a; i++){ // Temp equals row that is above current one
-    for(int j = 0; j < b; j++){
-      tempField[i][j] = field[i-1][j];
-      tempFieldColor[i][j] = fieldColor[i-1][j];
-    }
-  }
-  for(int i = 0; i < a; i++){ // Current field set to temp, creating shift 
-    for(int j = 0; j < b; j++){
-      
-      field[i][j] = tempField[i][j];
-      fieldColor[i][j] = tempFieldColor[i][j];
-      
-    }
-  }
-  for(int row = 0; row < a; row++){
-    lineStatus[row] = INCOMPLETE;
-  }
-  tetris = false;*/
-}//End clearLines()
-
 
 void multiClear(){ //Testing if multiple tetris works
   for(int i = 0; i < a; i++){
@@ -326,10 +338,10 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   
   //Draw Field- Based on the value of the field element, draw a block (empty space, space occupied by piece have diff. colors
     void drawField(){
-    for(int i = 0; i < a; i++){
+    for(int i = 4; i < a; i++){
       for(int j = 0; j < b; j++){
         x = j*gridSize+width/2-(gridSize*b/2); //x and y are grid locations
-        y = i*gridSize+height/2-(gridSize*a/2); 
+        y = i*gridSize+height/2-(gridSize*a/2)-50; 
         
         if(field[i][j] == EMPTY){ //Where there is no piece, have block
           shape(emptySpace, x, y, blockSize, blockSize);
@@ -354,12 +366,8 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
       //Check for collision here?
       originY = originY+1;
       clock = 0;
-//      getComputerResponse(computer);
-//      pieceRotate("clockwise");
-
     }
     else clock++;
-
     //Reset piece
     //When piece reaches bottom, let another random piece fall from top  
   }
@@ -432,16 +440,12 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
           instantDrop();
           
       }
-      else if(key == 'f'){
-        clearLines();
-      }
       else if(key == 'y'){
         multiClear();
       }
       break;
         
     }//switch
-//    pieceDesign = updateArray(rotation_status);    
   }//end userInput
   
   void moveLeft(){
@@ -470,7 +474,6 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
     int phantom_rotation_status = rotation_status;
     int[][] phantom_pieceDesign = pieceDesign;
     boolean canRotate = true;
-    
     if (phantom_rotation_status == 4) phantom_rotation_status = 1;
     else phantom_rotation_status = phantom_rotation_status + 1;
     phantom_pieceDesign = updateArray(phantom_rotation_status);
@@ -491,7 +494,6 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
           }
         }
     }
-    
     if(canRotate == true){
       if(direction == "clockwise"){
         if (rotation_status == 4) rotation_status = 1;
@@ -499,8 +501,6 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
         pieceDesign = updateArray(rotation_status);
       }  
     }
-    
-    
   } //End checkValidRotation()
   
   void instantDrop(){
@@ -514,8 +514,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
       //Iterate over pieceDesign
       for(int i = 0; i < pieceHeight; i++){
         for(int j = 0; j < pieceWidth; j++){
-          
-          if(pieceDesign[i][j] == 1 && i+phantomOriginY > 24){ //prevents going out of bounds down
+          if(pieceDesign[i][j] == 1 && i+phantomOriginY > a-1){ //prevents going out of bounds down
             droppable = false;
           }
           else if(pieceDesign[i][j] == 1 && field[i+phantomOriginY][j+phantomOriginX] == FILLED_PERM){  //Drops piece on top of existing ones
@@ -524,7 +523,6 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
           if(droppable == false){
             originY = i+phantomOriginY-5;
           }
-          
         }
       }
     }
@@ -532,9 +530,20 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   
   void getComputerResponse(Computer _computer){
     _computer.respond(field);
-    
   }
   
+  
+  boolean isGameOver(){
+    int topY = topY() + originY; // Coordinate of top of block
+    
+//    print("origin = "+topY);
+    if(topY == 4){
+      print("dead");
+      return true;
+      
+    }
+    else return false;
+  }
   
   int[][] updateArray(int rotation_status) { //Has information for piece rotation
     int[][] newArray = new int[5][5];
@@ -543,10 +552,10 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
       case 1: 
         newArray = new int[][] { 
           {0, 0, 0, 0, 0}, 
+          {0, 0, 0, 0, 0}, 
           {0, 0, 1, 0, 0}, 
-          {0, 0, 1, 0, 0}, 
+          {0, 0, 1, 0, 0},
           {0, 0, 1, 1, 0},
-          {0, 0, 0, 0, 0},
           
         }; 
         break;
@@ -554,25 +563,25 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
         newArray = new int[][] { 
           {0, 0, 0, 0, 0},
           {0, 0, 0, 0, 0}, 
-          {0, 1, 1, 1, 0}, 
-          {0, 1, 0, 0, 0},
-          {0, 0, 0, 0, 0}}; 
+          {0, 0, 0, 0, 0}, 
+          {0, 1, 1, 1, 0},
+          {0, 1, 0, 0, 0}}; 
         break;
       case 3:
         newArray = new int[][] { 
           {0, 0, 0, 0, 0},
+          {0, 0, 0, 0, 0}, 
           {0, 1, 1, 0, 0}, 
           {0, 0, 1, 0, 0}, 
-          {0, 0, 1, 0, 0}, 
-          {0, 0, 0, 0, 0}
+          {0, 0, 1, 0, 0}
         }; 
         break;
       case 4:
         newArray = new int[][] { 
           {0, 0, 0, 0, 0}, 
+          {0, 0, 0, 0, 0}, 
           {0, 0, 0, 1, 0}, 
           {0, 1, 1, 1, 0}, 
-          {0, 0, 0, 0, 0}, 
           {0, 0, 0, 0, 0}
         }; 
         break;
