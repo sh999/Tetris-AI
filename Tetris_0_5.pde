@@ -22,6 +22,7 @@ int rotation_status = 1; //Default rotation status (upright piece)
 //Piecedesign defines the array info for each piece type
 
 Computer computer;
+Score score;
 
 int[][] L_pieceDesign = new int[][]{ {0,0,0,0,0},
                                      {0,0,1,0,0},
@@ -87,12 +88,14 @@ void setup() {
   //**********FIELD
   
   computer = new Computer(a, b, currentPiece);
+  score = new Score();
   
 }
 
 void draw() {
   currentPiece.display(); 
-  currentPiece.getComputerResponse(computer);
+//  currentPiece.getComputerResponse(computer);
+  score.display();
 }
 
 void keyPressed(){

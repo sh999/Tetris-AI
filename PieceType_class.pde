@@ -1,6 +1,9 @@
 ///////////////////////Begin PieceType Class////////////////////
 
 class PieceType {
+  int linesToClear = 0;
+  int dropSpeed = 30; //The lower, the faster
+  boolean canSetHighScore = true;
   int check = 0; //unused?
   int EMPTY = 0;
   int FILLED_TEMP = 1; //Status of field cells
@@ -78,6 +81,7 @@ class PieceType {
       if (stopPieceFromMoving == true){
         make_piece_permanent();//Piece will stop and change field permanently 
         checkTetris(); 
+        score.update(linesToClear);
         multiClear(); 
       } 
       if (canGoDown == false) {  
@@ -90,7 +94,12 @@ class PieceType {
           dropSlowly();
     }
     if(gameStatus == GAMEOVER){
-      print("all dead!");
+      if(canSetHighScore == true){ 
+        score.checkHighScore();
+        canSetHighScore = false;
+      }
+      
+      
     }
     /*
     for(int i = 0; i < a; i++){
@@ -284,6 +293,7 @@ class PieceType {
             if(col == 9){
               continueCheckingRight = false;
               lineStatus[row] = COMPLETE;
+              linesToClear += 1;
               tetris = true;
             }
           } 
@@ -293,7 +303,8 @@ class PieceType {
           }
           col = col + 1;  
         }while(continueCheckingRight);
-    }       
+    }
+        
   }//end checkTetris()
 
 void multiClear(){ //Testing if multiple tetris works
@@ -306,7 +317,8 @@ void multiClear(){ //Testing if multiple tetris works
   
 }//End multiClear()
 
-int[][] processField(int[][] _field, int lineToClear){
+// Processes field for clearing lines
+int[][] processField(int[][] _field, int lineToClear){ 
   int[][] temp = new int[a][b];
   for(int i = 0; i < a; i++){ // Temp equals row that is above current one
     for(int j = 0; j < b; j++){
@@ -318,7 +330,10 @@ int[][] processField(int[][] _field, int lineToClear){
         temp[i][j] = _field[i-1][j];
       }
   }
+  
+  linesToClear = 0;
   return temp;
+  
 }//End processField
 PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   PShape[][] temp = new PShape[a][b];
@@ -362,7 +377,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   
   void dropSlowly(){
     //Drop piece slowly  
-    if (clock == 20) {
+    if (clock == dropSpeed) {
       //Check for collision here?
       originY = originY+1;
       clock = 0;
