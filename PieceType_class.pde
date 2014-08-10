@@ -1,5 +1,3 @@
-///////////////////////Begin PieceType Class////////////////////
-
 class PieceType {
   int linesToClear = 0;
   int dropSpeed = 30; //The lower, the faster
@@ -248,9 +246,7 @@ class PieceType {
         pieceDesign = I_pieceDesign;
         pieceName = "I block";
         svgFileURL = "Iblock.svg";
-      }
-//      int[][] topCoord = new int[][];
-      
+      }      
       int topY = topY();
       originY = 4 - topY;
       originX = 2;
@@ -544,7 +540,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   }
   
   void getComputerResponse(Computer _computer){
-    _computer.respond(field);
+    _computer.respond(pieceDesign, field);
   }
   
   
@@ -855,6 +851,6 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
           
         };*/
     return newArray;
-  }//updatearray
-}/////////////////////////////End PieceType Class////////////////
+  }// End updatearray()
+} //End pieceType class
 

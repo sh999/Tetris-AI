@@ -35,17 +35,17 @@ version 0.4: Can move around pieces and have collision detection.  Bug in that s
   8/5 Done: Basic communication and movement by Computer established.  Now create intelligence
   8/5 (Done 8/6) Fix issue where AI can't rotate.  movement = "rotate right" doesn't work"? 
 8/7 (Done): Death scenario
-8/8: Working on score
+8/8 (Done): Working on score
 
 
 To implement:
-  Scoring
+  
   Delay before piece becomes permanent
   Next piece preview
   Leveling
   Line indicator
-  Gui class?
-  High score
+  Restart
+  
   
 
 Bugs:

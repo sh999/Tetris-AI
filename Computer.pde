@@ -4,6 +4,7 @@ class Computer {
   PieceType piece;
   int clock;
   String movement;
+  int[][] pieceDesign;
   
   Computer(int _a, int _b, PieceType _piece){
     a = _a; //Field dimensions
@@ -14,22 +15,36 @@ class Computer {
   }
   
   // Obtains field info from the game, process, then 
-  void respond(int[][] _field){
+  void respond(int[][] _pieceDesign, int[][] _field){
     field = _field;
+    pieceDesign = _pieceDesign;
     computeMove();
     sendMove();
   }// End Respond()
   
+
   void computeMove(){
+//    randMovtCompute(); 
+    findBestMoves();
+  }
+  
+  void sendMove(){
+//    randMovtSend();
+  }
+  
+  void findBestMoves(){
+  }
+  
+  void randMovtCompute(){
     int r = int(random(0,100));
     if(r > 75) movement = "right";
     else if(r < 75 && r > 50) movement = "left";
     else if(r < 50 && r > 25) { movement = "rotate right";}
     else if(r < 25 && r > 10) movement = "down";
-    else movement = "drop";
+    else movement = "drop";  
   }
-  
-  void sendMove(){
+   
+  void randMovtSend(){
     if (clock == 20){
       if(movement == "left"){
         piece.moveLeft();
@@ -54,8 +69,7 @@ class Computer {
       clock = 0;
     }
     clock = clock + 1;
-   
-  }// End sendMove()
+  }// End randMovtSend()
 
 
 

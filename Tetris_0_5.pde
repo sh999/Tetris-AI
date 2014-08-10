@@ -23,6 +23,7 @@ int rotation_status = 1; //Default rotation status (upright piece)
 
 Computer computer;
 Score score;
+NextPiece nextPiece;
 
 int[][] L_pieceDesign = new int[][]{ {0,0,0,0,0},
                                      {0,0,1,0,0},
@@ -63,7 +64,6 @@ void setup() {
   smooth();
   size(800, 600);
   
-  
   L_piece = new PieceType("L block",L_pieceDesign,"Lblock.svg");  //The svg file has information for color of block.  Edit svg's in illustrator
   J_piece = new PieceType("J block",J_pieceDesign,"Jblock.svg");
   Z_piece = new PieceType("Z block",Z_pieceDesign,"Zblock.svg");
@@ -89,12 +89,13 @@ void setup() {
   
   computer = new Computer(a, b, currentPiece);
   score = new Score();
+  nextPiece = new NextPiece();
   
 }
 
 void draw() {
   currentPiece.display(); 
-//  currentPiece.getComputerResponse(computer);
+  currentPiece.getComputerResponse(computer);
   score.display();
 }
 
