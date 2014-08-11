@@ -22,6 +22,8 @@ class PieceType {
   
   String pieceName;
   int[][] pieceDesign;
+  int[][] nextPieceDesign;
+  
   int originX = 2; //Origins = where pieces start falling
   int originY = 1;
   int blockSize = 20; //Pixelsize of svg object  
@@ -254,6 +256,8 @@ class PieceType {
       canGoDown = true;
       stopPieceFromMoving = false;
   }
+  
+  
   
   int topY(){
     int i, j, topY;

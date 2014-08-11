@@ -3,10 +3,10 @@ class Score {
   int toAdd = 0;
   String[] highScore = loadStrings("highScore.txt");
   int highScoreNum = int(highScore[0]);
-  PFont font;
+//  PFont font;
   Score (){
-      font = loadFont("Arial-Black-48.vlw");
-      textFont(font, 10);
+//      font = loadFont("Arial-Black-48.vlw");
+//      textFont(font, 10);
 
 
   }

@@ -1,10 +1,15 @@
 class NextPiece {
   NextPiece(){
+    
   
   }
   
   void display(){
-      rect(520, 70, 100, 100);
+    
+    fill(0);  
+    rect(520, 170, 100, 100);
+    fill(255);
+    text("NEXT PIECE", 540, 190);
 
   }
   
