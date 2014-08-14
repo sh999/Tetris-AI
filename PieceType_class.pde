@@ -70,6 +70,10 @@ class PieceType {
     
   }
   
+  void setLevel(){
+    dropSpeed = dropSpeed - 10;
+  }
+  
   //Controls how the program methods flow
   void display() {
     if(gameStatus == PLAYING){

@@ -3,15 +3,41 @@ class Score {
   int toAdd = 0;
   String[] highScore = loadStrings("highScore.txt");
   int highScoreNum = int(highScore[0]);
+  int lineCount = 0;
+  int level = 1;
 //  PFont font;
   Score (){
 //      font = loadFont("Arial-Black-48.vlw");
 //      textFont(font, 10);
-
-
   }
+  
+  void leveller(int lineToAdd){
+    lineCount = lineCount + lineToAdd;
+    if(lineCount <= 10){
+      level = 1;
+      
+    }
+    else if(lineCount > 10 && lineCount <= 20){
+      level = 2;
+      
+    }
+    else if(lineCount > 20 && lineCount < 30){
+      level = 3;
+    }
+   
+  }
+  
+  
   void update(int lines){
-    
+    lineCount += lines;
+    if(level == 1 && lineCount > 4){
+      level++;
+      setLevel();
+    }
+    if(level == 2 && lineCount > 8){
+      level++;
+      setLevel();
+    }
     switch(lines){
     case 0:
       toAdd = 0;
@@ -31,6 +57,11 @@ class Score {
     }
     points = points + toAdd;
   }
+  
+  void setLevel(){
+    currentPiece.setLevel();
+  }
+  
   void display(){
     
     fill(0);
@@ -40,6 +71,10 @@ class Score {
     text("SCORE", 540, 55);
     text(points, 540, 75);
     displayHighScore();
+    text("LINES", 540, 95);
+    text(lineCount, 540, 115);
+    text("LEVEL", 540, 125);
+    text(level, 540, 135);
     
   }
   void checkHighScore(){
@@ -48,15 +83,14 @@ class Score {
     int newScore;
     String[] newHS = {str(points)};
     if(points > pastHSnum){
-//      newScore = points;
         saveStrings("highScore.txt", newHS);      
     }
-  }
+  }//End checkHighScore()
     
     void displayHighScore(){
-      text("HIGH SCORE", 540, 95);
+      text("HIGH SCORE", 540, 145);
       
-      text(highScoreNum, 540, 115);
+      text(highScoreNum, 540, 155);
     }
     
     
