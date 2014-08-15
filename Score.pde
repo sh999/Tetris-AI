@@ -67,8 +67,7 @@ class Score {
     fill(0);
     pushMatrix();
     translate(520, 40);
-    rect(0, 0, 120, 200);
-    println(points);
+    rect(0, 0, 100, 200);
     fill(255);
     text("SCORE", 20, 20);
     text(points, 20, 40);

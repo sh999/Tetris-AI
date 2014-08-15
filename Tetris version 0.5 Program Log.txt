@@ -38,7 +38,8 @@ version 0.4: Can move around pieces and have collision detection.  Bug in that s
 8/8 (Done): Working on score
 8/13 (Done): Level up based on line implemented.
 	Need to level up based on score instead?
-8/14: Working on resetPiece for next piece.  Making a piece class for url, svg, etc
+8/14 (done): Working on resetPiece for next piece.  Making a piece class for url, svg, etc
+	Make it colorful
 
 
 To implement:
@@ -62,3 +63,4 @@ sometimes a piece falls through. Fixed 7/15  Never mind 7/21. Fixed.
   calling clearline().  Problem is I called checktetris twice which can set tetris = true
   Fixed mess that is checkTetris with while loops.  Still doesn't work 100% but mostly works 7/30.
 8/6: Side collision not working rarely.  Arrayoutofbounds rarely.
+8/14: Rotate key sometimes unresponsive

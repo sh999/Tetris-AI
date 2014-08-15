@@ -24,6 +24,8 @@ int rotation_status = 1; //Default rotation status (upright piece)
 Computer computer;
 Score score;
 
+NextPieceDisp nextPieceDisp;
+
 PFont font;
 
 int[][] L_pieceDesign = new int[][]{ {0,0,0,0,0},
@@ -73,7 +75,8 @@ void setup() {
   square_piece = new PieceType("square block",square_pieceDesign,"squareblock.svg");
   I_piece = new PieceType("I block",I_pieceDesign,"Iblock.svg");
   
-  setRandom();
+
+  currentPiece = randomPiece();
   nextPiece = randomPiece();
 //  currentPiece = randomPiece(I_piece); //Piece that initially falls, will change after each piece is dropped
   
@@ -96,10 +99,15 @@ void setup() {
   font = loadFont("Arial-Black-48.vlw");
   textFont(font, 10);
   
+  nextPieceDisp = new NextPieceDisp();
+  
 }
 
-void setRandom(){
-  currentPiece = randomPiece();
+void setToNextPiece(){
+  currentPiece = nextPiece;
+  nextPiece = randomPiece();
+
+  
 }
 
 PieceType randomPiece(){
@@ -129,10 +137,11 @@ PieceType randomPiece(){
 }
 
 void draw() {
-  currentPiece.display(); 
+  
+  currentPiece.runPiece(); 
   currentPiece.getComputerResponse(computer);
   score.display();
-//  nextPiece.display();
+  nextPieceDisp.display(nextPiece);
   
 }
 

@@ -38,7 +38,7 @@ class PieceType {
   boolean canGoDown = true;
   boolean stopPieceFromMoving = false;
   boolean colorFallenPieces = false;
-  PShape Iblock, squareblock, Tblock, Sblock, Zblock, Lblock, Jblock;
+  PShape Iblock, squareblock, Tblock, Sblock, Zblock, Lblock, Jblock, thisBlock;
   
   int gameStatus;
   int PLAYING = 1;
@@ -66,6 +66,9 @@ class PieceType {
     Zblock = loadShape("Zblock.svg");
     Lblock = loadShape("Lblock.svg");
     Jblock = loadShape("Jblock.svg");
+    thisBlock = loadShape(svgFileURL);
+    emptySpace = loadShape("blank.svg");
+
     resetPiece();
     
   }
@@ -75,7 +78,7 @@ class PieceType {
   }
   
   //Controls how the program methods flow
-  void display() {
+  void runPiece() {
     if(gameStatus == PLAYING){
       initialize();
       clearSpace();
@@ -117,7 +120,7 @@ class PieceType {
   void initialize(){ 
     
     nonEmptySpace = loadShape(svgFileURL);
-    emptySpace = loadShape("blank.svg");
+//    emptySpace = loadShape("blank.svg");
     stroke(255);
   }// End initialize()
   
@@ -225,6 +228,7 @@ class PieceType {
       
       curr = L, next = S
       play(curr = L)
+      curr = Next = S
       randomizer:  next = T
       
       curr = S, next = T
@@ -294,7 +298,7 @@ class PieceType {
         pieceName = "I block";
         svgFileURL = "Iblock.svg";
       }      */
-      setRandom();
+      setToNextPiece();
       int topY = topY();
       originY = 4 - topY;
       originX = 2;
@@ -414,8 +418,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
         else if(field[i][j] == FILLED_PERM){ //empty field
           shape(fieldColor[i][j], x, y, blockSize, blockSize);
         }
-//       stroke(100);
-       stroke(35);
+       stroke(32,32,32);
        noFill();
         rect(x, y, blockSize, blockSize); 
       }  
@@ -425,7 +428,6 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   void dropSlowly(){
     //Drop piece slowly  
     if (clock == dropSpeed) {
-      //Check for collision here?
       originY = originY+1;
       clock = 0;
     }
@@ -597,15 +599,27 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   
   boolean isGameOver(){
     int topY = topY() + originY; // Coordinate of top of block
-    
-//    print("origin = "+topY);
-    if(topY == 4){
-      print("dead");
-      return true;
-      
+      if(topY == 4){
+      return true;      
     }
     else return false;
   }
+  
+  void staticDraw(PieceType piece){ // Draw static next piece
+    for(int i = 0; i < pieceHeight; i ++){
+      for(int j = 0; j < pieceWidth; j++){
+        x = j*gridSize+width/2-(gridSize*b/2)+220; //x and y are grid locations
+        y = i*gridSize+height/2-(gridSize*a/2)+200; 
+        if(pieceDesign[i][j]==0){
+          shape(emptySpace, x, y, gridSize, gridSize);
+        }
+        else{
+          shape(thisBlock, x, y, gridSize, gridSize);
+        }
+      }
+    }
+    }//End staticDraw
+  
   
   int[][] updateArray(int rotation_status) { //Has information for piece rotation
     int[][] newArray = new int[5][5];
