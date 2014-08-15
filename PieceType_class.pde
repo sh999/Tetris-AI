@@ -258,7 +258,7 @@ class PieceType {
       
       */
       
-      
+      /*
       if (randompiece==1) {
         pieceDesign = L_pieceDesign;
         pieceName = "L block";
@@ -293,7 +293,8 @@ class PieceType {
         pieceDesign = I_pieceDesign;
         pieceName = "I block";
         svgFileURL = "Iblock.svg";
-      }      
+      }      */
+      setRandom();
       int topY = topY();
       originY = 4 - topY;
       originX = 2;

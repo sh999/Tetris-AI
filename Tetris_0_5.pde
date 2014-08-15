@@ -73,7 +73,8 @@ void setup() {
   square_piece = new PieceType("square block",square_pieceDesign,"squareblock.svg");
   I_piece = new PieceType("I block",I_pieceDesign,"Iblock.svg");
   
-  currentPiece = randomPiece();
+  setRandom();
+  nextPiece = randomPiece();
 //  currentPiece = randomPiece(I_piece); //Piece that initially falls, will change after each piece is dropped
   
   backgroundDesign = loadShape("Gamebackgroundv1.svg");
@@ -95,6 +96,10 @@ void setup() {
   font = loadFont("Arial-Black-48.vlw");
   textFont(font, 10);
   
+}
+
+void setRandom(){
+  currentPiece = randomPiece();
 }
 
 PieceType randomPiece(){
@@ -120,7 +125,7 @@ PieceType randomPiece(){
   else if ( r == 7){
     return J_piece;
   }
-  return I_piece;
+  return I_piece; // dummy return
 }
 
 void draw() {
