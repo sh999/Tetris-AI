@@ -45,12 +45,12 @@ class PieceType {
   int GAMEOVER = 0;
   
 
-  PieceType(String pieceName_, int[][] pieceDesign_, String svgFileURL_) {
+  PieceType(String pieceName, int[][] pieceDesign, String svgFileURL) {
     gameStatus = PLAYING;
     
-    pieceName = pieceName_;
-    svgFileURL = svgFileURL_;
-    pieceDesign = pieceDesign_;
+    this.pieceName = pieceName;
+    this.svgFileURL = svgFileURL;
+    this.pieceDesign = pieceDesign;
     pieceHeight = pieceDesign.length;
     pieceWidth = pieceDesign[0].length;
     temporaryPieceDesign = pieceDesign;
@@ -218,6 +218,47 @@ class PieceType {
   //Called when a piece has fallen and another random one has to appear on top
   void resetPiece(){
       int randompiece = int(random(1, 8));
+      
+      /*
+      initialize:(curr = random, next = random)
+      curr = L, next = S
+      
+      curr = L, next = S
+      play(curr = L)
+      randomizer:  next = T
+      
+      curr = S, next = T
+      play(curr = S)
+      randomizer:  next = I
+      
+      curr = T, next = I
+      play(curr = T)
+      randomizer:  next = Z
+      
+      
+      gameplay{
+        currentPiece.run()
+        display nextPiece
+        randomizer()
+      }
+     
+      
+      randomizer{
+        if (randompiece==1) {
+          nextPiece = "L"; 
+        }
+        else if(randompiece==2){
+          nextPiece = "J";
+        }
+        
+        currentPiece = nextPiece
+      }
+      
+      
+      
+      */
+      
+      
       if (randompiece==1) {
         pieceDesign = L_pieceDesign;
         pieceName = "L block";
@@ -372,7 +413,8 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
         else if(field[i][j] == FILLED_PERM){ //empty field
           shape(fieldColor[i][j], x, y, blockSize, blockSize);
         }
-       stroke(100);
+//       stroke(100);
+       stroke(35);
        noFill();
         rect(x, y, blockSize, blockSize); 
       }  

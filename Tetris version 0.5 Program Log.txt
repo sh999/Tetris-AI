@@ -36,10 +36,14 @@ version 0.4: Can move around pieces and have collision detection.  Bug in that s
   8/5 (Done 8/6) Fix issue where AI can't rotate.  movement = "rotate right" doesn't work"? 
 8/7 (Done): Death scenario
 8/8 (Done): Working on score
+8/13 (Done): Level up based on line implemented.
+	Need to level up based on score instead?
+8/14: Working on resetPiece for next piece.  Making a piece class for url, svg, etc
 
 
 To implement:
-  
+  Take field implementation methods out of piece type and put in field class  
+
   Delay before piece becomes permanent
   Next piece preview
   Leveling

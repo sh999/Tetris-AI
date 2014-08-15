@@ -16,14 +16,13 @@ PShape backgroundDesign;
 
 //Piecetype defines the Illustrator svg files for each piece. 
 //Each svg file holds a different collor, corresponding to each piece
-PieceType L_piece, J_piece, Z_piece, S_piece, T_piece, square_piece, I_piece, currentPiece;
+PieceType L_piece, J_piece, Z_piece, S_piece, T_piece, square_piece, I_piece, currentPiece, nextPiece;
 
 int rotation_status = 1; //Default rotation status (upright piece)
 //Piecedesign defines the array info for each piece type
 
 Computer computer;
 Score score;
-NextPiece nextPiece;
 
 PFont font;
 
@@ -74,7 +73,8 @@ void setup() {
   square_piece = new PieceType("square block",square_pieceDesign,"squareblock.svg");
   I_piece = new PieceType("I block",I_pieceDesign,"Iblock.svg");
   
-  currentPiece = I_piece; //Piece that initially falls, will change after each piece is dropped
+  currentPiece = randomPiece();
+//  currentPiece = randomPiece(I_piece); //Piece that initially falls, will change after each piece is dropped
   
   backgroundDesign = loadShape("Gamebackgroundv1.svg");
   shape(backgroundDesign);
@@ -91,18 +91,43 @@ void setup() {
   
   computer = new Computer(a, b, currentPiece);
   score = new Score();
-  nextPiece = new NextPiece();
   
   font = loadFont("Arial-Black-48.vlw");
   textFont(font, 10);
   
 }
 
+PieceType randomPiece(){
+  int r = int(random(1,8));
+  if (r == 1){
+    return I_piece;
+  }
+  else if ( r == 2){
+    return T_piece;
+  }
+  else if ( r == 3){
+    return S_piece;
+  }
+  else if ( r == 4){
+    return Z_piece;
+  }
+  else if ( r == 5){
+    return square_piece;
+  }
+  else if ( r == 6){
+    return L_piece;
+  }
+  else if ( r == 7){
+    return J_piece;
+  }
+  return I_piece;
+}
+
 void draw() {
   currentPiece.display(); 
   currentPiece.getComputerResponse(computer);
   score.display();
-  nextPiece.display();
+//  nextPiece.display();
   
 }
 

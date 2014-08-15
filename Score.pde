@@ -65,16 +65,19 @@ class Score {
   void display(){
     
     fill(0);
-    rect(520, 40, 100, 100);
+    pushMatrix();
+    translate(520, 40);
+    rect(0, 0, 120, 200);
     println(points);
     fill(255);
-    text("SCORE", 540, 55);
-    text(points, 540, 75);
+    text("SCORE", 20, 20);
+    text(points, 20, 40);
     displayHighScore();
-    text("LINES", 540, 95);
-    text(lineCount, 540, 115);
-    text("LEVEL", 540, 125);
-    text(level, 540, 135);
+    text("LINES", 20, 60);
+    text(lineCount, 20, 80);
+    text("LEVEL", 20, 100);
+    text(level, 20, 120);
+    popMatrix();
     
   }
   void checkHighScore(){
@@ -88,9 +91,9 @@ class Score {
   }//End checkHighScore()
     
     void displayHighScore(){
-      text("HIGH SCORE", 540, 145);
+      text("HIGH SCORE", 540, 175);
       
-      text(highScoreNum, 540, 155);
+      text(highScoreNum, 540, 195);
     }
     
     

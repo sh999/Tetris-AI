@@ -6,10 +6,10 @@ class Computer {
   String movement;
   int[][] pieceDesign;
   
-  Computer(int _a, int _b, PieceType _piece){
-    a = _a; //Field dimensions
-    b = _b;
-    piece = _piece;
+  Computer(int a, int b, PieceType piece){
+    this.a = a; //Field dimensions
+    this.b = b;
+    this.piece = piece;
     clock = 0; //How fast computer moves piece
     movement = "";
   }

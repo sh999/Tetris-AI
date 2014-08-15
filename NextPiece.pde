@@ -7,9 +7,13 @@ class NextPiece {
   void display(){
     
     fill(0);  
-    rect(520, 170, 100, 100);
+    pushMatrix();
+    translate(520, 180);
+    
+    rect(0, 0, 120, 100);
     fill(255);
-    text("NEXT PIECE", 540, 190);
+    text("NEXT PIECE", 20, 20);
+    popMatrix();
 
   }
   
