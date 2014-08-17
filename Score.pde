@@ -5,37 +5,42 @@ class Score {
   int highScoreNum = int(highScore[0]);
   int lineCount = 0;
   int level = 1;
-//  PFont font;
   Score (){
-//      font = loadFont("Arial-Black-48.vlw");
-//      textFont(font, 10);
   }
   
-  void leveller(int lineToAdd){
+  void leveller(int lineToAdd){/*
     lineCount = lineCount + lineToAdd;
     if(lineCount <= 10){
       level = 1;
-      
     }
-    else if(lineCount > 10 && lineCount <= 20){
+    else if(10 < lineCount lineCount <= 25){
       level = 2;
-      
     }
-    else if(lineCount > 20 && lineCount < 30){
+    else if(25 < lineCount lineCount <= 40){
       level = 3;
     }
-   
+    else if(40 < lineCount lineCount <= 60){
+      level = 4;
+    } 
+    else level = 5;*/
   }
-  
   
   void update(int lines){
     lineCount += lines;
-    if(level == 1 && lineCount > 4){
-      level++;
+    if(level == 1 && lineCount > 5){
+      level = 2;
       setLevel();
     }
-    if(level == 2 && lineCount > 8){
-      level++;
+    if(level == 2 && lineCount > 10){
+      level = 3;
+      setLevel();
+    }
+    if(level == 3 && lineCount > 15){
+      level = 4;
+      setLevel();
+    }
+    if(level == 4 && lineCount > 20){
+      level = 5;
       setLevel();
     }
     switch(lines){
@@ -59,7 +64,7 @@ class Score {
   }
   
   void setLevel(){
-    currentPiece.setLevel();
+    currentPiece.incrLevel();
   }
   
   void display(){

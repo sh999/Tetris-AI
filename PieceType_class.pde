@@ -68,13 +68,12 @@ class PieceType {
     Jblock = loadShape("Jblock.svg");
     thisBlock = loadShape(svgFileURL);
     emptySpace = loadShape("blank.svg");
-
     resetPiece();
     
   }
   
-  void setLevel(){
-    dropSpeed = dropSpeed - 10;
+  void incrLevel(){
+    dropSpeed = 10;
   }
   
   //Controls how the program methods flow
@@ -84,11 +83,10 @@ class PieceType {
       clearSpace();
       matchField();
       checkAllowableMoves();
-      
       if (stopPieceFromMoving == true){
         make_piece_permanent();//Piece will stop and change field permanently 
         checkTetris(); 
-        score.update(linesToClear);
+        score.update(linesToClear);  // Updates score, sends line # so that level up possible
         multiClear(); 
       } 
       if (canGoDown == false) {  
@@ -105,8 +103,6 @@ class PieceType {
         score.checkHighScore();
         canSetHighScore = false;
       }
-      
-      
     }
     /*
     for(int i = 0; i < a; i++){
@@ -114,14 +110,12 @@ class PieceType {
         print(field[i][j]);
       }println();
     }print(rotation_status);println();*/
-
   }// End voidDisplay()
   
   void initialize(){ 
-    
     nonEmptySpace = loadShape(svgFileURL);
 //    emptySpace = loadShape("blank.svg");
-    stroke(255);
+//    stroke(255);
   }// End initialize()
   
   // Clears space where piece is moving but leaves filled field intact
@@ -221,83 +215,6 @@ class PieceType {
   //Called when a piece has fallen and another random one has to appear on top
   void resetPiece(){
       int randompiece = int(random(1, 8));
-      
-      /*
-      initialize:(curr = random, next = random)
-      curr = L, next = S
-      
-      curr = L, next = S
-      play(curr = L)
-      curr = Next = S
-      randomizer:  next = T
-      
-      curr = S, next = T
-      play(curr = S)
-      randomizer:  next = I
-      
-      curr = T, next = I
-      play(curr = T)
-      randomizer:  next = Z
-      
-      
-      gameplay{
-        currentPiece.run()
-        display nextPiece
-        randomizer()
-      }
-     
-      
-      randomizer{
-        if (randompiece==1) {
-          nextPiece = "L"; 
-        }
-        else if(randompiece==2){
-          nextPiece = "J";
-        }
-        
-        currentPiece = nextPiece
-      }
-      
-      
-      
-      */
-      
-      /*
-      if (randompiece==1) {
-        pieceDesign = L_pieceDesign;
-        pieceName = "L block";
-        svgFileURL = "Lblock.svg";
-      }
-      else if (randompiece==2) {
-        pieceDesign = J_pieceDesign;
-        pieceName = "J block";
-        svgFileURL = "Jblock.svg";
-      }
-      else if (randompiece==3) {
-        pieceDesign = S_pieceDesign;
-        pieceName = "S block";
-        svgFileURL = "Sblock.svg";
-      }
-      else if (randompiece==4) {
-        pieceDesign = Z_pieceDesign;
-        pieceName = "Z block";
-        svgFileURL = "Zblock.svg";
-      }
-      else if (randompiece==5) {
-        pieceDesign = square_pieceDesign;
-        pieceName = "square block";
-        svgFileURL = "squareblock.svg";
-      }
-      else if (randompiece==6) {
-        pieceDesign = T_pieceDesign;
-        pieceName = "T block";
-        svgFileURL = "Tblock.svg";
-      }
-      else if (randompiece==7) {
-        pieceDesign = I_pieceDesign;
-        pieceName = "I block";
-        svgFileURL = "Iblock.svg";
-      }      */
       setToNextPiece();
       int topY = topY();
       originY = 4 - topY;
@@ -418,7 +335,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
         else if(field[i][j] == FILLED_PERM){ //empty field
           shape(fieldColor[i][j], x, y, blockSize, blockSize);
         }
-       stroke(32,32,32);
+//       stroke(232,32,32);
        noFill();
         rect(x, y, blockSize, blockSize); 
       }  
@@ -427,7 +344,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   
   void dropSlowly(){
     //Drop piece slowly  
-    if (clock == dropSpeed) {
+    if (clock >= dropSpeed) {
       originY = originY+1;
       clock = 0;
     }
@@ -477,6 +394,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   void userInput() {
     switch(keyCode) {
     case UP:
+//      print("up pressed ");
       pieceRotate("clockwise");
       /*
       if (rotation_status == 4) rotation_status = 1;
@@ -499,10 +417,14 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
       pieceRotate("clockwise");
       break;  
     
+    
     default:
       if(key == 'v'){
           instantDrop();
           
+      }
+      else if(key == 'q'){
+        dropSpeed = 5;
       }
       else if(key == 'y'){
         multiClear();
@@ -907,14 +829,6 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
         break;
       }
     }//Square piece
-    /*newArray = new int[][]{ 
-          {0, 0, 1, 1, 1}, 
-          {0, 0, 1, 0, 0}, 
-          {0, 0, 1, 0, 0}, 
-          {0, 0, 1, 1, 0},
-          {0, 0, 0, 0, 0},
-          
-        };*/
     return newArray;
   }// End updatearray()
 } //End pieceType class

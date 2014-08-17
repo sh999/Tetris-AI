@@ -5,7 +5,6 @@ class NextPieceDisp {
   }
   
   void display(PieceType piece){
-    
     fill(0);  
     pushMatrix();
     translate(520, 180);
@@ -17,5 +16,4 @@ class NextPieceDisp {
     popMatrix();
     piece.staticDraw(nextPiece);
   }
-  
 }

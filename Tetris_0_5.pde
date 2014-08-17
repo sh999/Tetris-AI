@@ -64,7 +64,7 @@ int[][] I_pieceDesign = new int[][]{ {0,0,1,0,0},
                                      {0,0,1,0,0},
                                      {0,0,0,0,0}};
 void setup() {
-  smooth();
+  smooth(); 
   size(800, 600);
   
   L_piece = new PieceType("L block",L_pieceDesign,"Lblock.svg");  //The svg file has information for color of block.  Edit svg's in illustrator
@@ -78,8 +78,6 @@ void setup() {
 
   currentPiece = randomPiece();
   nextPiece = randomPiece();
-//  currentPiece = randomPiece(I_piece); //Piece that initially falls, will change after each piece is dropped
-  
   backgroundDesign = loadShape("Gamebackgroundv1.svg");
   shape(backgroundDesign);
   
@@ -95,19 +93,14 @@ void setup() {
   
   computer = new Computer(a, b, currentPiece);
   score = new Score();
-  
   font = loadFont("Arial-Black-48.vlw");
   textFont(font, 10);
-  
   nextPieceDisp = new NextPieceDisp();
-  
 }
 
 void setToNextPiece(){
   currentPiece = nextPiece;
   nextPiece = randomPiece();
-
-  
 }
 
 PieceType randomPiece(){
@@ -137,7 +130,6 @@ PieceType randomPiece(){
 }
 
 void draw() {
-  
   currentPiece.runPiece(); 
   currentPiece.getComputerResponse(computer);
   score.display();

@@ -40,6 +40,7 @@ version 0.4: Can move around pieces and have collision detection.  Bug in that s
 	Need to level up based on score instead?
 8/14 (done): Working on resetPiece for next piece.  Making a piece class for url, svg, etc
 	Make it colorful
+8/17: Working on Level up mechanism.  Speed up doesn't work.
 
 
 To implement:
