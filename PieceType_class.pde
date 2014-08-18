@@ -103,12 +103,6 @@ class PieceType {
         canSetHighScore = false;
       }
     }
-    /*
-    for(int i = 0; i < a; i++){
-      for(int j = 0; j < b; j++){
-        print(field[i][j]);
-      }println();
-    }print(rotation_status);println();*/
   }// End voidDisplay()
   
   void initialize(){ 
