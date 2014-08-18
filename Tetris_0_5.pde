@@ -5,7 +5,7 @@
 import java.util.Arrays;
 int a = 29;
 int b = 10;
-int x, y;
+int x, y; 
 int gridSize = 20;
 int[][] field = new int[a][b];
 int rect_width, rect_height;
@@ -13,7 +13,7 @@ PShape[][] fieldColor = new PShape[a][b];
 //**********FIELD
 
 PShape backgroundDesign;
-
+int dropSpeed = 30;
 //Piecetype defines the Illustrator svg files for each piece. 
 //Each svg file holds a different collor, corresponding to each piece
 PieceType L_piece, J_piece, Z_piece, S_piece, T_piece, square_piece, I_piece, currentPiece, nextPiece;
@@ -134,7 +134,6 @@ void draw() {
   currentPiece.getComputerResponse(computer);
   score.display();
   nextPieceDisp.display(nextPiece);
-  
 }
 
 void keyPressed(){

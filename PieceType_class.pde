@@ -1,6 +1,5 @@
 class PieceType {
-  int linesToClear = 0;
-  int dropSpeed = 30; //The lower, the faster
+  int linesToClear = 0; 
   boolean canSetHighScore = true;
   int check = 0; //unused?
   int EMPTY = 0;
@@ -46,8 +45,8 @@ class PieceType {
   
 
   PieceType(String pieceName, int[][] pieceDesign, String svgFileURL) {
+//    message = "what is goin on";
     gameStatus = PLAYING;
-    
     this.pieceName = pieceName;
     this.svgFileURL = svgFileURL;
     this.pieceDesign = pieceDesign;
@@ -79,24 +78,24 @@ class PieceType {
   //Controls how the program methods flow
   void runPiece() {
     if(gameStatus == PLAYING){
-      initialize();
-      clearSpace();
-      matchField();
-      checkAllowableMoves();
+      initialize(); // Sets non empty space to a colored block
+      clearSpace(); // Allows "movement" by clearing transitive blocks
+      matchField(); // Matches pieceDesign with field (if pd = 1, field = 1)
+      checkAllowableMoves(); // Has collision detection algorithm.  Restricts illegal movements that result in collisions
       if (stopPieceFromMoving == true){
-        make_piece_permanent();//Piece will stop and change field permanently 
-        checkTetris(); 
+        make_piece_permanent(); //Piece will stop and change field permanently; allows for proper coloring of fallen blocks 
+        checkTetris(); // Sets lineStatus to complete where there should be tetris
         score.update(linesToClear);  // Updates score, sends line # so that level up possible
-        multiClear(); 
+        multiClear(); // Calls processField which actually does the line crlearing
       } 
       if (canGoDown == false) {  
         if(isGameOver() == true){
           gameStatus = GAMEOVER;
         }
-         resetPiece();
+         resetPiece(); // Sets next piece to random.  Sets position, rotation, etc.
       }
-          drawField(); 
-          dropSlowly();
+          drawField(); //* Draw field based on color and filled status
+          dropSlowly(); // Slow drop depends on clock and dropSpeed (set by level)
     }
     if(gameStatus == GAMEOVER){
       if(canSetHighScore == true){ 
@@ -349,8 +348,6 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
       clock = 0;
     }
     else clock++;
-    //Reset piece
-    //When piece reaches bottom, let another random piece fall from top  
   }
   
   
@@ -358,7 +355,6 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
     for(int i = 0; i < pieceHeight; i++){
       for(int j = 0; j < pieceWidth; j++){
         if(pieceDesign[i][j] == 1){
-           
           field[i+originY][j+originX] = FILLED_PERM;
           if(svgFileURL == "Iblock.svg"){ //fieldColor holds shape depending on which piece has just fallen
             fieldColor[i+originY][j+originX] = Iblock;
@@ -394,7 +390,6 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   void userInput() {
     switch(keyCode) {
     case UP:
-//      print("up pressed ");
       pieceRotate("clockwise");
       /*
       if (rotation_status == 4) rotation_status = 1;
