@@ -3,8 +3,8 @@
 
 //**********FIELD
 import java.util.Arrays;
-int a = 29;
-int b = 10;
+int a = 29; // Field height (more than visible to accomodate rotation on top)
+int b = 10; // Field width
 int x, y; 
 int gridSize = 20;
 int[][] field = new int[a][b];
@@ -75,7 +75,6 @@ void setup() {
   square_piece = new PieceType("square block",square_pieceDesign,"squareblock.svg");
   I_piece = new PieceType("I block",I_pieceDesign,"Iblock.svg");
   
-
   currentPiece = randomPiece();
   nextPiece = randomPiece();
   backgroundDesign = loadShape("Gamebackgroundv1.svg");
@@ -91,7 +90,7 @@ void setup() {
   }
   //**********FIELD
   
-  computer = new Computer(a, b, currentPiece);
+  computer = new Computer(a, b);
   score = new Score();
   font = loadFont("Arial-Black-48.vlw");
   textFont(font, 10);
@@ -131,9 +130,16 @@ PieceType randomPiece(){
 
 void draw() {
   currentPiece.runPiece(); 
-  currentPiece.getComputerResponse(computer);
+//  currentPiece.getComputerResponse(computer);
+  computer.getMove(currentPiece, field);
   score.display();
   nextPieceDisp.display(nextPiece);
+  /*
+  for(int row = 0; row < currentPiece.pieceHeight; row++){
+      for(int col = 0; col < currentPiece.pieceWidth; col++){
+        print(currentPiece.pieceDesign[row][col]);
+      }println();
+  }println();  */
 }
 
 void keyPressed(){

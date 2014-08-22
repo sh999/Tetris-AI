@@ -82,6 +82,9 @@ class PieceType {
       clearSpace(); // Allows "movement" by clearing transitive blocks
       matchField(); // Matches pieceDesign with field (if pd = 1, field = 1)
       checkAllowableMoves(); // Has collision detection algorithm.  Restricts illegal movements that result in collisions
+      
+      
+      
       if (stopPieceFromMoving == true){
         make_piece_permanent(); //Piece will stop and change field permanently; allows for proper coloring of fallen blocks 
         checkTetris(); // Sets lineStatus to complete where there should be tetris
@@ -504,7 +507,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   }
   
   void getComputerResponse(Computer _computer){
-    _computer.respond(pieceDesign, field);
+//    _computer.respond(pieceDesign, field);
   }
   
   

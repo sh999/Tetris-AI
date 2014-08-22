@@ -23,10 +23,10 @@ def printResult(fileContent):
 a = getField()
 printResult(a)
 piece1 = ['00000',
-		  '00100',
-		  '00100',
-		  '00100',
-		  '00100'] # Need algorithm to get equivalent rotation pieces
+		  '00000',
+		  '11111',
+		  '00000',
+		  '00000'] # Need algorithm to get equivalent rotation pieces
 		 		  # In this sketch I can just define the alternate configurations
 # In the java program Piece class can have definition for piece with all the orientations
 
