@@ -22,46 +22,64 @@ class Computer {
   
 
   void getMove(PieceType piece, int[][] field){
+    calcMove(piece, field);
+
 //    randMovtCompute(); 
 //    randMovtSend(piece);
-    getBestMove(piece, field)
   }
   
-  void getBestMove(Piece piece, int[][] field){
-    // Find left-most part of piece (leftX)
-    
-    
-    int originXIfPieceGoesLeft = piece.originX - 1;
-    boolean keepLooping = true;
-    boolean checkLeft = true;
-    boolean canGoleft;
-    while(canGoleft == true){
+  void calcMove(PieceType piece, int[][] field){
+    int[][] imaginaryField = field;
+//    imaginaryField = phantomDrop(imaginaryField);
+//    printArr(imaginaryField);
+      //Drop phantom piece down until it hits something
+    boolean droppable = true; //Assume piece can be dropped
+    int phantomOriginY = piece.originY;
+    int phantomOriginX = piece.originX;
+    int FILLED_PERM = 2;
+    while(droppable == true){
+      phantomOriginY = phantomOriginY + 1;
+      //check if there is overlap between field and pieceDesign
+      //Iterate over pieceDesign
       for(int i = 0; i < piece.pieceHeight; i++){
-        for(int j = 0; j < piece.pieceWidth; j++){           
-          // Check collision to left wall
-          if ((piece.pieceDesign[i][j] == 1 && j + piece.originX == 0) ||
-              (piece.pieceDesign[i][j] == 1 && field[i+piece.originY][j+piece.originX-1] == FILLED_PERM) &&
-              checkLeft == true){
-            canGoLeft = false;
-            checkLeft = false; 
-          } 
-          else if(pieceDesign[i][j] == 1 && j + originX != 0 &&  checkLeft == true){
-            canGoLeft = true;
-            
+        for(int j = 0; j < piece.pieceWidth; j++){
+          if(piece.pieceDesign[i][j] == 1 && i+phantomOriginY > a-1){ //prevents going out of bounds down
+            droppable = false;
+          }
+          else if(piece.pieceDesign[i][j] == 1 && field[i+phantomOriginY][j+phantomOriginX] == FILLED_PERM){  //Drops piece on top of existing ones
+            droppable = false;  
+          }
+          if(droppable == false){
+            print("phantomOrigY = "+phantomOriginY);
+            imaginaryField = stampPiece(piece, phantomOriginX, i+phantomOriginY-5, imaginaryField); 
+//            originY = i+phantomOriginY-5;
           }
         }
-      }
-    } // End While
-    // Iterate Piece in field from left edge (leftX) to right edge
-    for(int i = 0; i < b; i++){
-      
+      }//End fors
     }
-      // Perform imaginary drop
-      // See if drop creates a hole.  If it does, don't make that move
-      // If drop doesn't create a hole, store the move coordinate.  Calculate "score"
-    // Get the best "scored" move.  Make that move
-      
-  }
+    printArr(imaginaryField);
+  } //End calcMove()
+  
+  int[][] stampPiece(PieceType piece, int x, int y, int[][] field){
+    for(int i = 0; i < piece.pieceHeight; i++){
+      for(int j = 0; j < piece.pieceWidth; j++){
+        if(piece.pieceDesign[i][j] == 1){
+          
+          field[i+y][j+x] = 5;//where matching occurs
+        }
+        else if(piece.pieceDesign[i][j] == 0){
+           //do nothing
+        }  
+      }
+    }
+    return field;
+    
+  } // End stampPiece();
+    
+  int[][] phantomDrop(int[][] field){
+    return field;  
+  } // End phantomDrop()
+  
   
   void randMovtCompute(){
     int r = int(random(0,100));
@@ -71,7 +89,7 @@ class Computer {
     else if(r < 25 && r > 10) movement = "down";
     else movement = "drop";
     println("\n");
-  }
+  }// End randMovtCompute
    
   void randMovtSend(PieceType piece){
     print(movement);
@@ -100,4 +118,12 @@ class Computer {
     }
     clock = clock + 1;
   }// End randMovtSend()
+  
+  void printArr(int[][] array){
+    for(int i = 0; i < array.length; i++){
+      for(int j = 0; j < array[0].length; j++){
+        print(array[i][j]);
+      }println();
+    }println("\n");
+  }
 }

@@ -504,7 +504,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
         }
       }
     }
-  }
+  } // End instantDrop() 
   
   void getComputerResponse(Computer _computer){
 //    _computer.respond(pieceDesign, field);

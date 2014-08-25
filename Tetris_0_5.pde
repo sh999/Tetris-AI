@@ -162,5 +162,4 @@ Class{
   drawmethod{
     mySVG = loadShape(SVGURL);
   }
-}
-*/
+}*/

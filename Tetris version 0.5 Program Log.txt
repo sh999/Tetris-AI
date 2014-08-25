@@ -41,8 +41,12 @@ version 0.4: Can move around pieces and have collision detection.  Bug in that s
 8/14 (done): Working on resetPiece for next piece.  Making a piece class for url, svg, etc
 	Make it colorful
 8/17 (done): Working on Level up mechanism.  Speed up doesn't work.
-8/21: Working on AI within.  AI can't control 2nd peace on
-
+8/21 : Working on AI within.  AI can't control 2nd peace on (Fixed 8/22)
+8/22 : Working on getBestMove
+	Working on phantom drop; imaginary field implemented; 
+	do phantom drop on limited conditions: (ignore edge and rotation)
+	Put imaginary drop in imaginaryField as another value
+8/25: Working on calcMove()
 To implement:
   Take field implementation methods out of piece type and put in field class  
 
