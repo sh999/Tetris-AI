@@ -53,9 +53,11 @@ class PieceType {
     pieceHeight = pieceDesign.length;
     pieceWidth = pieceDesign[0].length;
     temporaryPieceDesign = pieceDesign;
+    
     for(int i = 0; i < a; i++){
       for(int j = 0; j < b; j++){
         fieldColor[i][j] = loadShape("blank.svg");
+        
       }
     }
     Iblock = loadShape("Iblock.svg");
@@ -82,8 +84,6 @@ class PieceType {
       clearSpace(); // Allows "movement" by clearing transitive blocks
       matchField(); // Matches pieceDesign with field (if pd = 1, field = 1)
       checkAllowableMoves(); // Has collision detection algorithm.  Restricts illegal movements that result in collisions
-      
-      
       
       if (stopPieceFromMoving == true){
         make_piece_permanent(); //Piece will stop and change field permanently; allows for proper coloring of fallen blocks 

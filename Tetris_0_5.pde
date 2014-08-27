@@ -3,6 +3,7 @@
 
 //**********FIELD
 import java.util.Arrays;
+import java.lang.*;
 int a = 29; // Field height (more than visible to accomodate rotation on top)
 int b = 10; // Field width
 int x, y; 

@@ -29,7 +29,8 @@ class Computer {
   }
   
   void calcMove(PieceType piece, int[][] field){
-    int[][] imaginaryField = field;
+    int[][] imaginaryField = new int[a][b];
+    System.arraycopy(field, 0, imaginaryField, 0, 29);
 //    imaginaryField = phantomDrop(imaginaryField);
 //    printArr(imaginaryField);
       //Drop phantom piece down until it hits something
@@ -50,7 +51,8 @@ class Computer {
             droppable = false;  
           }
           if(droppable == false){
-            print("phantomOrigY = "+phantomOriginY);
+//            print("phantomOrigY = "+phantomOriginY);
+            
             imaginaryField = stampPiece(piece, phantomOriginX, i+phantomOriginY-5, imaginaryField); 
 //            originY = i+phantomOriginY-5;
           }
@@ -58,21 +60,25 @@ class Computer {
       }//End fors
     }
     printArr(imaginaryField);
+//    println("originX = "+piece.originY);
   } //End calcMove()
   
-  int[][] stampPiece(PieceType piece, int x, int y, int[][] field){
+  int[][] stampPiece(PieceType piece, int x, int y, int[][] ifield){
     for(int i = 0; i < piece.pieceHeight; i++){
       for(int j = 0; j < piece.pieceWidth; j++){
         if(piece.pieceDesign[i][j] == 1){
-          
-          field[i+y][j+x] = 5;//where matching occurs
+          ifield[i+23][j+x] = 5;
+  
+//          field[piece.originY][piece.originX] = 5;//where matching occurs
         }
         else if(piece.pieceDesign[i][j] == 0){
-           //do nothing
-        }  
+           
+          //do nothing
+        } 
+          
       }
     }
-    return field;
+    return ifield;
     
   } // End stampPiece();
     

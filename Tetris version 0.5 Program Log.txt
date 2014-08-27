@@ -46,7 +46,10 @@ version 0.4: Can move around pieces and have collision detection.  Bug in that s
 	Working on phantom drop; imaginary field implemented; 
 	do phantom drop on limited conditions: (ignore edge and rotation)
 	Put imaginary drop in imaginaryField as another value
-8/25: Working on calcMove()
+8/25: Working on calcMove().  Phantom drop piece doesn't reflect current piece! Fix it.
+	stampPiece is not giving the right coordinates
+	passing of argument field on stamp piece doesn't work
+	resolve field argument confusion
 To implement:
   Take field implementation methods out of piece type and put in field class  
 
