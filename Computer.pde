@@ -31,17 +31,13 @@ class Computer {
   void calcMove(PieceType piece, int[][] field){
     int[][] imaginaryField = new int[a][b];
     System.arraycopy(field, 0, imaginaryField, 0, 29);
-//    imaginaryField = phantomDrop(imaginaryField);
-//    printArr(imaginaryField);
-      //Drop phantom piece down until it hits something
     boolean droppable = true; //Assume piece can be dropped
     int phantomOriginY = piece.originY;
+    int predictedOriginY = 0;
     int phantomOriginX = piece.originX;
     int FILLED_PERM = 2;
     while(droppable == true){
-      phantomOriginY = phantomOriginY + 1;
-      //check if there is overlap between field and pieceDesign
-      //Iterate over pieceDesign
+      phantomOriginY = phantomOriginY + 1; 
       for(int i = 0; i < piece.pieceHeight; i++){
         for(int j = 0; j < piece.pieceWidth; j++){
           if(piece.pieceDesign[i][j] == 1 && i+phantomOriginY > a-1){ //prevents going out of bounds down
@@ -51,28 +47,23 @@ class Computer {
             droppable = false;  
           }
           if(droppable == false){
-//            print("phantomOrigY = "+phantomOriginY);
-            
-            imaginaryField = stampPiece(piece, phantomOriginX, i+phantomOriginY-5, imaginaryField); 
-//            originY = i+phantomOriginY-5;
+              predictedOriginY = i + phantomOriginY - 5;
+
           }
         }
       }//End fors
-    }
+    }//End while
+    imaginaryField = stampPiece(piece, phantomOriginX, predictedOriginY, imaginaryField);
     printArr(imaginaryField);
-//    println("originX = "+piece.originY);
   } //End calcMove()
   
   int[][] stampPiece(PieceType piece, int x, int y, int[][] ifield){
     for(int i = 0; i < piece.pieceHeight; i++){
       for(int j = 0; j < piece.pieceWidth; j++){
         if(piece.pieceDesign[i][j] == 1){
-          ifield[i+23][j+x] = 5;
-  
-//          field[piece.originY][piece.originX] = 5;//where matching occurs
+          ifield[i+y][j+x] = 5;
         }
         else if(piece.pieceDesign[i][j] == 0){
-           
           //do nothing
         } 
           
@@ -126,7 +117,7 @@ class Computer {
   }// End randMovtSend()
   
   void printArr(int[][] array){
-    for(int i = 0; i < array.length; i++){
+    for(int i = 17; i < array.length; i++){
       for(int j = 0; j < array[0].length; j++){
         print(array[i][j]);
       }println();

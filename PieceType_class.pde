@@ -320,7 +320,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
       for(int j = 0; j < b; j++){
         x = j*gridSize+width/2-(gridSize*b/2); //x and y are grid locations
         y = i*gridSize+height/2-(gridSize*a/2)-50; 
-        
+        fill(255);text(i,x,y);
         if(field[i][j] == EMPTY){ //Where there is no piece, have block
           shape(emptySpace, x, y, blockSize, blockSize);
           
@@ -494,16 +494,19 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
         for(int j = 0; j < pieceWidth; j++){
           if(pieceDesign[i][j] == 1 && i+phantomOriginY > a-1){ //prevents going out of bounds down
             droppable = false;
+//            print("i+pY = "+(i+phantomOriginY));
           }
           else if(pieceDesign[i][j] == 1 && field[i+phantomOriginY][j+phantomOriginX] == FILLED_PERM){  //Drops piece on top of existing ones
             droppable = false;  
           }
           if(droppable == false){
-            originY = i+phantomOriginY-5;
+            originY = i+phantomOriginY-5;  //-5 is because iteration goes up to i = 5 (pieceHeight), so have to normalize back up
+            
           }
         }
       }
-    }
+    } 
+    print("originY = "+originY);
   } // End instantDrop() 
   
   void getComputerResponse(Computer _computer){
@@ -541,11 +544,11 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
       switch(rotation_status) {
       case 1: 
         newArray = new int[][] { 
+          {1, 0, 0, 0, 0}, 
           {0, 0, 0, 0, 0}, 
           {0, 0, 0, 0, 0}, 
-          {0, 0, 1, 0, 0}, 
-          {0, 0, 1, 0, 0},
-          {0, 0, 1, 1, 0},
+          {0, 0, 0, 0, 0},
+          {0, 0, 0, 0, 0},
           
         }; 
         break;
@@ -585,7 +588,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
           {0, 0, 1, 0, 0}, 
           {0, 0, 1, 0, 0},
           {0, 1, 1, 0, 0}, 
-          {0, 0, 0, 0, 0}
+          {0, 1, 0, 0, 0}
         }; 
         break;
       case 2:

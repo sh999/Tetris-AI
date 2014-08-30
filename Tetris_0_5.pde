@@ -67,7 +67,7 @@ int[][] I_pieceDesign = new int[][]{ {0,0,1,0,0},
 void setup() {
   smooth(); 
   size(800, 600);
-  
+  ellipseMode(CENTER);
   L_piece = new PieceType("L block",L_pieceDesign,"Lblock.svg");  //The svg file has information for color of block.  Edit svg's in illustrator
   J_piece = new PieceType("J block",J_pieceDesign,"Jblock.svg");
   Z_piece = new PieceType("Z block",Z_pieceDesign,"Zblock.svg");
