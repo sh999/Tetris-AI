@@ -76,6 +76,8 @@ void setup() {
   square_piece = new PieceType("square block",square_pieceDesign,"squareblock.svg");
   I_piece = new PieceType("I block",I_pieceDesign,"Iblock.svg");
   
+  Piece testPiece = new Piece("L block");
+  
   currentPiece = randomPiece();
   nextPiece = randomPiece();
   backgroundDesign = loadShape("Gamebackgroundv1.svg");
@@ -131,16 +133,10 @@ PieceType randomPiece(){
 
 void draw() {
   currentPiece.runPiece(); 
-//  currentPiece.getComputerResponse(computer);
-  computer.getMove(currentPiece, field);
+  
+//  computer.getMove(currentPiece, field);
   score.display();
   nextPieceDisp.display(nextPiece);
-  /*
-  for(int row = 0; row < currentPiece.pieceHeight; row++){
-      for(int col = 0; col < currentPiece.pieceWidth; col++){
-        print(currentPiece.pieceDesign[row][col]);
-      }println();
-  }println();  */
 }
 
 void keyPressed(){

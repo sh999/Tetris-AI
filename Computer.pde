@@ -11,21 +11,9 @@ class Computer {
     clock = 0; //How fast computer moves piece
     movement = "";
   }
-  /*
-  // Obtains field info from the game, process, then 
-  void respond(int[][] _pieceDesign, int[][] _field){
-    field = _field;
-    pieceDesign = _pieceDesign;
-    computeMove();
-    sendMove();
-  }// End Respond()*/
-  
 
   void getMove(PieceType piece, int[][] field){
     calcMove(piece, field);
-
-//    randMovtCompute(); 
-//    randMovtSend(piece);
   }
   
   void calcMove(PieceType piece, int[][] field){
@@ -57,7 +45,7 @@ class Computer {
     printArr(imaginaryField);
   } //End calcMove()
   
-  int[][] stampPiece(PieceType piece, int x, int y, int[][] ifield){
+  int[][] stampPiece(PieceType piece, int x, int y, int[][] ifield){ //Sets imaginary field to where the piece should land
     for(int i = 0; i < piece.pieceHeight; i++){
       for(int j = 0; j < piece.pieceWidth; j++){
         if(piece.pieceDesign[i][j] == 1){

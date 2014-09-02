@@ -29,7 +29,6 @@ class PieceType {
   int pieceHeight;
   int pieceWidth;
   String svgFileURL;
-  int bottomBound = height-blockSize*2; //bottom of gameplay
   PShape nonEmptySpace, emptySpace;
   float clock = 0;
   int[][] temporaryPieceDesign;
@@ -45,7 +44,6 @@ class PieceType {
   
 
   PieceType(String pieceName, int[][] pieceDesign, String svgFileURL) {
-//    message = "what is goin on";
     gameStatus = PLAYING;
     this.pieceName = pieceName;
     this.svgFileURL = svgFileURL;
@@ -84,7 +82,7 @@ class PieceType {
       clearSpace(); // Allows "movement" by clearing transitive blocks
       matchField(); // Matches pieceDesign with field (if pd = 1, field = 1)
       checkAllowableMoves(); // Has collision detection algorithm.  Restricts illegal movements that result in collisions
-      
+      calcScore();
       if (stopPieceFromMoving == true){
         make_piece_permanent(); //Piece will stop and change field permanently; allows for proper coloring of fallen blocks 
         checkTetris(); // Sets lineStatus to complete where there should be tetris
@@ -320,7 +318,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
       for(int j = 0; j < b; j++){
         x = j*gridSize+width/2-(gridSize*b/2); //x and y are grid locations
         y = i*gridSize+height/2-(gridSize*a/2)-50; 
-        fill(255);text(i,x,y);
+        fill(255);
         if(field[i][j] == EMPTY){ //Where there is no piece, have block
           shape(emptySpace, x, y, blockSize, blockSize);
           
@@ -494,7 +492,6 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
         for(int j = 0; j < pieceWidth; j++){
           if(pieceDesign[i][j] == 1 && i+phantomOriginY > a-1){ //prevents going out of bounds down
             droppable = false;
-//            print("i+pY = "+(i+phantomOriginY));
           }
           else if(pieceDesign[i][j] == 1 && field[i+phantomOriginY][j+phantomOriginX] == FILLED_PERM){  //Drops piece on top of existing ones
             droppable = false;  
@@ -506,7 +503,6 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
         }
       }
     } 
-    print("originY = "+originY);
   } // End instantDrop() 
   
   void getComputerResponse(Computer _computer){
@@ -544,11 +540,11 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
       switch(rotation_status) {
       case 1: 
         newArray = new int[][] { 
-          {1, 0, 0, 0, 0}, 
           {0, 0, 0, 0, 0}, 
           {0, 0, 0, 0, 0}, 
-          {0, 0, 0, 0, 0},
-          {0, 0, 0, 0, 0},
+          {0, 0, 1, 0, 0}, 
+          {0, 0, 1, 0, 0},
+          {0, 0, 1, 1, 0},
           
         }; 
         break;
@@ -588,7 +584,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
           {0, 0, 1, 0, 0}, 
           {0, 0, 1, 0, 0},
           {0, 1, 1, 0, 0}, 
-          {0, 1, 0, 0, 0}
+          {0, 0, 0, 0, 0}
         }; 
         break;
       case 2:
