@@ -55,6 +55,8 @@ it.
 9/1: Assign score for each phantom drop
 9/1: Isolate phantomDrop as own function so computer and piece type can use it
 9/2: Created Field class, isolate field related data/methods from pieceType
+9/3: Make piece and field class mesh simply:  Display piece on field
+9/3: Work on calcscore.  Calcscore processes field and piece as parameters
 
 To implement:
   Take field implementation methods out of piece type and put in field class  
@@ -63,7 +65,21 @@ To implement:
   Leveling
   Restart
   
-  
+Notes:
+  Organization:
+    Main classes:
+      Field
+      Piece
+      Movement: has methods for basic movement
+    First create field
+      field = new Field()
+    To summon piece, do
+      currentPiece = new Piece("L block");
+    To move piece in field
+      behavior.
+
+
+	
 
 Bugs:
 7:30 (Fixed):  In raretimes there is array out of bounds exception when i barely moved a piece.  Not sure when triggered.

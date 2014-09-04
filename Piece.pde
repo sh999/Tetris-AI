@@ -2,14 +2,14 @@
 Data on each piece without any functions
 */
 class Piece{
-  String pieceName; //**********PIECE**********
-  int[][] pieceDesign;//**********PIECE**********
+  String pieceName; 
+  int[][] pieceDesign;
   int blockSize = 20; //Pixelsize of svg object  
-  int pieceHeight; //**********PIECE**********
-  int pieceWidth; //**********PIECE**********
-  String svgFileURL; //**********PIECE**********
-  int[][] temporaryPieceDesign; //**********PIECE**********
-  PShape Iblock, squareblock, Tblock, Sblock, Zblock, Lblock, Jblock, thisBlock; //**********PIECE**********
+  int pieceHeight; 
+  int pieceWidth; 
+  String svgFileURL;
+  int[][] temporaryPieceDesign;
+  PShape Iblock, squareblock, Tblock, Sblock, Zblock, Lblock, Jblock, thisBlock;
   
   Piece(String pieceName){
     this.pieceName = pieceName;

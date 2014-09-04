@@ -76,18 +76,21 @@ class PieceType {
   }
   
   //Controls how the program methods flow
+  //Annotation:  Suggested placement of method in class
+  //F = Field class.  P = Piece class.  I = "Interactor" class-Deals with piece-field interaction
+  //PB = Piece behavior class?
   void runPiece() {
     if(gameStatus == PLAYING){
       initialize(); // Sets non empty space to a colored block
-      clearSpace(); // Allows "movement" by clearing transitive blocks
-      matchField(); // Matches pieceDesign with field (if pd = 1, field = 1)
-      checkAllowableMoves(); // Has collision detection algorithm.  Restricts illegal movements that result in collisions
-      calcScore();
+      clearSpace(); //F Allows "movement" by clearing transitive blocks
+      matchField(); //F Matches pieceDesign with field (if pd = 1, field = 1)
+      checkAllowableMoves(); //I Has collision detection algorithm.  Restricts illegal movements that result in collisions
+
       if (stopPieceFromMoving == true){
-        make_piece_permanent(); //Piece will stop and change field permanently; allows for proper coloring of fallen blocks 
-        checkTetris(); // Sets lineStatus to complete where there should be tetris
+        make_piece_permanent(); //I-Piece will stop and change field permanently; allows for proper coloring of fallen blocks 
+        checkTetris(); //I- Sets lineStatus to complete where there should be tetris
         score.update(linesToClear);  // Updates score, sends line # so that level up possible
-        multiClear(); // Calls processField which actually does the line crlearing
+        multiClear(); //I- Calls processField which actually does the line crlearing
       } 
       if (canGoDown == false) {  
         if(isGameOver() == true){
@@ -95,7 +98,7 @@ class PieceType {
         }
          resetPiece(); // Sets next piece to random.  Sets position, rotation, etc.
       }
-          drawField(); //* Draw field based on color and filled status
+          drawField(); //F- Draw field based on color and filled status
           dropSlowly(); // Slow drop depends on clock and dropSpeed (set by level)
     }
     if(gameStatus == GAMEOVER){
