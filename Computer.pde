@@ -17,6 +17,7 @@ class Computer {
   }
   
   void calcMove(PieceType piece, int[][] field){
+    
     int[][] imaginaryField = new int[a][b];
     System.arraycopy(field, 0, imaginaryField, 0, 29);
     boolean droppable = true; //Assume piece can be dropped
@@ -24,10 +25,12 @@ class Computer {
     int predictedOriginY = 0;
     int phantomOriginX = piece.originX;
     int FILLED_PERM = 2;
+    int lineToCheck = 0;
     while(droppable == true){
       phantomOriginY = phantomOriginY + 1; 
       for(int i = 0; i < piece.pieceHeight; i++){
         for(int j = 0; j < piece.pieceWidth; j++){
+          
           if(piece.pieceDesign[i][j] == 1 && i+phantomOriginY > a-1){ //prevents going out of bounds down
             droppable = false;
           }
@@ -36,12 +39,14 @@ class Computer {
           }
           if(droppable == false){
               predictedOriginY = i + phantomOriginY - 5;
+              lineToCheck = i+phantomOriginY+1; // Line that will be checked for holes.  It's the line underneath where piece will be dropped
 
           }
         }
       }//End fors
     }//End while
     imaginaryField = stampPiece(piece, phantomOriginX, predictedOriginY, imaginaryField);
+    print("line to check = "+lineToCheck+"\n");
     printArr(imaginaryField);
   } //End calcMove()
   
