@@ -57,7 +57,7 @@ it.
 9/2: Created Field class, isolate field related data/methods from pieceType
 9/3: Make piece and field class mesh simply:  Display piece on field
 9/3: Work on calcscore.  Calcscore processes field and piece as parameters
-	9/4: Simple scenario:  Make it check below line where piece will be dropped, if a hole will be made.  Working on lineToCheck
+	9/4 Done (9/5): Simple scenario:  Make it check below line where piece will be dropped, if a hole will be made.  Working on lineToCheck 
 
 To implement:
   Take field implementation methods out of piece type and put in field class  

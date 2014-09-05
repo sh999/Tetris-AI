@@ -25,7 +25,9 @@ class Computer {
     int predictedOriginY = 0;
     int phantomOriginX = piece.originX;
     int FILLED_PERM = 2;
+    int EMPTY = 0;
     int lineToCheck = 0;
+    int dropPos = 0; // row where the lowest part of piece is when it is dropped
     while(droppable == true){
       phantomOriginY = phantomOriginY + 1; 
       for(int i = 0; i < piece.pieceHeight; i++){
@@ -33,20 +35,35 @@ class Computer {
           
           if(piece.pieceDesign[i][j] == 1 && i+phantomOriginY > a-1){ //prevents going out of bounds down
             droppable = false;
+            dropPos = i+phantomOriginY;
           }
           else if(piece.pieceDesign[i][j] == 1 && field[i+phantomOriginY][j+phantomOriginX] == FILLED_PERM){  //Drops piece on top of existing ones
             droppable = false;  
+            dropPos = i+phantomOriginY;
+            
           }
           if(droppable == false){
-              predictedOriginY = i + phantomOriginY - 5;
-              lineToCheck = i+phantomOriginY+1; // Line that will be checked for holes.  It's the line underneath where piece will be dropped
+              predictedOriginY = i + phantomOriginY - 5; //For loop doesn't break but checks to last row even after finding a piece before that can collide
+
 
           }
         }
       }//End fors
     }//End while
     imaginaryField = stampPiece(piece, phantomOriginX, predictedOriginY, imaginaryField);
-    print("line to check = "+lineToCheck+"\n");
+    
+    // Check for hole below drop line if piece is dropped
+    boolean gapFound = false;
+    for(int j = 0; j < b; j++){
+      if(dropPos < 29 && field[dropPos-1][j] == EMPTY){
+        gapFound = true;
+      
+      }
+//      print(field[dropPos-1][j]);
+    }println("\n");
+    print("Gap found? = "+gapFound+"\n\n");
+    
+    
     printArr(imaginaryField);
   } //End calcMove()
   
