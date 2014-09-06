@@ -21,3 +21,28 @@ Building from simple case to complex:
 
 }
 
+int lowestPoint(PieceType piece){
+  /*for(int i = 0; i < piece.pieceHeight; i++){
+    for(int j = 0; j < piece.pieceWidth; j++){
+      print(piece.pieceDesign[i][j]);
+    }println();
+  }*/
+  boolean pointFound = false;
+  int lowestRow;
+  while(pointFound){
+    for(int i = piece.pieceHeight-1; i >= 0; i--){
+      for(int j = 0; j < piece.pieceWidth; j++){
+        if(piece.pieceDesign[i][j] == 1){
+          lowestRow = j;
+          pointFound = true;
+        }
+      }
+    }
+  
+  }
+  return 0;
+  
+}
+
+
+

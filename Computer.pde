@@ -1,24 +1,42 @@
 class Computer {
   int a, b;
-  int[][] field;
+//  int[][] field;
   int clock;
   String movement;
   int[][] pieceDesign;
-  
+  int[][] imaginaryField;
+  int dropPos = 5; // row where the lowest part of piece is when it is dropped
+  int gapScore;
+
   Computer(int a, int b){
     this.a = a; //Field dimensions
     this.b = b;
+    imaginaryField = new int[a][b];
     clock = 0; //How fast computer moves piece
     movement = "";
   }
 
   void getMove(PieceType piece, int[][] field){
     calcMove(piece, field);
+    // Implement doMove()
+    
   }
   
   void calcMove(PieceType piece, int[][] field){
+    imaginaryDrop(piece, field); // Should return imaginary field
+    gapScore = getGapScore(piece, field);
+    printArr(imaginaryField);
+
+    // List of functions that calculate score
+    // Eg, check game
+    // calculate score of contour
+    // Add score together
+    // Once score is obtained, 
+    // Each move should be captured in a coordinate
     
-    int[][] imaginaryField = new int[a][b];
+  } 
+  
+  void imaginaryDrop(PieceType piece, int[][] field){
     System.arraycopy(field, 0, imaginaryField, 0, 29);
     boolean droppable = true; //Assume piece can be dropped
     int phantomOriginY = piece.originY;
@@ -27,7 +45,6 @@ class Computer {
     int FILLED_PERM = 2;
     int EMPTY = 0;
     int lineToCheck = 0;
-    int dropPos = 0; // row where the lowest part of piece is when it is dropped
     while(droppable == true){
       phantomOriginY = phantomOriginY + 1; 
       for(int i = 0; i < piece.pieceHeight; i++){
@@ -45,27 +62,28 @@ class Computer {
           if(droppable == false){
               predictedOriginY = i + phantomOriginY - 5; //For loop doesn't break but checks to last row even after finding a piece before that can collide
 
-
           }
         }
       }//End fors
     }//End while
     imaginaryField = stampPiece(piece, phantomOriginX, predictedOriginY, imaginaryField);
-    
-    // Check for hole below drop line if piece is dropped
+  } //End calcMove()
+  
+  int getGapScore(PieceType piece, int[][] field){
+        // Check for hole below drop line if piece is dropped
     boolean gapFound = false;
+    lowestPoint(piece);
     for(int j = 0; j < b; j++){
-      if(dropPos < 29 && field[dropPos-1][j] == EMPTY){
-        gapFound = true;
-      
+      if(dropPos < 29 && field[dropPos-1][j] == 0){
+        gapFound = true; 
       }
 //      print(field[dropPos-1][j]);
     }println("\n");
     print("Gap found? = "+gapFound+"\n\n");
+    if (gapFound == true) { return 1;}
+    else {return 0;}
     
-    
-    printArr(imaginaryField);
-  } //End calcMove()
+  }
   
   int[][] stampPiece(PieceType piece, int x, int y, int[][] ifield){ //Sets imaginary field to where the piece should land
     for(int i = 0; i < piece.pieceHeight; i++){
