@@ -24,7 +24,7 @@ class Computer {
   
   void calcMove(PieceType piece, int[][] field){
     imaginaryDrop(piece, field); // Should return imaginary field
-    gapScore = getGapScore(piece, field);
+    gapScore = getGapScore(piece, dropPos, field);
     printArr(imaginaryField);
 
     // List of functions that calculate score
@@ -69,17 +69,23 @@ class Computer {
     imaginaryField = stampPiece(piece, phantomOriginX, predictedOriginY, imaginaryField);
   } //End calcMove()
   
-  int getGapScore(PieceType piece, int[][] field){
-        // Check for hole below drop line if piece is dropped
+  int getGapScore(PieceType piece, int dropPos, int[][] field){
+    // Check for gap below piece if piece is dropped
     boolean gapFound = false;
-    lowestPoint(piece);
-    for(int j = 0; j < b; j++){
+    println("Lowest point = "+lowestRow(piece));
+    /*for(int j = 0; j < b; j++){
       if(dropPos < 29 && field[dropPos-1][j] == 0){
         gapFound = true; 
       }
-//      print(field[dropPos-1][j]);
-    }println("\n");
-    print("Gap found? = "+gapFound+"\n\n");
+    }println("\n");*/
+    println("Drop pos = "+dropPos);
+    for(int j = 0; j < piece.pieceWidth; j++){
+      if(dropPos < 29 && field[dropPos][j] == 1){
+        gapFound = false; 
+      }
+      else if (dropPos < 29) gapFound = true;
+    }
+    println("Gap found? = "+gapFound+"\n\n");
     if (gapFound == true) { return 1;}
     else {return 0;}
     
