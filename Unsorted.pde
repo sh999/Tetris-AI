@@ -29,24 +29,37 @@ int lowestRow(PieceType piece){
   }*/
   boolean pointFound = false;
   int lowestRow = 0;
-//    for(int i = piece.pieceHeight-1; i >= 0; i--){
-      int i = piece.pieceHeight-1; 
-      do{
-        for(int j = 0; j < piece.pieceWidth; j++){
-//          println(" i = "+i+", j = "+j);
-          if(piece.pieceDesign[i][j] == 1){
-            lowestRow = i;
-            pointFound = true;
-          }
-        }
-        i--;
-      }while(pointFound == false && i >= 0);
-    
-  
-  
+  int i = piece.pieceHeight-1; 
+  do{  // Traverse up and right until a piece square is found
+    for(int j = 0; j < piece.pieceWidth; j++){ 
+      if(piece.pieceDesign[i][j] == 1){
+        lowestRow = i;
+        pointFound = true;
+      }
+    }
+    i--;
+  }while(pointFound == false && i >= 0);
   return lowestRow;
-  
 }
 
+int leftmostColumn(PieceType piece){
+  boolean pointFound = false;
+  int leftmostColumn = 0;
+  int col = 0;
+  do{
+    
+//  for(int col = 0; col < piece.pieceWidth; j++){
+    
+    for(int row = 0; row < piece.pieceHeight; row++){
+      println("checking row "+row+" and column "+col);
+      if(piece.pieceDesign[row][col] == 1){
+        leftmostColumn = col;
+        pointFound = true;
+      }
+    }
+    col++;
+  }while(pointFound == false && col < piece.pieceWidth); 
+  return leftmostColumn;
+}
 
 

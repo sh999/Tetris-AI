@@ -61,7 +61,7 @@ it.
 9/5: Working on getGapScore. Make lowestPoint() work by searching bottom up.
   9/6: getgapscore needs to be modified where it has to know left/right boundary of piece
 	lowestPoint() may be useless because dropPos gets the same information
-
+9/8: Working on stampPiece to create spots where gaps should be checked, clearing bug field needs to be fixed.
 
 To implement:
   Take field implementation methods out of piece type and put in field class  

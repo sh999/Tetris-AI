@@ -24,7 +24,7 @@ class Computer {
   
   void calcMove(PieceType piece, int[][] field){
     imaginaryDrop(piece, field); // Should return imaginary field
-    gapScore = getGapScore(piece, dropPos, field);
+//    gapScore = getGapScore(piece, dropPos, field);
     printArr(imaginaryField);
 
     // List of functions that calculate score
@@ -66,19 +66,31 @@ class Computer {
         }
       }//End fors
     }//End while
+    
     imaginaryField = stampPiece(piece, phantomOriginX, predictedOriginY, imaginaryField);
+//    imaginaryField = modifyIField(piece, phantomOriginX, predictedOriginY, imaginaryField); // ImField will then have spots where gap should be checked
   } //End calcMove()
   
+  int[][] modifyIField(PieceType piece, int phantomOriginX, int predictedOriginY, int[][] imaginaryField){
+    for(int i = 0; i < piece.pieceHeight; i++){
+        for(int j = 0; j < piece.pieceWidth; j++){        
+          /*if (pieceDesign[i][j] == 1 && field[i+predictedOriginY][j+phantomOriginX] == FILLED_PERM){
+            stopPieceFromMoving = true;
+            canGoDown = false;
+            break;
+          } */
+        }  
+      }
+    return imaginaryField;
+  }
+  
+  /*
   int getGapScore(PieceType piece, int dropPos, int[][] field){
     // Check for gap below piece if piece is dropped
     boolean gapFound = false;
     println("Lowest point = "+lowestRow(piece));
-    /*for(int j = 0; j < b; j++){
-      if(dropPos < 29 && field[dropPos-1][j] == 0){
-        gapFound = true; 
-      }
-    }println("\n");*/
     println("Drop pos = "+dropPos);
+    println("Leftmost point = "+leftmostColumn(piece));
     for(int j = 0; j < piece.pieceWidth; j++){
       if(dropPos < 29 && field[dropPos][j] == 1){
         gapFound = false; 
@@ -89,13 +101,35 @@ class Computer {
     if (gapFound == true) { return 1;}
     else {return 0;}
     
+    
   }
+  int getGapScore(PieceType piece, int dropPos, int[][] field){
+    tempOriginX = originX;
+    tempOriginY = originY+1;
+      //Checks if there are already fallen pieces below the falling piece 
+    if (canGoDown == true){
+      for(int i = 0; i < pieceHeight; i++){
+        for(int j = 0; j < pieceWidth; j++){        
+          if (pieceDesign[i][j] == 1 && field[i+tempOriginY][j+tempOriginX] == FILLED_PERM){
+            stopPieceFromMoving = true;
+            canGoDown = false;
+            break;
+          } 
+        }  
+      }
+    }
+  }*/
+
   
   int[][] stampPiece(PieceType piece, int x, int y, int[][] ifield){ //Sets imaginary field to where the piece should land
     for(int i = 0; i < piece.pieceHeight; i++){
       for(int j = 0; j < piece.pieceWidth; j++){
         if(piece.pieceDesign[i][j] == 1){
           ifield[i+y][j+x] = 5;
+          if(i+y < 28){
+            
+            ifield[i+y+1][j+x] = 3;  //Adding 1 creates a clear field bug, why?  Not if it's any other value
+          }
         }
         else if(piece.pieceDesign[i][j] == 0){
           //do nothing

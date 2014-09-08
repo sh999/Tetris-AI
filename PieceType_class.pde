@@ -151,9 +151,10 @@ class PieceType {
     checkRight = true;    
     
     test:
+      // Wall collision detection
       for(int i = 0; i < pieceHeight; i++){
         for(int j = 0; j < pieceWidth; j++){           
-          // Check collision to left wall
+          
           if ((pieceDesign[i][j] == 1 && j + originX == 0) ||
               (pieceDesign[i][j] == 1 && field[i+originY][j+originX-1] == FILLED_PERM) &&
               checkLeft == true){
