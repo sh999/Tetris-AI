@@ -25,7 +25,7 @@ class Computer {
   void calcMove(PieceType piece, int[][] field){
     imaginaryDrop(piece, field); // Should return imaginary field
 //    gapScore = getGapScore(piece, dropPos, field);
-    printArr(imaginaryField);
+//    printArr(imaginaryField);
 
     // List of functions that calculate score
     // Eg, check game
@@ -37,7 +37,12 @@ class Computer {
   } 
   
   void imaginaryDrop(PieceType piece, int[][] field){
-    System.arraycopy(field, 0, imaginaryField, 0, 29);
+//    System.arraycopy(field, 0, imaginaryField, 0, 29);
+    for(int i = 0; i < a; i++){
+      for(int j = 0; j < b; j++){
+        imaginaryField[i][j] = field[i][j];
+      }
+    }
     boolean droppable = true; //Assume piece can be dropped
     int phantomOriginY = piece.originY;
     int predictedOriginY = 0;
@@ -68,7 +73,7 @@ class Computer {
     }//End while
     
     imaginaryField = stampPiece(piece, phantomOriginX, predictedOriginY, imaginaryField);
-//    imaginaryField = modifyIField(piece, phantomOriginX, predictedOriginY, imaginaryField); // ImField will then have spots where gap should be checked
+    
   } //End calcMove()
   
   int[][] modifyIField(PieceType piece, int phantomOriginX, int predictedOriginY, int[][] imaginaryField){
@@ -122,14 +127,14 @@ class Computer {
 
   
   int[][] stampPiece(PieceType piece, int x, int y, int[][] ifield){ //Sets imaginary field to where the piece should land
+    boolean gapPresent = false;
     for(int i = 0; i < piece.pieceHeight; i++){
       for(int j = 0; j < piece.pieceWidth; j++){
         if(piece.pieceDesign[i][j] == 1){
-          ifield[i+y][j+x] = 5;
+          ifield[i+y][j+x] = 5;  // Shows ghost piece where the piece will drop
           if(i+y < 28){
-            
-            ifield[i+y+1][j+x] = 3;  //Adding 1 creates a clear field bug, why?  Not if it's any other value
-          }
+            ifield[i+y+1][j+x] = 3;  //'3' indicates the boxes that need to be checked for field status later (if there is a gap)
+          }  
         }
         else if(piece.pieceDesign[i][j] == 0){
           //do nothing
@@ -137,6 +142,16 @@ class Computer {
           
       }
     }
+    for(int i = 0; i < a; i++){
+      for(int j = 0; j < b; j++){
+        if(ifield[i][j] == 3 && field[i][j] == 0){ //If the spots to be checked have gaps...
+          gapPresent = true;
+        }
+      }
+    }
+    if(gapPresent  == true) {print("There's a gap");}
+    
+    printArr(ifield);
     return ifield;
     
   } // End stampPiece();
@@ -184,11 +199,5 @@ class Computer {
     clock = clock + 1;
   }// End randMovtSend()
   
-  void printArr(int[][] array){
-    for(int i = 17; i < array.length; i++){
-      for(int j = 0; j < array[0].length; j++){
-        print(array[i][j]);
-      }println();
-    }println("\n");
-  }
+  
 }

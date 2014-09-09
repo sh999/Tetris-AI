@@ -337,7 +337,8 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
        noFill();
         rect(x, y, blockSize, blockSize); 
       }  
-    }  
+    }
+//    printArr(field);  
   }  
   
   void dropSlowly(){

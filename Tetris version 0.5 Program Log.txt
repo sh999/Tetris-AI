@@ -98,3 +98,4 @@ sometimes a piece falls through. Fixed 7/15  Never mind 7/21. Fixed.
 8/6: Side collision not working rarely.  Arrayoutofbounds rarely.
 8/14: Rotate key sometimes unresponsive
 8/18: Block has black stroke
+9/8: Field blocks disappearing when implemented imaginary field for gap detection (fixed;  copy array is a culprit, don't know why)

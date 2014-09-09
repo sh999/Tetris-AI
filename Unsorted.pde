@@ -2,6 +2,14 @@ void phantomDrop(){
   
 }
 
+void printArr(int[][] array){
+    for(int i = 17; i < array.length; i++){
+      for(int j = 0; j < array[0].length; j++){
+        print(array[i][j]);
+      }println();
+    }println("\n");
+  }
+
 void bestMove(int[][] _field, PieceType _piece){
 /*
 For each piece, calculate possible moves (collision important)
