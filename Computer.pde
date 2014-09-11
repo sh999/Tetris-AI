@@ -37,7 +37,6 @@ class Computer {
   } 
   
   void imaginaryDrop(PieceType piece, int[][] field){
-//    System.arraycopy(field, 0, imaginaryField, 0, 29);
     for(int i = 0; i < a; i++){
       for(int j = 0; j < b; j++){
         imaginaryField[i][j] = field[i][j];
@@ -54,7 +53,6 @@ class Computer {
       phantomOriginY = phantomOriginY + 1; 
       for(int i = 0; i < piece.pieceHeight; i++){
         for(int j = 0; j < piece.pieceWidth; j++){
-          
           if(piece.pieceDesign[i][j] == 1 && i+phantomOriginY > a-1){ //prevents going out of bounds down
             droppable = false;
             dropPos = i+phantomOriginY;
@@ -62,19 +60,43 @@ class Computer {
           else if(piece.pieceDesign[i][j] == 1 && field[i+phantomOriginY][j+phantomOriginX] == FILLED_PERM){  //Drops piece on top of existing ones
             droppable = false;  
             dropPos = i+phantomOriginY;
-            
           }
           if(droppable == false){
               predictedOriginY = i + phantomOriginY - 5; //For loop doesn't break but checks to last row even after finding a piece before that can collide
-
           }
         }
       }//End fors
     }//End while
-    
     imaginaryField = stampPiece(piece, phantomOriginX, predictedOriginY, imaginaryField);
-    
   } //End calcMove()
+  
+  int[][] stampPiece(PieceType piece, int x, int y, int[][] ifield){ //Sets imaginary field to where the piece should land
+    boolean gapPresent = false;
+    for(int i = 0; i < piece.pieceHeight; i++){
+      for(int j = 0; j < piece.pieceWidth; j++){
+        if(piece.pieceDesign[i][j] == 1){
+          ifield[i+y][j+x] = 5;  // Shows ghost piece where the piece will drop
+          if(i+y < 28){
+            ifield[i+y+1][j+x] = 3;  //'3' indicates the boxes that need to be checked for field status later (if there is a gap)
+          }  
+        }
+        else if(piece.pieceDesign[i][j] == 0){
+          //do nothing
+        } 
+      }
+    }
+    for(int i = 0; i < a; i++){
+      for(int j = 0; j < b; j++){
+        if(ifield[i][j] == 3 && field[i][j] == 0){ //If the spots to be checked have gaps...
+          gapPresent = true;
+        }
+      }
+    }
+    if(gapPresent  == true) {print("There's a gap");}
+    printArr(ifield);
+    return ifield;
+  } // End stampPiece();
+  
   
   int[][] modifyIField(PieceType piece, int phantomOriginX, int predictedOriginY, int[][] imaginaryField){
     for(int i = 0; i < piece.pieceHeight; i++){
@@ -126,35 +148,7 @@ class Computer {
   }*/
 
   
-  int[][] stampPiece(PieceType piece, int x, int y, int[][] ifield){ //Sets imaginary field to where the piece should land
-    boolean gapPresent = false;
-    for(int i = 0; i < piece.pieceHeight; i++){
-      for(int j = 0; j < piece.pieceWidth; j++){
-        if(piece.pieceDesign[i][j] == 1){
-          ifield[i+y][j+x] = 5;  // Shows ghost piece where the piece will drop
-          if(i+y < 28){
-            ifield[i+y+1][j+x] = 3;  //'3' indicates the boxes that need to be checked for field status later (if there is a gap)
-          }  
-        }
-        else if(piece.pieceDesign[i][j] == 0){
-          //do nothing
-        } 
-          
-      }
-    }
-    for(int i = 0; i < a; i++){
-      for(int j = 0; j < b; j++){
-        if(ifield[i][j] == 3 && field[i][j] == 0){ //If the spots to be checked have gaps...
-          gapPresent = true;
-        }
-      }
-    }
-    if(gapPresent  == true) {print("There's a gap");}
-    
-    printArr(ifield);
-    return ifield;
-    
-  } // End stampPiece();
+  
     
   int[][] phantomDrop(int[][] field){
     return field;  

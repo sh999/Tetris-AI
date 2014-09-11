@@ -58,10 +58,21 @@ it.
 9/3: Make piece and field class mesh simply:  Display piece on field
 9/3 (Done): Work on calcscore.  Calcscore processes field and piece as parameters
 	9/4 Done (9/5): Simple scenario:  Make it check below line where piece will be dropped, if a hole will be made.  Working on lineToCheck (Done 9/4)
-9/5: Working on getGapScore. Make lowestPoint() work by searching bottom up.
+9/5 (Done): Working on getGapScore. Make lowestPoint() work by searching bottom up.
   9/6: getgapscore needs to be modified where it has to know left/right boundary of piece
 	lowestPoint() may be useless because dropPos gets the same information
-9/8: Working on stampPiece to create spots where gaps should be checked, clearing bug field needs to be fixed.
+9/8 (Done): Working on stampPiece to create spots where gaps should be checked, clearing bug field needs to be fixed.
+9/10: Work on iterating piece to be dropped in all positions in all rotations
+
+int leftBound = determineLeftBound(piece, rotationStatus)
+int rightBound = determineRightBound(piece, rotationStatus)
+for(int col = leftBound; col <= rightBound; col++){ 
+  newField = imaginaryDrop(col, piece, field);
+  
+}
+
+
+
 
 To implement:
   Take field implementation methods out of piece type and put in field class  

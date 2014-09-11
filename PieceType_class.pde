@@ -41,9 +41,11 @@ class PieceType {
   int gameStatus;
   int PLAYING = 1;
   int GAMEOVER = 0;
-  
+  int TESTING = 2;
+  boolean testingAI = true;
 
   PieceType(String pieceName, int[][] pieceDesign, String svgFileURL) {
+    
     gameStatus = PLAYING;
     this.pieceName = pieceName;
     this.svgFileURL = svgFileURL;
@@ -98,8 +100,13 @@ class PieceType {
         }
          resetPiece(); // Sets next piece to random.  Sets position, rotation, etc.
       }
-          drawField(); //F- Draw field based on color and filled status
-          dropSlowly(); // Slow drop depends on clock and dropSpeed (set by level)
+      drawField(); //F- Draw field based on color and filled status
+      if(testingAI == false){
+        dropSlowly(); // Slow drop depends on clock and dropSpeed (set by level)
+      }
+    }
+    else if(gameStatus == TESTING){
+    
     }
     if(gameStatus == GAMEOVER){
       if(canSetHighScore == true){ 
@@ -107,6 +114,7 @@ class PieceType {
         canSetHighScore = false;
       }
     }
+    
   }// End voidDisplay()
   
   void initialize(){ 
@@ -503,7 +511,6 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
           }
           if(droppable == false){
             originY = i+phantomOriginY-5;  //-5 is because iteration goes up to i = 5 (pieceHeight), so have to normalize back up
-            
           }
         }
       }
