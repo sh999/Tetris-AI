@@ -1,5 +1,7 @@
 class PieceType {
   int linesToClear = 0; 
+  int a = 29;
+  int b = 10;
   boolean canSetHighScore = true;
   int check = 0; //unused?
   int EMPTY = 0;
@@ -43,7 +45,8 @@ class PieceType {
   int GAMEOVER = 0;
   int TESTING = 2;
   boolean testingAI = true;
-
+  PShape[][] fieldColor = new PShape[a][b];
+  int[][] field = new int[a][b];;
   PieceType(String pieceName, int[][] pieceDesign, String svgFileURL) {
     
     gameStatus = PLAYING;

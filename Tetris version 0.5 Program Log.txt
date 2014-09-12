@@ -64,14 +64,6 @@ it.
 9/8 (Done): Working on stampPiece to create spots where gaps should be checked, clearing bug field needs to be fixed.
 9/10: Work on iterating piece to be dropped in all positions in all rotations
 
-int leftBound = determineLeftBound(piece, rotationStatus)
-int rightBound = determineRightBound(piece, rotationStatus)
-for(int col = leftBound; col <= rightBound; col++){ 
-  newField = imaginaryDrop(col, piece, field);
-  
-}
-
-
 
 
 To implement:

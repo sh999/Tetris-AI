@@ -10,3 +10,73 @@ Determine strategy
 	Calculate possibilities
 Determine score
 move piece to that spot
+
+Loop to calculate score so that AI can choose the best move:
+Given piece and rotationStatus
+for(int r = 1; r <= 4; r++){ //Iterate through 4 different rotations
+	int leftBound = determineLeftBound(piece, rotationStatus)
+	int rightBound = determineRightBound(piece, rotationStatus)
+	for(int col = leftBound; col <= rightBound; col++){ 
+	  newField = imaginaryDrop(col, piece, field);
+	}
+}
+should enter a table of results:
+Rotation  Position:Score
+--------  ------------------------
+	1		1:0	   2:1     3:-1  ...
+	2		1:1	   2:-1    3:-1  ....
+	3
+	4
+
+Or...
+Each Rotation/Position stands for a field snapshot.  For development purposes, I 
+will have to change scoring scheme multiple times.  The "id" for each field is then
+denoted as rotation-position
+
+Debuggin mode should allow choosing of a particular piece and rotation
+
+Notes for reorganization:
+Methods in PieceType:
+	~constructor 
+	incrLevel
+	runPiece
+	initialize
+	*clearSpace
+	*matchField
+	*checkAllowableMoves
+	resetPiece
+	topY
+	checkTetris
+	*~multiClear
+	*processField
+	~processFieldColor
+	*drawField
+	dropSlowly
+	*~makePiece_permanent
+	userInput
+	moveLeft, moveRight, moveDown, rotateRight, rotateLeft
+	*pieceRotate
+	*instantDrop
+	getComputerResponse
+	isGameOver
+	staticDraw
+	updateArray
+
+Taking field one piece at a time.
+Deactivating currentPiece (Piecetype object) to pull out field methods
+int[][] field is used in piecetype class in the following methods:
+	make_piece_permanent
+	pieceRotate
+	instant_drop
+	clearSpace
+	match_field
+	checkallowable moves
+	multiClear
+	drawField
+
+fieldcolor is used in:
+	Piecetype constructor
+	multiClear
+	make_piece_permanent
+
+

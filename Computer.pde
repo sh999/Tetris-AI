@@ -7,10 +7,12 @@ class Computer {
   int[][] imaginaryField;
   int dropPos = 5; // row where the lowest part of piece is when it is dropped
   int gapScore;
+  Field f;
 
-  Computer(int a, int b){
-    this.a = a; //Field dimensions
-    this.b = b;
+  Computer(Field f){
+    a = f.a;
+    b = f.b;
+    this.f = f;
     imaginaryField = new int[a][b];
     clock = 0; //How fast computer moves piece
     movement = "";
@@ -87,7 +89,7 @@ class Computer {
     }
     for(int i = 0; i < a; i++){
       for(int j = 0; j < b; j++){
-        if(ifield[i][j] == 3 && field[i][j] == 0){ //If the spots to be checked have gaps...
+        if(ifield[i][j] == 3 && f.field[i][j] == 0){ //If the spots to be checked have gaps...
           gapPresent = true;
         }
       }
