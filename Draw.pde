@@ -16,7 +16,7 @@
   
   
   //Draw Field- Based on the value of the field element, draw a block (empty space, space occupied by piece have diff. colors
-  void drawField(Field f){
+  void drawaField(Field f){
     int blockSize = 20; //Pixelsize of svg object  
     int EMPTY = 0;
     int FILLED_TEMP = 1; //Status of field cells

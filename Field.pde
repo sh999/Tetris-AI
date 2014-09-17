@@ -33,7 +33,7 @@ class Field{
   void display(){
 //    nonEmptySpace = loadShape(svgFileURL);
 //    emptySpace = loadShape("blank.svg");
-    drawField(this);
+    drawaField(this);
   }
   
 

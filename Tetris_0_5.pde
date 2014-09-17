@@ -4,13 +4,13 @@
 //**********FIELD
 import java.util.Arrays;
 import java.lang.*;
-//int a = 29; // Field height (more than visible to accomodate rotation on top)
-//int b = 10; // Field width
+int a = 29; // Field height (more than visible to accomodate rotation on top)
+int b = 10; // Field width
 int x, y; 
 int gridSize = 20;
-//int[][] field = new int[a][b];
+int[][] field = new int[a][b];//
 int rect_width, rect_height;
-//PShape[][] fieldColor = new PShape[a][b];
+PShape[][] fieldColor = new PShape[a][b];//
 //**********FIELD
 
 PShape backgroundDesign;
@@ -68,9 +68,6 @@ int[][] I_pieceDesign = new int[][]{ {0,0,1,0,0},
 Declarations for newly organized piece and field
 */
 Field afield;
-
-
-
 void setup() {
   smooth(); 
   size(800, 600);
@@ -95,11 +92,11 @@ void setup() {
   
   afield = new Field();
   //Initialize field with emptiness
-  /*for(int i = 0; i < a; i++){
+  for(int i = 0; i < a; i++){
     for(int j = 0; j < b; j++){
       field[i][j] = 0; 
     }
-  }*/
+  }
   //**********FIELD
   
   computer = new Computer(afield);
@@ -141,9 +138,9 @@ PieceType randomPiece(){
 }
 
 void draw() {
-//  currentPiece.runPiece(); 
-  afield.display();
-  pieceOnScreen(currentPiece, afield);
+  currentPiece.runPiece(); 
+//  afield.display();
+//  pieceOnScreen(currentPiece, afield);
 //  computer.getMove(currentPiece, field);
   score.display();
   nextPieceDisp.display(nextPiece);

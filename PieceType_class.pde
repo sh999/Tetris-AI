@@ -93,9 +93,9 @@ class PieceType {
 
       if (stopPieceFromMoving == true){
         make_piece_permanent(); //I-Piece will stop and change field permanently; allows for proper coloring of fallen blocks 
-        checkTetris(); //I- Sets lineStatus to complete where there should be tetris
-        score.update(linesToClear);  // Updates score, sends line # so that level up possible
-        multiClear(); //I- Calls processField which actually does the line crlearing
+//        checkTetris(); //I- Sets lineStatus to complete where there should be tetris
+//        score.update(linesToClear);  // Updates score, sends line # so that level up possible
+//        multiClear(); //I- Calls processField which actually does the line crlearing
       } 
       if (canGoDown == false) {  
         if(isGameOver() == true){
@@ -107,10 +107,11 @@ class PieceType {
       if(testingAI == false){
         dropSlowly(); // Slow drop depends on clock and dropSpeed (set by level)
       }
+      printArr(field);
     }
-    else if(gameStatus == TESTING){
+    /*else if(gameStatus == TESTING){
     
-    }
+    }*/
     if(gameStatus == GAMEOVER){
       if(canSetHighScore == true){ 
         score.checkHighScore();
@@ -128,6 +129,7 @@ class PieceType {
   
   // Clears space where piece is moving but leaves filled field intact
   void clearSpace(){
+    
     for(int i = 0; i < a; i++){
       for(int j = 0; j < b; j++){
         if(field[i][j] != FILLED_PERM){
@@ -363,6 +365,12 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   
   
   void make_piece_permanent(){//Called when piece is supposed to be fixed on field
+    for(int i = 0; i < a; i++){
+      for(int j = 0; j < b; j++){
+        
+        field[20][j] = FILLED_PERM;
+      }
+    }
     for(int i = 0; i < pieceHeight; i++){
       for(int j = 0; j < pieceWidth; j++){
         if(pieceDesign[i][j] == 1){
