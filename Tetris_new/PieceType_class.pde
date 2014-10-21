@@ -523,6 +523,23 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
     else return false;
   }
   
+  void staticDraw2(){
+    
+    
+    for(int i = 0; i < pieceHeight; i ++){
+      for(int j = 0; j < pieceWidth; j++){
+        x = j*gridSize+width/2-(gridSize*b/2)+300; //x and y are grid locations
+        y = i*gridSize+height/2-(gridSize*a/2)+300; 
+        if(pieceDesign[i][j]==0){
+          shape(emptySpace, x, y, gridSize, gridSize);
+        }
+        else{
+          shape(thisBlock, x, y, gridSize, gridSize);
+        }
+      }
+    }
+  }
+  
   void staticDraw(PieceType piece){ // Draw static next piece
     for(int i = 0; i < pieceHeight; i ++){
       for(int j = 0; j < pieceWidth; j++){

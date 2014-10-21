@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>10</x>
+      <y>100</y>
+      <w>200</w>
+      <h>390</h>
+    </coordinates>
+    <panel_attributes>Main
+--
+#Field variables
+a, b: int
+x, y: int
+gridSize: int
+field: int[][]
+rect_width, rect_height: int[]
+fieldColor: PShape[][]
+
+backgroundDesign: PShape
+
+
+
+--
+setup()
+setToNextPiece()
+randomPiece(): PieceType
+randomPiece2(): PieceType
+draw()
+keyPressed()
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>560</x>
+      <y>100</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Field
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>280</x>
+      <y>80</y>
+      <w>240</w>
+      <h>1080</h>
+    </coordinates>
+    <panel_attributes>PieceType
+--
+linesToClear: int
+canSetHighScore: boolean
+check: int
+EMPTY, FILLED_TEMP, 
+FILLED_
+PERM, TOBECLEARED: int
+checkLeft, checkDown, 
+checkRight, canGoLeft,
+canGoRight: boolean
+lineStatus: int[]
+UNDETERMINED: int
+INCOMPLETE: int
+COMPLETE: int
+tetris: boolean
+tempField: int[][]
+tempFieldColor: PShape[][]
+
+pieceName: String
+pieceDesign: int[][]
+nextPieceDesign: int[][]
+
+originX, originY: int
+blockSize: int
+pieceHeight: int
+pieceWidth: int
+svgFileURL: String
+nonEmptySpace: PShape
+
+clock: float
+temporaryPieceDesign: int[]
+tempOriginX, tempOriginY: int
+canGoDown: boolean
+stopPieceFromMoving: boolean
+colorFallenPiece: boolean
+Iblock, squareblock, Tblock,
+Sblock, Zblock, Lblock, Jblock,
+thisBlock: PShape
+--
+incrLevel()
+runPiece()
+initialize()
+clearSpace()
+matchField()
+checkAllowableMoves()
+resetPiece()
+topY(): int
+checkTetris()
+multiClear()
+processField(): int[][]
+processFieldColor: PShape[][]
+drawField()
+dropSlowly()
+make_piece_permanent()
+userInput()
+moveLeft()
+moveRight()
+moveDown()
+rotateRight()
+rotateLeft()
+pieceRotate()
+instantDrop()
+getComputerResponse()
+isGameOver(): boolean
+staticDraw2():
+staticDraw()
+updateArray(): int[][]
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>200</x>
+      <y>80</y>
+      <w>100</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.&gt;</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>530</x>
+      <y>100</y>
+      <w>50</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.&gt;</panel_attributes>
+    <additional_attributes>30.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>400</x>
+      <y>0</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Computer
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>200</x>
+      <y>0</y>
+      <w>220</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.&gt;</panel_attributes>
+    <additional_attributes>200.0;10.0;10.0;170.0</additional_attributes>
+  </element>
+</diagram>
