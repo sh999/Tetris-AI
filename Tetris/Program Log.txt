@@ -1,0 +1,105 @@
+Tetris version 0.5 Program Log
+
+Ver 0.5: Have better OOP design--Break down piecetype class
+This version is intended to lead to the final tetris game
+I have attempted to program tetris twice:
+6/27: Fix disappearing piece.  Something to do with array passing thru function
+One ends up with SaTris_no_trig:  Has good graphics but lacking in collision detection/tetris algorithm.  Has real tetris pieces
+Two ends up with Tetris redesign with animation:  Has no graphics but has collision/tetris algorithm.  Doesn't incorporate real tetris pieces
+Another important program is Tetris_2D_field_study
+version 0.4: Can move around pieces and have collision detection.  Bug in that some pieces stay on field randomly.  Has bad
+  OOP structure.  Version 0.5 will be more readable and have better OOP structure.
+7/3(Done): change color every piece. Done 7/7!
+  create block class?
+  7/7: Prevent disappearing permanent field
+7/7(Done!): Check bottom, side, collisions
+  7/7: Make booleans to know status of where piece can move.  Do this for left, right, bottom wall collisions. Done, with some bugs.
+7/14: fix piece falling through bug, check checkallowablemoves().  FIxed 7/15.  Problem was when piece is on the edge
+7/15: after fixing previous bug, another bug occurs where if piece touches wall, it can't move toward that edge even
+  after it has been moved to middle
+7/21 (Done): Fixed left collision.  Right collision has issue where I piece once horizontal and pushed to the well can't go right anymore
+  bug occurs due to piecedesign[i][j] = 1 on the boundary.  Can be replicated if I piece's horizontal rotation is changed so that
+  instead of looking like 01111 it is changed to 11110; in this case the piece will hit the left wall and can't be moved left anymore
+  in effect mirroring the bug to the left side... 7/21
+    fixed else if cause....not really sure why it didn't work before 7/21
+7/22(Done): Drop piece feature.  Done 7/23!
+  7/22: Working on instantMethod().  Done 7/23!
+7/22 (Done): Rotate collision detection
+  7/23: Working on checkValidRotation(). Done!
+7/24 (Done): Working on checkTetris() Done.  array out of bounds exception due to out of bounds on j when comparing field with empty part of piecedesign that's out of bounds
+7/25 (Done): Work on clearlines(). Can clear line.  Make algorithm for when multiple lines have tetris. 7/26
+8/2 (Done): Starting to work on checkTetris and clearline to fix issue where line clearing should affect tetris position and above not whole field
+8/3 (Done): Multiline tetris algorithm Done!!!!!!!!!!!!!
+8/4 (Done 8/6): Create AI class (class Computer).  Pass messages from main game or piecetype class to Computer and send back a basic response where AI controls piece.
+  8/4 Done: Working on class Computer
+  8/5 Done: Basic communication and movement by Computer established.  Now create intelligence
+  8/5 (Done 8/6) Fix issue where AI can't rotate.  movement = "rotate right" doesn't work"? 
+8/7 (Done): Death scenario
+8/8 (Done): Working on score
+8/13 (Done): Level up based on line implemented.
+	Need to level up based on score instead?
+8/14 (done): Working on resetPiece for next piece.  Making a piece class for url, svg, etc
+	Make it colorful
+8/17 (done): Working on Level up mechanism.  Speed up doesn't work.
+8/21 : Working on AI within.  AI can't control 2nd peace on (Fixed 8/22)
+8/22 : Working on getBestMove
+	Working on phantom drop; imaginary field implemented; 
+	do phantom drop on limited conditions: (ignore edge and rotation)
+	Put imaginary drop in imaginaryField as another value
+8/25 (done): Working on calcMove().  Phantom drop piece doesn't reflect current piece! Fix 
+it.
+	stampPiece is not giving the right coordinates
+	passing of argument field on stamp piece doesn't work
+	resolve field argument confusion
+	 8/27:  Need to understand originY = i+phantomOriginY-;;
+9/1: Assign score for each phantom drop
+9/1: Isolate phantomDrop as own function so computer and piece type can use it
+9/2: Created Field class, isolate field related data/methods from pieceType
+9/3: Make piece and field class mesh simply:  Display piece on field
+9/3 (Done): Work on calcscore.  Calcscore processes field and piece as parameters
+	9/4 Done (9/5): Simple scenario:  Make it check below line where piece will be dropped, if a hole will be made.  Working on lineToCheck (Done 9/4)
+9/5: Working on getGapScore. Make lowestPoint() work by searching bottom up.
+  9/6: getgapscore needs to be modified where it has to know left/right boundary of piece
+	lowestPoint() may be useless because dropPos gets the same information
+9/8: Working on stampPiece to create spots where gaps should be checked, clearing bug field needs to be fixed.
+
+10/12: Working on using tempPiece to solve nextPiece rotation issue, with randomPiece2() to choose random piece instead of randomPiece1()
+
+
+
+To implement:
+  Take field implementation methods out of piece type and put in field class  
+
+  Delay before piece becomes permanent
+  Leveling
+  Restart
+  
+Notes:
+  Organization:
+    Main classes:
+      Field
+      Piece
+      Movement: has methods for basic movement
+    First create field
+      field = new Field()
+    To summon piece, do
+      currentPiece = new Piece("L block");
+    To move piece in field
+      behavior.
+
+
+	
+
+Bugs:
+7:30 (Fixed):  In raretimes there is array out of bounds exception when i barely moved a piece.  Not sure when triggered.
+sometimes a piece falls through. Fixed 7/15  Never mind 7/21. Fixed.
+7:22 (Fixed): starting with i piece, changing direction left/right raises position by 1. Fixed 7/22
+7/28 (Fixed): Checktetris clears more than one line.
+  Clearline() is called multiple times regardless of how many lines have tetris
+  If I press 'f' which is set to call clearline, getes called once per key, which is correct.  The problem is in the flow control
+  calling clearline().  Problem is I called checktetris twice which can set tetris = true
+  Fixed mess that is checkTetris with while loops.  Still doesn't work 100% but mostly works 7/30.
+8/6: Side collision not working rarely.  Arrayoutofbounds rarely.
+8/14: Rotate key sometimes unresponsive
+8/18: Block has black stroke
+9/8: Field blocks disappearing when implemented imaginary field for gap detection (fixed;  copy array is a culprit, don't know why)
