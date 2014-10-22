@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.0">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>140</x>
+      <y>0</y>
+      <w>14</w>
+      <h>14</h>
+    </coordinates>
+    <panel_attributes>type=initial</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>140</x>
+      <y>7</y>
+      <w>21</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>42</x>
+      <y>112</y>
+      <w>217</w>
+      <h>399</h>
+    </coordinates>
+    <panel_attributes>setup( )
+--
+valign=top
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>112</x>
+      <y>133</y>
+      <w>70</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>Create 
+PieceType 
+singleton
+objects</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>91</x>
+      <y>35</y>
+      <w>105</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>Define pieceDesign
+arrays</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>91</x>
+      <y>203</y>
+      <w>91</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>set currentPiece
+to randomPiece()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>140</x>
+      <y>175</y>
+      <w>21</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>175</x>
+      <y>217</y>
+      <w>112</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>140.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>273</x>
+      <y>252</y>
+      <w>217</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>randomPiece( )
+--
+valign=top
+
+group=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>91</x>
+      <y>273</y>
+      <w>91</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>set randomPiece
+to randomPiece()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>140</x>
+      <y>238</y>
+      <w>21</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>175</x>
+      <y>287</y>
+      <w>112</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>140.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>329</x>
+      <y>280</y>
+      <w>91</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Pick random int
+each int returns
+unique PieceType
+group=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>91</x>
+      <y>343</y>
+      <w>91</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>Make empty field
+--
+field[i][j] = 0
+for all i, j</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>140</x>
+      <y>308</y>
+      <w>21</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>56</x>
+      <y>413</y>
+      <w>182</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Create objects-&gt;a
+--
+create Computer computer
+create Score score
+load font
+create NextPieceDisp nextPieceDisp
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>140</x>
+      <y>378</y>
+      <w>21</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>42</x>
+      <y>525</y>
+      <w>217</w>
+      <h>399</h>
+    </coordinates>
+    <panel_attributes>draw( )
+--
+valign=top
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>91</x>
+      <y>553</y>
+      <w>112</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>update currentPiece</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>280</x>
+      <y>413</y>
+      <w>119</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>Computer:computer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>280</x>
+      <y>448</y>
+      <w>119</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>Score:score</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>287</x>
+      <y>126</y>
+      <w>98</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>PieceType: L_piece</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>287</x>
+      <y>154</y>
+      <w>98</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>PieceType: S_piece</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>287</x>
+      <y>182</y>
+      <w>98</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>PieceType: I_piece</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>392</x>
+      <y>126</y>
+      <w>98</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>PieceType: J_piece</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>392</x>
+      <y>154</y>
+      <w>98</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>PieceType: Z_piece</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>392</x>
+      <y>182</y>
+      <w>126</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>PieceType: square_piece</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>336</x>
+      <y>210</y>
+      <w>126</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>PieceType: T_piece</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>273</x>
+      <y>105</y>
+      <w>252</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>PieceType Objects
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>175</x>
+      <y>147</y>
+      <w>112</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>140.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>518</x>
+      <y>161</y>
+      <w>105</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=..
+PieceType class
+Representative</panel_attributes>
+    <additional_attributes>130.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>609</x>
+      <y>105</y>
+      <w>154</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>randomPiece( )
+--
+valign=top
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>91</x>
+      <y>609</y>
+      <w>112</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>update computer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>91</x>
+      <y>665</y>
+      <w>112</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>update score</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>91</x>
+      <y>721</y>
+      <w>112</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>update nextPieceDisp</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>91</x>
+      <y>777</y>
+      <w>112</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>tempPiece</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>280</x>
+      <y>483</y>
+      <w>147</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>NextPieceDisp:nextPieceDisp</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

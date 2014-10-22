@@ -1,0 +1,11 @@
+block 1
+left check (if checkleft == true)
+	if check succeeds, return false, don't do left check (checkleft == false)
+	else returns true
+down check
+	if check succeed, return false, don't do down check
+	else returns true
+
+block 2
+left check. Not done 
+down check
