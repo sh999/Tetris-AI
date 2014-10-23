@@ -138,8 +138,8 @@ void draw() {
 
   computer.getMove(currentPiece, field);
   score.display();
-  nextPieceDisp.display(nextPiece);
-  tempPiece.staticDraw2();
+//  nextPieceDisp.display(nextPiece);
+//  tempPiece.staticDraw2();
 }
 
 void keyPressed() {
