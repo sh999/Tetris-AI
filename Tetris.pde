@@ -21,7 +21,6 @@ int rotation_status = 1; //Default rotation status (upright piece)
 //Piecedesign defines the array info for each piece type
 
 Computer computer;
-Score score;
 PFont font;
 
 int[][] L_pieceDesign = new int[][]{ {0,0,0,0,0},
@@ -92,7 +91,6 @@ void setup() {
   //**********FIELD
 
   computer = new Computer(a, b);
-  score = new Score();
   font = loadFont("Arial-Black-48.vlw");
   textFont(font, 10);
 }
@@ -130,27 +128,8 @@ PieceType randomPiece2() {
 void draw() {
   currentPiece.runPiece(); 
   computer.getMove(currentPiece, field);
-  score.display();
 }
 
 void keyPressed() {
   currentPiece.userInput();
 }
-
-/*
-To load SVGs
- Class myClass;
- void setup(){
- myClass = Class(SVGURL)
- myClass.drawmethod();
- }
- Class{
- PShape mySVG;
- String SVGURL;
- Class(String SVGURL){
- SVGURL = SVGURL_;
- }
- drawmethod{
- mySVG = loadShape(SVGURL);
- }
- }*/

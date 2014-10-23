@@ -89,7 +89,6 @@ class PieceType {
       if (stopPieceFromMoving == true){
         make_piece_permanent(); //I-Piece will stop and change field permanently; allows for proper coloring of fallen blocks 
         checkTetris(); //I- Sets lineStatus to complete where there should be tetris
-        score.update(linesToClear);  // Updates score, sends line # so that level up possible
         multiClear(); //I- Calls processField which actually does the line crlearing
       } 
       if (canGoDown == false) {  
@@ -103,7 +102,6 @@ class PieceType {
     }
     if(gameStatus == GAMEOVER){
       if(canSetHighScore == true){ 
-        score.checkHighScore();
         canSetHighScore = false;
       }
     }
