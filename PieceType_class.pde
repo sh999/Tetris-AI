@@ -339,7 +339,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
       }  
     }
 //    printArr(field);  
-  }  
+  } //End drawField()  
   
   void dropSlowly(){
     //Drop piece slowly  
