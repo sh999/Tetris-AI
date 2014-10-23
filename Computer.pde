@@ -37,7 +37,6 @@ class Computer {
   } 
   
   void imaginaryDrop(PieceType piece, int[][] field){
-//    System.arraycopy(field, 0, imaginaryField, 0, 29);
     for(int i = 0; i < a; i++){
       for(int j = 0; j < b; j++){
         imaginaryField[i][j] = field[i][j];

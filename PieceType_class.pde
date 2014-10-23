@@ -111,8 +111,6 @@ class PieceType {
   
   void initialize(){ 
     nonEmptySpace = loadShape(svgFileURL);
-//    emptySpace = loadShape("blank.svg");
-//    stroke(255);
   }// End initialize()
   
   // Clears space where piece is moving but leaves filled field intact
@@ -333,12 +331,10 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
         else if(field[i][j] == FILLED_PERM){ //empty field
           shape(fieldColor[i][j], x, y, blockSize, blockSize);
         }
-//       stroke(232,32,32);
        noFill();
         rect(x, y, blockSize, blockSize); 
       }  
     }
-//    printArr(field);  
   } //End drawField()  
   
   void dropSlowly(){
@@ -416,7 +412,6 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
     default:
       if(key == 'v'){
           instantDrop();
-          
       }
       else if(key == 'q'){
         dropSpeed = 5;
@@ -425,7 +420,6 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
         multiClear();
       }
       break;
-        
     }//switch
   }//end userInput
   
@@ -449,9 +443,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
     pieceRotate("clockwise");
   }
   
-  
   void pieceRotate(String direction){
-    
     int phantom_rotation_status = rotation_status;
     int[][] phantom_pieceDesign = pieceDesign;
     boolean canRotate = true;
@@ -502,8 +494,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
             droppable = false;  
           }
           if(droppable == false){
-            originY = i+phantomOriginY-5;  //-5 is because iteration goes up to i = 5 (pieceHeight), so have to normalize back up
-            
+            originY = i+phantomOriginY-5;  //-5 is because iteration goes up to i = 5 (pieceHeight), so have to normalize back up  
           }
         }
       }
@@ -511,7 +502,6 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   } // End instantDrop() 
   
   void getComputerResponse(Computer _computer){
-//    _computer.respond(pieceDesign, field);
   }
   
   

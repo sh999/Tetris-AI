@@ -24,9 +24,6 @@ int rotation_status = 1; //Default rotation status (upright piece)
 
 Computer computer;
 Score score;
-
-NextPieceDisp nextPieceDisp;
-
 PFont font;
 
 int[][] L_pieceDesign = new int[][]{ {0,0,0,0,0},
@@ -100,7 +97,6 @@ void setup() {
   score = new Score();
   font = loadFont("Arial-Black-48.vlw");
   textFont(font, 10);
-  nextPieceDisp = new NextPieceDisp();
 }
 
 void setToNextPiece() {
@@ -138,8 +134,6 @@ void draw() {
 
   computer.getMove(currentPiece, field);
   score.display();
-//  nextPieceDisp.display(nextPiece);
-//  tempPiece.staticDraw2();
 }
 
 void keyPressed() {

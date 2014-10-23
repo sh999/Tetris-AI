@@ -30,11 +30,6 @@ Building from simple case to complex:
 }
 
 int lowestRow(PieceType piece){
-  /*for(int i = 0; i < piece.pieceHeight; i++){
-    for(int j = 0; j < piece.pieceWidth; j++){
-      print(piece.pieceDesign[i][j]);
-    }println();
-  }*/
   boolean pointFound = false;
   int lowestRow = 0;
   int i = piece.pieceHeight-1; 
@@ -55,9 +50,6 @@ int leftmostColumn(PieceType piece){
   int leftmostColumn = 0;
   int col = 0;
   do{
-    
-//  for(int col = 0; col < piece.pieceWidth; j++){
-    
     for(int row = 0; row < piece.pieceHeight; row++){
       println("checking row "+row+" and column "+col);
       if(piece.pieceDesign[row][col] == 1){
