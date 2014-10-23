@@ -138,7 +138,6 @@ class Computer {
         else if(piece.pieceDesign[i][j] == 0){
           //do nothing
         } 
-          
       }
     }
     for(int i = 0; i < a; i++){

@@ -131,7 +131,6 @@ PieceType randomPiece2() {
 
 void draw() {
   currentPiece.runPiece(); 
-
   computer.getMove(currentPiece, field);
   score.display();
 }
