@@ -1,6 +1,4 @@
-/*Tetris 
- 
- */
+// Tetris.pde
 
 //**********FIELD
 import java.util.Arrays;
