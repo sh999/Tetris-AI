@@ -314,6 +314,8 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   
   //Draw Field- Based on the value of the field element, draw a block (empty space, space occupied by piece have diff. colors
     void drawField(){
+      
+      stroke(0);
     for(int i = 4; i < a; i++){
       for(int j = 0; j < b; j++){
         x = j*gridSize+width/2-(gridSize*b/2); //x and y are grid locations
@@ -333,6 +335,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
         rect(x, y, blockSize, blockSize); 
       }  
     }
+    
   } //End drawField()  
   
   void dropSlowly(){

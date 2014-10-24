@@ -7,6 +7,7 @@ class Computer {
   int[][] imaginaryField;
   int dropPos = 5; // row where the lowest part of piece is when it is dropped
   int gapScore;
+  PossibleMoves move1;
 
   Computer(int a, int b){
     this.a = a; //Field dimensions
@@ -14,16 +15,18 @@ class Computer {
     imaginaryField = new int[a][b];
     clock = 0; //How fast computer moves piece
     movement = "";
+    move1 = new PossibleMoves();
   }
 
-  void getMove(PieceType piece, int[][] field){
-    calcMove(piece, field);
+  void run(PieceType piece, int[][] field){ // Called from main's draw().  Will include calculation, then perform move functions
+    calcMove(piece, field); // Strictly calculation
     // Implement doMove()
+    move1.draw();
     
   }
   
   void calcMove(PieceType piece, int[][] field){
-    imaginaryDrop(piece, field); // Should return imaginary field
+    imaginaryDrop(piece, field); // Returns imaginary field
 //    gapScore = getGapScore(piece, dropPos, field);
 //    printArr(imaginaryField);
 
@@ -37,7 +40,7 @@ class Computer {
   } 
   
   void imaginaryDrop(PieceType piece, int[][] field){
-    for(int i = 0; i < a; i++){
+    for(int i = 0; i < a; i++){ // imaginaryField is the field that AI works with.  Initially, its values are copied from field
       for(int j = 0; j < b; j++){
         imaginaryField[i][j] = field[i][j];
       }
@@ -53,7 +56,6 @@ class Computer {
       phantomOriginY = phantomOriginY + 1; 
       for(int i = 0; i < piece.pieceHeight; i++){
         for(int j = 0; j < piece.pieceWidth; j++){
-          
           if(piece.pieceDesign[i][j] == 1 && i+phantomOriginY > a-1){ //prevents going out of bounds down
             droppable = false;
             dropPos = i+phantomOriginY;
@@ -61,11 +63,9 @@ class Computer {
           else if(piece.pieceDesign[i][j] == 1 && field[i+phantomOriginY][j+phantomOriginX] == FILLED_PERM){  //Drops piece on top of existing ones
             droppable = false;  
             dropPos = i+phantomOriginY;
-            
           }
           if(droppable == false){
               predictedOriginY = i + phantomOriginY - 5; //For loop doesn't break but checks to last row even after finding a piece before that can collide
-
           }
         }
       }//End fors
@@ -125,7 +125,7 @@ class Computer {
   }*/
 
   
-  int[][] stampPiece(PieceType piece, int x, int y, int[][] ifield){ //Sets imaginary field to where the piece should land
+  int[][] stampPiece(PieceType piece, int x, int y, int[][] ifield){ //Called by imaginaryDrop. Sets imaginary field to where the piece should land
     boolean gapPresent = false;
     for(int i = 0; i < piece.pieceHeight; i++){
       for(int j = 0; j < piece.pieceWidth; j++){
@@ -147,7 +147,7 @@ class Computer {
         }
       }
     }
-    if(gapPresent  == true) {print("There's a gap");}
+    if(gapPresent  == true) {println("There's a gap");}
     
     printArr(ifield);
     return ifield;

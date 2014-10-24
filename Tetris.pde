@@ -119,7 +119,7 @@ PieceType randomPiece() {
 
 void draw() {
   currentPiece.runPiece(); 
-  computer.getMove(currentPiece, field);
+  computer.run(currentPiece, field);
 }
 
 void keyPressed() {
