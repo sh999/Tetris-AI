@@ -63,6 +63,7 @@ void setup() {
   smooth(); 
   size(800, 600);
   ellipseMode(CENTER);
+  
   L_piece = new PieceType("L block", L_pieceDesign, "Lblock.svg");  //The svg file has information for color of block.  Edit svg's in illustrator
   J_piece = new PieceType("J block", J_pieceDesign, "Jblock.svg");
   Z_piece = new PieceType("Z block", Z_pieceDesign, "Zblock.svg");
@@ -71,15 +72,11 @@ void setup() {
   square_piece = new PieceType("square block", square_pieceDesign, "squareblock.svg");
   I_piece = new PieceType("I block", I_pieceDesign, "Iblock.svg");
 
-
-  //  tempPiece  = randomPiece2(); 
   tempPiece = new PieceType("S block", S_pieceDesign, "Sblock.svg");
-
   currentPiece = randomPiece();
   nextPiece = randomPiece();
   backgroundDesign = loadShape("Gamebackgroundv1.svg");
   shape(backgroundDesign);
-
   int x = 1;
 
   //Initialize field with emptiness
@@ -118,11 +115,6 @@ PieceType randomPiece() {
     return J_piece;
   }
   return I_piece; // dummy return
-}
-
-PieceType randomPiece2() {
-  PieceType p = new PieceType("S block", S_pieceDesign, "Sblock.svg");
-  return p;
 }
 
 void draw() {

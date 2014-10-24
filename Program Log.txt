@@ -64,7 +64,7 @@ it.
 9/8: Working on stampPiece to create spots where gaps should be checked, clearing bug field needs to be fixed.
 
 10/12: Working on using tempPiece to solve nextPiece rotation issue, with randomPiece2() to choose random piece instead of randomPiece1()
-
+10/24: ls
 
 
 To implement:
