@@ -65,6 +65,7 @@ it.
 
 10/12: Working on using tempPiece to solve nextPiece rotation issue, with randomPiece2() to choose random piece instead of randomPiece1()
 10/24: Working on debugging side screen, where possible moves are shown in small view on the side
+  10/28: For now, implement one box showing drop position
 
 
 

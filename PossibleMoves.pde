@@ -2,14 +2,14 @@
 In each iteration, computer will calculate score at 
 every possible (reasonable) move
 */
-class PossibleMoves {
+class PossibleMoves { //Objects declared in Computer computer.  Draws mini grid of where the move will be, with info sent 
   int originX, originY;
   int rotationStatus;
   int gridSize;
   int[][] field;
   int[][] piece;
   
-  PossibleMoves(){
+  PossibleMoves(){ // Coordinate of mini box
     originX = 30;
     originY = 40;
     gridSize = 7;
