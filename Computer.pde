@@ -7,7 +7,7 @@ class Computer {
   int[][] imaginaryField;
   int dropPos = 5; // row where the lowest part of piece is when it is dropped
   int gapScore;
-  PossibleMoves move1;
+  PossibleMove move1;
 
   Computer(int a, int b){
     this.a = a; //Field dimensions
@@ -15,7 +15,7 @@ class Computer {
     imaginaryField = new int[a][b];
     clock = 0; //How fast computer moves piece
     movement = "";
-    move1 = new PossibleMoves();
+    move1 = new PossibleMove();
   }
 
   void run(PieceType piece, int[][] field){ // Called from main's draw().  Will include calculation, then perform move functions
@@ -72,6 +72,7 @@ class Computer {
     }//End while
     
     imaginaryField = stampPiece(piece, phantomOriginX, predictedOriginY, imaginaryField);
+    setPossibleMove(imaginaryField);
     
   } //End calcMove()
   
@@ -197,5 +198,8 @@ class Computer {
     clock = clock + 1;
   }// End randMovtSend()
   
+  void setPossibleMove(int[][] field){
+    move1.stamp(field);    
+  }
   
 }
