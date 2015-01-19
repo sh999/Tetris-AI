@@ -72,7 +72,7 @@ class Computer {
     }//End while
     
     imaginaryField = stampPiece(piece, phantomOriginX, predictedOriginY, imaginaryField);
-    setPossibleMove(imaginaryField);
+//    setPossibleMove(imaginaryField);
     
   } //End calcMove()
   
@@ -197,9 +197,9 @@ class Computer {
     }
     clock = clock + 1;
   }// End randMovtSend()
-  
+  /*
   void setPossibleMove(int[][] field){
     move1.stamp(field);    
-  }
+  }*/
   
 }

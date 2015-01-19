@@ -87,7 +87,7 @@ void setup() {
   }
   //**********FIELD
 
-  computer = new Computer(a, b);
+//  computer = new Computer(a, b);
   font = loadFont("Arial-Black-48.vlw");
   textFont(font, 10);
 }
@@ -119,7 +119,7 @@ PieceType randomPiece() {
 
 void draw() {
   currentPiece.runPiece(); 
-  computer.run(currentPiece, field);
+//  computer.run(currentPiece, field);
 }
 
 void keyPressed() {
