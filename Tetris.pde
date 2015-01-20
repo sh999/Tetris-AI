@@ -22,6 +22,7 @@ int rotation_status = 1; //Default rotation status (upright piece)
 //Piecedesign defines the array info for each piece type
 
 Status gameStatus = Status.MAINMENU;
+MainMenu mainMenu = new MainMenu();
 
 Computer computer;
 PFont font;
@@ -122,14 +123,20 @@ PieceType randomPiece() {
 
 void draw() {
   if(gameStatus == Status.MAINMENU){
-    drawMenu();
+    mainMenu.drawMenu();
+//    drawMenu();
   }
   else if (gameStatus == Status.PLAYGAME) {currentPiece.runPiece();} 
 //  computer.run(currentPiece, field);
 }
 
 void keyPressed() {
-  currentPiece.userInput();
+  if(gameStatus == Status.MAINMENU){
+    mainMenu.keyboardResponse();
+  }
+  else if (gameStatus == Status.PLAYGAME){
+    currentPiece.userInput();
+  }
 }
 
 void drawMenu(){
