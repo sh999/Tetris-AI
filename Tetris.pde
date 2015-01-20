@@ -13,12 +13,15 @@ PShape[][] fieldColor = new PShape[a][b];
 //**********FIELD
 PShape backgroundDesign;
 int dropSpeed = 30;
+
 //Piecetype defines the Illustrator svg files for each piece. 
 //Each svg file holds a different collor, corresponding to each piece
 PieceType L_piece, J_piece, Z_piece, S_piece, T_piece, square_piece, I_piece, currentPiece, nextPiece, tempPiece;
 
 int rotation_status = 1; //Default rotation status (upright piece)
 //Piecedesign defines the array info for each piece type
+
+Status gameStatus = Status.MAINMENU;
 
 Computer computer;
 PFont font;
@@ -63,7 +66,7 @@ void setup() {
   smooth(); 
   size(800, 600);
   ellipseMode(CENTER);
-  
+  rectMode(CENTER);
   L_piece = new PieceType("L block", L_pieceDesign, "Lblock.svg");  //The svg file has information for color of block.  Edit svg's in illustrator
   J_piece = new PieceType("J block", J_pieceDesign, "Jblock.svg");
   Z_piece = new PieceType("Z block", Z_pieceDesign, "Zblock.svg");
@@ -118,10 +121,25 @@ PieceType randomPiece() {
 }
 
 void draw() {
-  currentPiece.runPiece(); 
+  if(gameStatus == Status.MAINMENU){
+    drawMenu();
+  }
+  else if (gameStatus == Status.PLAYGAME) {currentPiece.runPiece();} 
 //  computer.run(currentPiece, field);
 }
 
 void keyPressed() {
   currentPiece.userInput();
+}
+
+void drawMenu(){
+  noStroke();
+  fill(255);
+  rect(width/2, height/2, 230, 200);
+  fill(0);
+  textFont(font, 30);
+  text("Start", width/2-80, height/2-50);
+  text("Help", width/2-80, height/2-10);
+  text("About", width/2-80, height/2+30);  
+  text("Quit", width/2-80, height/2+70);
 }
