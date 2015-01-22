@@ -1,6 +1,7 @@
 color startColor, helpColor, aboutColor, quitColor;
 String selectedOption;
 int selectedOptionID;
+Status currentStatus;
 class MainMenu{
   MainMenu(){
     startColor = color(255,0,0);
@@ -9,6 +10,7 @@ class MainMenu{
     quitColor = color(0);
     selectedOption = "Start";
     selectedOptionID = 0;
+    currentStatus = Status.MAINMENU;
   }
   
   void drawMenu(){
@@ -37,6 +39,13 @@ class MainMenu{
         selectedOptionID = selectedOptionID + 1;
         if(selectedOptionID == 4){ selectedOptionID = 0; }
         break;
+      case ENTER:
+        
+        if (selectedOptionID == 0){
+          print("play");
+          currentStatus = Status.PLAYGAME; 
+        }
+        break;
     }
     startColor = color(0,0,0);
     helpColor = color(0);
@@ -61,4 +70,10 @@ class MainMenu{
         break;   
     }
   }
+  
+  Status getStatus(){
+    return currentStatus;
+  }
+  
+  
 }

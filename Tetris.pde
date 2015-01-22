@@ -124,10 +124,14 @@ PieceType randomPiece() {
 void draw() {
   if(gameStatus == Status.MAINMENU){
     mainMenu.drawMenu();
+    gameStatus = mainMenu.getStatus();
 //    drawMenu();
   }
-  else if (gameStatus == Status.PLAYGAME) {currentPiece.runPiece();} 
+  else if (gameStatus == Status.PLAYGAME) {
+    currentPiece.runPiece();
+  } 
 //  computer.run(currentPiece, field);
+
 }
 
 void keyPressed() {
@@ -135,6 +139,7 @@ void keyPressed() {
     mainMenu.keyboardResponse();
   }
   else if (gameStatus == Status.PLAYGAME){
+      
     currentPiece.userInput();
   }
 }
