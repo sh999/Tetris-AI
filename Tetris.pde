@@ -122,10 +122,11 @@ PieceType randomPiece() {
 }
 
 void draw() {
+  
   if(gameStatus == Status.MAINMENU){
-    mainMenu.drawMenu();
     gameStatus = mainMenu.getStatus();
-//    drawMenu();
+
+    mainMenu.drawMenu();
   }
   else if (gameStatus == Status.PLAYGAME) {
     currentPiece.runPiece();

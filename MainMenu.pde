@@ -14,19 +14,22 @@ class MainMenu{
   }
   
   void drawMenu(){
-    noStroke();
-    fill(255);
-    rect(width/2, height/2, 230, 200);
-    fill(0);
-    textFont(font, 30);
-    fill(startColor);
-    text("Start", width/2-80, height/2-50);
-    fill(helpColor);
-    text("Help", width/2-80, height/2-10);
-    fill(aboutColor);
-    text("About", width/2-80, height/2+30);
-    fill(quitColor);  
-    text("Quit", width/2-80, height/2+70);
+    if (gameStatus == Status.MAINMENU){
+      noStroke();
+      fill(255);
+      rect(width/2, height/2, 230, 200);
+      fill(0);
+      textFont(font, 30);
+      fill(startColor);
+      text("Start", width/2-80, height/2-50);
+      fill(helpColor);
+      text("Help", width/2-80, height/2-10);
+      fill(aboutColor);
+      text("About", width/2-80, height/2+30);
+      fill(quitColor);  
+      text("Quit", width/2-80, height/2+70);
+      print(gameStatus);
+    }
   }
   
   void keyboardResponse(){
@@ -40,9 +43,8 @@ class MainMenu{
         if(selectedOptionID == 4){ selectedOptionID = 0; }
         break;
       case ENTER:
-        
         if (selectedOptionID == 0){
-          print("play");
+          shape(backgroundDesign); 
           currentStatus = Status.PLAYGAME; 
         }
         break;

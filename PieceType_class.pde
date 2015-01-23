@@ -332,6 +332,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
           shape(fieldColor[i][j], x, y, blockSize, blockSize);
         }
        noFill();
+       rectMode(CORNER);
         rect(x, y, blockSize, blockSize); 
       }  
     }
