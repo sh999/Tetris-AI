@@ -23,6 +23,8 @@ int rotation_status = 1; //Default rotation status (upright piece)
 
 Status gameStatus = Status.MAINMENU;
 MainMenu mainMenu = new MainMenu();
+ScoreKeeper scoreKeeper;
+String[] scores; 
 
 Computer computer;
 PFont font;
@@ -68,6 +70,8 @@ void setup() {
   size(800, 600);
   ellipseMode(CENTER);
   rectMode(CENTER);
+  scores = loadStrings("scores.txt");
+  scoreKeeper = new ScoreKeeper(scores);
   L_piece = new PieceType("L block", L_pieceDesign, "Lblock.svg");  //The svg file has information for color of block.  Edit svg's in illustrator
   J_piece = new PieceType("J block", J_pieceDesign, "Jblock.svg");
   Z_piece = new PieceType("Z block", Z_pieceDesign, "Zblock.svg");
@@ -82,6 +86,7 @@ void setup() {
   backgroundDesign = loadShape("Gamebackgroundv1.svg");
   shape(backgroundDesign);
   int x = 1;
+  
 
   //Initialize field with emptiness
   for (int i = 0; i < a; i++) {
@@ -122,15 +127,18 @@ PieceType randomPiece() {
 }
 
 void draw() {
-  
+  gameStatus = mainMenu.getStatus();
+  gameStatus = Status.PLAYGAME; // Comment out to start from menu
   if(gameStatus == Status.MAINMENU){
-    gameStatus = mainMenu.getStatus();
-
     mainMenu.drawMenu();
   }
-  else if (gameStatus == Status.PLAYGAME) {
+  else if (gameStatus == Status.PLAYGAME){
     currentPiece.runPiece();
   } 
+  else if (gameStatus == Status.ABOUT){
+    mainMenu.drawAbout();
+  }
+  scoreKeeper.displayScore();
 //  computer.run(currentPiece, field);
 
 }
@@ -140,8 +148,11 @@ void keyPressed() {
     mainMenu.keyboardResponse();
   }
   else if (gameStatus == Status.PLAYGAME){
-      
     currentPiece.userInput();
+    
+  }
+  else if (gameStatus == Status.ABOUT){
+    
   }
 }
 

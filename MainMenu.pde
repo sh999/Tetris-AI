@@ -27,8 +27,8 @@ class MainMenu{
       fill(aboutColor);
       text("About", width/2-80, height/2+30);
       fill(quitColor);  
-      text("Quit", width/2-80, height/2+70);
-      print(gameStatus);
+      text("High Score", width/2-80, height/2+70);
+
     }
   }
   
@@ -47,6 +47,12 @@ class MainMenu{
           shape(backgroundDesign); 
           currentStatus = Status.PLAYGAME; 
         }
+        else if(selectedOptionID == 2){
+          shape(backgroundDesign); 
+          currentStatus = Status.ABOUT;
+          print("ha");
+        }
+          
         break;
     }
     startColor = color(0,0,0);
@@ -77,5 +83,15 @@ class MainMenu{
     return currentStatus;
   }
   
-  
+  void drawAbout(){
+    noStroke();
+    fill(255);
+    rect(width/2, height/2, 230, 200);
+    fill(0);
+    textFont(font, 30);
+    text("Made by", width/2-80, height/2-50);
+    text("Satrio", width/2-50, height/2-10);
+    fill(255, 0, 0);
+    text("Back", width/2-80, height/2+50);      
+  }
 }

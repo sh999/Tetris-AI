@@ -1,3 +1,3 @@
 enum Status{
-  MAINMENU, PLAYGAME
+  MAINMENU, PLAYGAME, ABOUT
 };
