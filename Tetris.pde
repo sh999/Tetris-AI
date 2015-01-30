@@ -128,7 +128,7 @@ PieceType randomPiece() {
 
 void draw() {
   gameStatus = mainMenu.getStatus();
-  gameStatus = Status.PLAYGAME; // Comment out to start from menu
+//  gameStatus = Status.PLAYGAME; // Comment out to start from menu
   if(gameStatus == Status.MAINMENU){
     mainMenu.drawMenu();
   }

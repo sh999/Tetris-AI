@@ -1,15 +1,21 @@
 class ScoreKeeper{
   int highScore;
-  String[] scores;
+  String[] scoreList;
+  int currentScore;
   ScoreKeeper(String[] scores){
-    this.scores = scores;
-    
+    this.scoreList = scoreList;
+    currentScore = 0;
   }
   void displayScore(){
-    print(scores);
-//    char[] c = "hey".toCharArray();
     fill(0);
-    text(scores[0],500,100);
-//text("c",20,20);
+    rectMode(CORNER);
+    rect(550,70,200,100);
+    fill(255);
+    text(currentScore, 630,100);
+    
+  }
+  
+  void updateScore(int pts){
+    currentScore += pts;
   }
 }

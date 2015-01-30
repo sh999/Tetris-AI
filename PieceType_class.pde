@@ -38,6 +38,8 @@ class PieceType {
   boolean colorFallenPieces = false;
   PShape Iblock, squareblock, Tblock, Sblock, Zblock, Lblock, Jblock, thisBlock;
   
+  int slowDropPoints;
+  
   int gameStatus;
   int PLAYING = 1;
   int GAMEOVER = 0;
@@ -51,6 +53,8 @@ class PieceType {
     pieceHeight = pieceDesign.length;
     pieceWidth = pieceDesign[0].length;
     temporaryPieceDesign = pieceDesign;
+    slowDropPoints = 30;
+    
     
     for(int i = 0; i < a; i++){
       for(int j = 0; j < b; j++){
@@ -89,6 +93,12 @@ class PieceType {
       if (stopPieceFromMoving == true){
         make_piece_permanent(); //I-Piece will stop and change field permanently; allows for proper coloring of fallen blocks 
         checkTetris(); //I- Sets lineStatus to complete where there should be tetris
+        if(linesToClear > 0){
+          updateScore((linesToClear+1)*slowDropPoints);
+        }
+        else{  
+          updateScore(slowDropPoints);
+        }
         multiClear(); //I- Calls processField which actually does the line crlearing
       } 
       if (canGoDown == false) {  
@@ -265,7 +275,7 @@ class PieceType {
           col = col + 1;  
         }while(continueCheckingRight);
     }
-        
+    print("lines to clear = "+linesToClear);
   }//end checkTetris()
 
 void multiClear(){ //Testing if multiple tetris works
@@ -546,6 +556,10 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
       }
     }
     }//End staticDraw
+  
+  void updateScore(int points){
+    scoreKeeper.updateScore(points);
+  }
   
   
   int[][] updateArray(int rotation_status) { //Has information for piece rotation

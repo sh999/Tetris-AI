@@ -67,6 +67,9 @@ it.
 10/24: Working on debugging side screen, where possible moves are shown in small view on the side
   10/28: For now, implement one box showing drop position
 
+1/29: Implement scoring
+
+
 
 
 To implement:

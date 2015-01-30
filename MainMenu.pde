@@ -14,6 +14,7 @@ class MainMenu{
   }
   
   void drawMenu(){
+    rectMode(CENTER);
     if (gameStatus == Status.MAINMENU){
       noStroke();
       fill(255);
