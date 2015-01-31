@@ -70,8 +70,8 @@ void setup() {
   size(800, 600);
   ellipseMode(CENTER);
   rectMode(CENTER);
-  scores = loadStrings("scores.txt");
-  scoreKeeper = new ScoreKeeper(scores);
+  
+  scoreKeeper = new ScoreKeeper();
   L_piece = new PieceType("L block", L_pieceDesign, "Lblock.svg");  //The svg file has information for color of block.  Edit svg's in illustrator
   J_piece = new PieceType("J block", J_pieceDesign, "Jblock.svg");
   Z_piece = new PieceType("Z block", Z_pieceDesign, "Zblock.svg");

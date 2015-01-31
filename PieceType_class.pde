@@ -96,7 +96,7 @@ class PieceType {
         if(linesToClear > 0){
           updateScore((linesToClear+1)*slowDropPoints);
         }
-        else{  
+        else{
           updateScore(slowDropPoints);
         }
         multiClear(); //I- Calls processField which actually does the line crlearing
@@ -275,7 +275,6 @@ class PieceType {
           col = col + 1;  
         }while(continueCheckingRight);
     }
-    print("lines to clear = "+linesToClear);
   }//end checkTetris()
 
 void multiClear(){ //Testing if multiple tetris works
