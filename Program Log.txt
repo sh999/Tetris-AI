@@ -68,7 +68,7 @@ it.
   10/28: For now, implement one box showing drop position
 
 1/29: Implement scoring. 
-  1/29:  Done basic one.  Implement high score save mechanism
+  1/29:  Done basic one.  Implement high score save mechanism 
 
 
 

@@ -111,9 +111,11 @@ class PieceType {
           dropSlowly(); // Slow drop depends on clock and dropSpeed (set by level)
     }
     if(gameStatus == GAMEOVER){
+      checkHighScore();
+      /*
       if(canSetHighScore == true){ 
         canSetHighScore = false;
-      }
+      }*/
     }
   }// End voidDisplay()
   
@@ -560,6 +562,9 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
     scoreKeeper.updateScore(points);
   }
   
+  void checkHighScore(){
+    scoreKeeper.checkHighScore();
+  }
   
   int[][] updateArray(int rotation_status) { //Has information for piece rotation
     int[][] newArray = new int[5][5];
