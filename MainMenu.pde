@@ -24,12 +24,11 @@ class MainMenu{
       fill(startColor);
       text("Start", width/2-80, height/2-50);
       fill(helpColor);
-      text("Help", width/2-80, height/2-10);
+      text("Controls", width/2-80, height/2-10);
       fill(aboutColor);
       text("About", width/2-80, height/2+30);
       fill(quitColor);  
-      text("High Score", width/2-80, height/2+70);
-
+      text("High Scores", width/2-80, height/2+70);
     }
   }
   
@@ -48,12 +47,14 @@ class MainMenu{
           shape(backgroundDesign); 
           currentStatus = Status.PLAYGAME; 
         }
+        else if(selectedOptionID == 1){
+          shape(backgroundDesign); 
+          currentStatus = Status.CONTROLS;
+        }
         else if(selectedOptionID == 2){
           shape(backgroundDesign); 
           currentStatus = Status.ABOUT;
-          print("ha");
         }
-          
         break;
     }
     startColor = color(0,0,0);
@@ -66,7 +67,7 @@ class MainMenu{
         startColor = color(255, 0, 0);
         break;
       case 1:
-        selectedOption = "Help";
+        selectedOption = "Controls";
         helpColor = color(255, 0, 0);
         break;
       case 2:
@@ -74,7 +75,7 @@ class MainMenu{
         aboutColor = color(255, 0, 0);
         break;
       case 3:
-        selectedOption = "Quit";
+        selectedOption = "High Scores";
         quitColor = color(255, 0, 0);
         break;   
     }
@@ -84,7 +85,12 @@ class MainMenu{
     return currentStatus;
   }
   
+  void setStatus(Status status){
+    currentStatus = status;
+  }
+  
   void drawAbout(){
+    rectMode(CENTER);
     noStroke();
     fill(255);
     rect(width/2, height/2, 230, 200);
@@ -93,6 +99,30 @@ class MainMenu{
     text("Made by", width/2-80, height/2-50);
     text("Satrio", width/2-50, height/2-10);
     fill(255, 0, 0);
-    text("Back", width/2-80, height/2+50);      
+    text("Back", width/2-50, height/2+50);      
+  }
+  
+  void drawControls(){
+    rectMode(CENTER);
+    noStroke();
+    fill(255);
+    rect(width/2, height/2, 440, 200);
+    fill(0);
+    textFont(font, 30);
+    text("Movement: Arrow keys", width/2-200, height/2-50);
+    text("Instant drop:  v", width/2-200, height/2-10);
+    text("Pause:  p", width/2-200, height/2+30);
+    fill(255, 0, 0);
+    text("Back", width/2-200, height/2+70);      
+  }
+  
+  void drawPause(){
+    rectMode(CENTER);
+    noStroke();
+    fill(0);
+    rect(width/2, height/2, 200, 50);
+    fill(255);
+    text("Paused", width/2-60, height/2+5);
+    fill(255, 0, 0);
   }
 }

@@ -135,12 +135,21 @@ void draw() {
   else if (gameStatus == Status.PLAYGAME){
     currentPiece.runPiece();
   } 
+  else if (gameStatus == Status.CONTROLS){
+    mainMenu.drawControls();
+  }
   else if (gameStatus == Status.ABOUT){
     mainMenu.drawAbout();
   }
+  else if (gameStatus == Status.PAUSE){
+//    shape(backgroundDesign);
+    mainMenu.drawPause();
+    print ("game status = "+gameStatus);
+  }
+  
   scoreKeeper.displayScore();
 //  computer.run(currentPiece, field);
-
+//  print("game status = "+gameStatus);
 }
 
 void keyPressed() {
@@ -148,11 +157,29 @@ void keyPressed() {
     mainMenu.keyboardResponse();
   }
   else if (gameStatus == Status.PLAYGAME){
+    switch(keyCode){
+      default:
+      if(key == 'p'){
+        println("paused");
+        mainMenu.setStatus(Status.PAUSE);
+      }
+      else{
+        println("no pause");
+      }
+    }
     currentPiece.userInput();
-    
   }
   else if (gameStatus == Status.ABOUT){
-    
+    mainMenu.setStatus(Status.MAINMENU);
+    shape(backgroundDesign);
+  }
+  else if (gameStatus == Status.CONTROLS){
+    mainMenu.setStatus(Status.MAINMENU);
+    shape(backgroundDesign);
+  }
+  else if (gameStatus == Status.PAUSE){
+    mainMenu.setStatus(Status.PLAYGAME);
+    shape(backgroundDesign);
   }
 }
 
