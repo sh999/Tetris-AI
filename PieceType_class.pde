@@ -112,6 +112,7 @@ class PieceType {
     }
     if(gameStatus == GAMEOVER){
       checkHighScore();
+//      endGame();
       /*
       if(canSetHighScore == true){ 
         canSetHighScore = false;
@@ -564,6 +565,10 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   
   void checkHighScore(){
     scoreKeeper.checkHighScore();
+  }
+  
+  void endGame(){
+    changeGameStateToEnd();
   }
   
   int[][] updateArray(int rotation_status) { //Has information for piece rotation

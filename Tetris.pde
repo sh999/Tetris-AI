@@ -70,7 +70,6 @@ void setup() {
   size(800, 600);
   ellipseMode(CENTER);
   rectMode(CENTER);
-  
   scoreKeeper = new ScoreKeeper();
   L_piece = new PieceType("L block", L_pieceDesign, "Lblock.svg");  //The svg file has information for color of block.  Edit svg's in illustrator
   J_piece = new PieceType("J block", J_pieceDesign, "Jblock.svg");
@@ -128,12 +127,12 @@ PieceType randomPiece() {
 
 void draw() {
   gameStatus = mainMenu.getStatus();
-//  gameStatus = Status.PLAYGAME; // Comment out to start from menu
   if(gameStatus == Status.MAINMENU){
     mainMenu.drawMenu();
   }
   else if (gameStatus == Status.PLAYGAME){
     currentPiece.runPiece();
+    scoreKeeper.displayScore();
   } 
   else if (gameStatus == Status.CONTROLS){
     mainMenu.drawControls();
@@ -141,14 +140,22 @@ void draw() {
   else if (gameStatus == Status.ABOUT){
     mainMenu.drawAbout();
   }
+  else if (gameStatus == Status.HIGHSCORE){
+    mainMenu.drawHighScore();
+  }
   else if (gameStatus == Status.PAUSE){
-//    shape(backgroundDesign);
     mainMenu.drawPause();
   }
-  
-  scoreKeeper.displayScore();
+  else if (gameStatus == Status.ENDGAME){
+    mainMenu.gameOver();
+  }
+//  scoreKeeper.displayScore();
 //  computer.run(currentPiece, field);
 //  print("game status = "+gameStatus);
+}
+
+void changeGameStateToEnd(){
+  gameStatus = Status.ENDGAME;
 }
 
 void keyPressed() {
@@ -159,11 +166,7 @@ void keyPressed() {
     switch(keyCode){
       default:
       if(key == 'p'){
-        println("paused");
         mainMenu.setStatus(Status.PAUSE);
-      }
-      else{
-        println("no pause");
       }
     }
     currentPiece.userInput();

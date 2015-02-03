@@ -36,6 +36,5 @@ class ScoreKeeper{
       saveStrings("data/scores.txt", newHighScoreStr);
      
     }
-    else print("no");
   }
 }

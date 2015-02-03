@@ -64,6 +64,10 @@ class MainMenu{
             shape(backgroundDesign); 
             currentStatus = Status.ABOUT;
           }
+          else if(selectedOptionID == 3){
+            shape(backgroundDesign); 
+            currentStatus = Status.HIGHSCORE;
+          }
         }
         else if(currentStatus == Status.PAUSE){
           if (selectedOptionID == 0){
@@ -142,6 +146,12 @@ class MainMenu{
     text("Back", width/2-200, height/2+70);      
   }
   
+  void drawHighScore(){
+    for(int i = 0; i <= 9; i++){
+      println(i);
+    }
+  }
+  
   void drawPause(){
     maxSelectID = 3; // Makes scrolling of highlighted menu item work
     rectMode(CENTER);
@@ -158,5 +168,9 @@ class MainMenu{
     text("Go to title screen", width/2-120, height/2+30);
     fill(quitColor);  
     text("Quit", width/2-120, height/2+70);
+  }
+  
+  void gameOver(){
+  
   }
 }
