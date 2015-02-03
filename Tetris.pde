@@ -144,7 +144,6 @@ void draw() {
   else if (gameStatus == Status.PAUSE){
 //    shape(backgroundDesign);
     mainMenu.drawPause();
-    print ("game status = "+gameStatus);
   }
   
   scoreKeeper.displayScore();
@@ -178,8 +177,14 @@ void keyPressed() {
     shape(backgroundDesign);
   }
   else if (gameStatus == Status.PAUSE){
-    mainMenu.setStatus(Status.PLAYGAME);
-    shape(backgroundDesign);
+    switch(keyCode){
+      default:
+      if(key == 'p'){
+        mainMenu.setStatus(Status.PLAYGAME);
+        shape(backgroundDesign);
+      }
+    }
+    mainMenu.keyboardResponse();
   }
 }
 
