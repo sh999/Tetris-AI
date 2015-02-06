@@ -29,12 +29,33 @@ class ScoreKeeper{
   }
   
   void checkHighScore(){
-    if(currentScore > highScore){
-      print("yea");
-      int newHighScore = currentScore;
-      String[] newHighScoreStr = {str(newHighScore)};
-      saveStrings("data/scores.txt", newHighScoreStr);
-     
+    String[] scoreListStr = loadStrings("data/scores.txt");
+//    int[] scoreList = new int[10];
+    /*for(int i = 0; i < 10; i++){
+      scoreList[i] = int(scoreListStr[i]);
+    }*/
+    int[] scoreList = {1000,90,80,70,60,50,40,30,20,10}; 
+    int[] newList = {0,0,0,0,0,0,0,0,0,0};
+    String[] newListStr = new String[10];
+    boolean scoreInserted = false;
+    for(int i = 0; i < scoreList.length; i++){
+      if(scoreInserted == false){
+        if(currentScore < scoreList[i]){
+          newList[i] = scoreList[i];
+        }
+        else if(currentScore > scoreList[i]){
+          newList[i] = currentScore;
+          scoreInserted = true;
+        }
+      }
+      else if(scoreInserted == true){
+        newList[i] = scoreList[i-1];
+      }
     }
+    for(int i = 0; i < newList.length; i++){
+      newListStr[i] = str(newList[i]);
+      println(newList[i]);
+    }
+    saveStrings("data/scores.txt",newListStr); 
   }
 }
