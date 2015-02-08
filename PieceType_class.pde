@@ -111,7 +111,10 @@ class PieceType {
           dropSlowly(); // Slow drop depends on clock and dropSpeed (set by level)
     }
     if(gameStatus == GAMEOVER){
+      
+      
       checkHighScore();
+      
 //      endGame();
       /*
       if(canSetHighScore == true){ 
