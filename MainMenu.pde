@@ -42,7 +42,7 @@ class MainMenu{
   // Draws each item of a menu
   void drawLineItem(String lineName, int x, int y, int lineNum, int lineSpacing, int lineColor){
     fill(lineColor);
-    y = y + (lineSpacing * lineNum);  // height/2-50 = height/2-50 + (0 * 40)
+    y = y + (lineSpacing * lineNum);  
     text(lineName, x, y);
   }
   
@@ -125,31 +125,37 @@ class MainMenu{
     currentStatus = status;
   }
   
-  void drawAbout(){
+  void drawAbout2(){
     rectMode(CENTER);
     noStroke();
+    int menuX = width/2;
+    int menuY = height/2;
+    int textOffsetX = menuX - 50;
+    int textOffsetY = menuY - 50;
     fill(255);
     rect(width/2, height/2, 230, 200);
     fill(0);
     textFont(font, 30);
-    text("Made by", width/2-80, height/2-50);
-    text("Satrio", width/2-50, height/2-10);
-    fill(255, 0, 0);
-    text("Back", width/2-50, height/2+50);      
+    drawLineItem("Made by", textOffsetX-30, textOffsetY, 0, 40, color(0));
+    drawLineItem("Satrio", textOffsetX, textOffsetY, 1, 40, color(0));
+    drawLineItem("Back", textOffsetX, textOffsetY, 2, 40, color(255,0,0)); 
   }
   
   void drawControls(){
     rectMode(CENTER);
     noStroke();
+    int menuX = width/2;
+    int menuY = height/2;
+    int textOffsetX = menuX - 200;
+    int textOffsetY = menuY - 50;
     fill(255);
     rect(width/2, height/2, 440, 200);
     fill(0);
     textFont(font, 30);
-    text("Movement: Arrow keys", width/2-200, height/2-50);
-    text("Instant drop:  v", width/2-200, height/2-10);
-    text("Pause:  p", width/2-200, height/2+30);
-    fill(255, 0, 0);
-    text("Back", width/2-200, height/2+70);      
+    drawLineItem("Movement: Arrow keys", textOffsetX, textOffsetY, 0, 40, color(0));
+    drawLineItem("Instant drop: v", textOffsetX, textOffsetY, 1, 40, color(0));
+    drawLineItem("Pause: p", textOffsetX, textOffsetY, 2, 40, color(0));
+    drawLineItem("Back", textOffsetX, textOffsetY, 3, 40, color(255,0,0));
   }
   
   void drawHighScore(){
@@ -162,18 +168,17 @@ class MainMenu{
     maxSelectID = 3; // Makes scrolling of highlighted menu item work
     rectMode(CENTER);
     noStroke();
+    int menuX = width/2+20;
+    int menuY = height/2;
+    int textOffsetX = menuX-140;
+    int textOffsetY = menuY-50;
     fill(255);
-    rect(width/2+20, height/2, 330, 200);
-    fill(0);
+    rect(menuX, menuY, 330, 200);
     textFont(font, 30);
-    fill(pausedColor);
-    text("Paused", width/2-50, height/2-50);
-    fill(resumeColor);
-    text("Resume game", width/2-120, height/2-10);
-    fill(goToTitleColor);
-    text("Go to title screen", width/2-120, height/2+30);
-    fill(quitColor);  
-    text("Quit", width/2-120, height/2+70);
+    drawLineItem("Paused", textOffsetX+70, textOffsetY, 0, 40, pausedColor);
+    drawLineItem("Resume Game", textOffsetX, textOffsetY, 1, 40, resumeColor);
+    drawLineItem("Go to title screen", textOffsetX, textOffsetY, 2, 40, goToTitleColor);
+    drawLineItem("Quit", textOffsetX, textOffsetY, 3, 40, quitColor);
   }
   
   void gameOver(){
