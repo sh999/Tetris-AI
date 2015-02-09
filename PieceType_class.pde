@@ -99,7 +99,8 @@ class PieceType {
         else{
           updateScore(slowDropPoints);
         }
-        multiClear(); //I- Calls processField which actually does the line crlearing
+        
+        multiClear(); //I- Calls processField which actually does the line clearing
       } 
       if (canGoDown == false) {  
         if(isGameOver() == true){
@@ -111,10 +112,7 @@ class PieceType {
           dropSlowly(); // Slow drop depends on clock and dropSpeed (set by level)
     }
     if(gameStatus == GAMEOVER){
-      
-      
       checkHighScore();
-      
 //      endGame();
       /*
       if(canSetHighScore == true){ 
@@ -563,6 +561,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
     }//End staticDraw
   
   void updateScore(int points){
+    points = points + int(random(0,20));
     scoreKeeper.updateScore(points);
   }
   

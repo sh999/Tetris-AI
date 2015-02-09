@@ -3,6 +3,11 @@ class ScoreKeeper{
   int currentScore;
   String[] newHS;
   boolean highScoreChecked;
+  
+  String[] scoreListStr, newListStr;
+  int[] scoreList, newList;
+  boolean scoreInserted;
+  
   ScoreKeeper(){
     scores = loadStrings("scores.txt");
     currentScore = 0;
@@ -18,12 +23,9 @@ class ScoreKeeper{
     fill(255);
     text("Score", 550, 70);
     text(currentScore, 550, 100);
-//    String[] textScore = {str(currentScore)};
     text("High Score", 550, 130);
     text(highScore, 550, 160);
-//    print(textScore);
     println();
-//    saveStrings("scores.txt", textScore);
   }
   
   void updateScore(int pts){
@@ -31,60 +33,53 @@ class ScoreKeeper{
   }
   
   void checkHighScore(){
-    loadScoreTable();
-    insertNewScore();
-    saveScoreTable();
-    
-    println("high score checked");
-    println("running func");
-    println("highScoreChecked is = "+highScoreChecked);
-    
-    
-    
+//    println("high score checked");
+//    println("running func");
+//    println("highScoreChecked is = "+highScoreChecked);
     if(highScoreChecked == false){
-      /*
-      Load high score file, convert to list of ints
-      Iterate through list of ints, insert score if criteria are met
-      Convert list of ints to list of strings, save to file
-      */
-      load
-      String[] scoreListStr = loadStrings("data/scores.txt");
-      int[] scoreList = new int[10];
-      for(int i = 0; i < 10; i++){
-        scoreList[i] = int(scoreListStr[i]);
-      }
-  //    int[] scoreList = {1000,90,80,70,60,50,40,30,20,10}; 
-      int[] newList = {0,0,0,0,0,0,0,0,0,0};
-      String[] newListStr = new String[10];
-      boolean scoreInserted = false;
-      
-      for(int i = 0; i < scoreList.length; i++){
-        if(scoreInserted == false){ 
-          if(currentScore < scoreList[i]){  
-            newList[i] = scoreList[i];
-          }
-          else if(currentScore >= scoreList[i]){  // Insert highest score at top of page
-            newList[i] = currentScore;  
-            scoreInserted = true;
-          }
-        }
-        else if(scoreInserted == true){
-          newList[i] = scoreList[i-1];
-        }
-      }
-      
-      
-   } 
-   highScoreChecked = true; 
+      loadScoreTable();
+      println("inserting..");
+      insertNewScore();
+      saveScoreTable();
+    }
+    highScoreChecked = true;
   } // end func
   
   void loadScoreTable(){
+    scoreListStr = loadStrings("data/scores.txt");
+    scoreList = new int[10];
+    for(int i = 0; i < 10; i++){  // Copy the scores into scoreList by way of str to int conversion
+      scoreList[i] = int(scoreListStr[i]);
+    }
+    newList = new int[]{0,0,0,0,0,0,0,0,0,0};
+    newListStr = new String[10];
+    scoreInserted = false;
   }
+  
   void insertNewScore(){
+    for(int i = 0; i < scoreList.length; i++){
+      if(scoreInserted == false){ 
+        if(currentScore >= scoreList[i]){  // Insert highest score at top of page
+          print("updating with score = "+currentScore);
+
+          newList[i] = currentScore;  
+          scoreInserted = true;
+        }
+        else if(currentScore < scoreList[i]){  
+          newList[i] = scoreList[i];
+        }
+      }
+      else if(scoreInserted == true){
+        newList[i] = scoreList[i-1];
+      }
+    }
   }
+  
   void saveScoreTable(){
+    for(int i = 0; i < newList.length; i++){
+      newListStr[i] = str(newList[i]);
+//      println(newList[i]);
+    }
+    saveStrings("data/scores.txt",newListStr); 
   }
-  
-  
-  
 } // end class

@@ -70,6 +70,7 @@ it.
 1/29: Implement scoring. 
   1/29:  Done basic one.  Implement high score save mechanism. Done 1/31
 2/1:  Working on main menu.  Can pause now, 80% complete.  Implement quit and buff up pause menu
+2/8:  Scoring is a bit off, when game is over it doesn't send the most latest score.  Inserting highest score seems to be working
 
 
 
