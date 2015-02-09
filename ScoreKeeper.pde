@@ -25,7 +25,6 @@ class ScoreKeeper{
     text(currentScore, 550, 100);
     text("High Score", 550, 130);
     text(highScore, 550, 160);
-    println();
   }
   
   void updateScore(int pts){
@@ -33,9 +32,6 @@ class ScoreKeeper{
   }
   
   void checkHighScore(){
-//    println("high score checked");
-//    println("running func");
-//    println("highScoreChecked is = "+highScoreChecked);
     if(highScoreChecked == false){
       loadScoreTable();
       println("inserting..");
@@ -78,7 +74,6 @@ class ScoreKeeper{
   void saveScoreTable(){
     for(int i = 0; i < newList.length; i++){
       newListStr[i] = str(newList[i]);
-//      println(newList[i]);
     }
     saveStrings("data/scores.txt",newListStr); 
   }

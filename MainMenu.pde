@@ -22,25 +22,31 @@ class MainMenu{
   
   void drawMenu(){
     rectMode(CENTER);
+    int menuX = width/2+20;
+    int menuY = height/2;
+    int textOffsetX = menuX-100;
+    int textOffsetY = menuY-50;
     if (gameStatus == Status.MAINMENU){
       noStroke();
       fill(255);
-      rect(width/2+20, height/2, 270, 200);
+      rect(menuX, menuY, 270, 200);
       fill(0);
       textFont(font, 30);
-      fill(startColor);
-      text("Start", width/2-80, height/2-50);
-      fill(controlColor);
-      text("Controls", width/2-80, height/2-10);
-      fill(aboutColor);
-      text("About", width/2-80, height/2+30);
-      fill(hsColor);  
-      text("High Scores", width/2-80, height/2+70);
+      drawLineItem("Start", textOffsetX, textOffsetY, 0, 40, startColor);
+      drawLineItem("Controls", textOffsetX, textOffsetY, 1, 40, controlColor);
+      drawLineItem("About", textOffsetX, textOffsetY, 2, 40, aboutColor);
+      drawLineItem("High Scores", textOffsetX, textOffsetY, 3, 40, hsColor);
     }
   }
   
+  // Draws each item of a menu
+  void drawLineItem(String lineName, int x, int y, int lineNum, int lineSpacing, int lineColor){
+    fill(lineColor);
+    y = y + (lineSpacing * lineNum);  // height/2-50 = height/2-50 + (0 * 40)
+    text(lineName, x, y);
+  }
+  
   void keyboardResponse(){
-    
     switch(keyCode){
       case UP:
         selectedOptionID = selectedOptionID - 1;

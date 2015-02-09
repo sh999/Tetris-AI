@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.lang.*;
 int a = 29; // Field height (more than visible to accomodate rotation on top)
 int b = 10; // Field width
-int x, y; 
+int x, y; // Grid locations, used in pieceType.drawField()
 int gridSize = 20;
 int[][] field = new int[a][b];
 int rect_width, rect_height;
@@ -71,6 +71,7 @@ void setup() {
   ellipseMode(CENTER);
   rectMode(CENTER);
   scoreKeeper = new ScoreKeeper();
+  
   L_piece = new PieceType("L block", L_pieceDesign, "Lblock.svg");  //The svg file has information for color of block.  Edit svg's in illustrator
   J_piece = new PieceType("J block", J_pieceDesign, "Jblock.svg");
   Z_piece = new PieceType("Z block", Z_pieceDesign, "Zblock.svg");
@@ -78,10 +79,10 @@ void setup() {
   T_piece = new PieceType("T block", T_pieceDesign, "Tblock.svg");
   square_piece = new PieceType("square block", square_pieceDesign, "squareblock.svg");
   I_piece = new PieceType("I block", I_pieceDesign, "Iblock.svg");
-
   tempPiece = new PieceType("S block", S_pieceDesign, "Sblock.svg");
   currentPiece = randomPiece();
   nextPiece = randomPiece();
+  
   backgroundDesign = loadShape("Gamebackgroundv1.svg");
   shape(backgroundDesign);
   int x = 1;

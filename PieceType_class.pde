@@ -99,25 +99,21 @@ class PieceType {
         else{
           updateScore(slowDropPoints);
         }
-        
         multiClear(); //I- Calls processField which actually does the line clearing
       } 
       if (canGoDown == false) {  
         if(isGameOver() == true){
           gameStatus = GAMEOVER;
         }
-         resetPiece(); // Sets next piece to random.  Sets position, rotation, etc.
+        resetPiece(); // Sets next piece to random.  Sets position, rotation, etc.
       }
-          drawField(); //F- Draw field based on color and filled status
-          dropSlowly(); // Slow drop depends on clock and dropSpeed (set by level)
+        drawField(); //F- Draw field based on color and filled status
+        dropSlowly(); // Slow drop depends on clock and dropSpeed (set by level)
     }
-    if(gameStatus == GAMEOVER){
+    if(gameStatus == GAMEOVER && canSetHighScore == true){
       checkHighScore();
 //      endGame();
-      /*
-      if(canSetHighScore == true){ 
-        canSetHighScore = false;
-      }*/
+      canSetHighScore = false;
     }
   }// End voidDisplay()
   
@@ -327,27 +323,29 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   
   //Draw Field- Based on the value of the field element, draw a block (empty space, space occupied by piece have diff. colors
     void drawField(){
-      
       stroke(0);
-    for(int i = 4; i < a; i++){
-      for(int j = 0; j < b; j++){
-        x = j*gridSize+width/2-(gridSize*b/2); //x and y are grid locations
-        y = i*gridSize+height/2-(gridSize*a/2)-50; 
-        fill(255);
-        if(field[i][j] == EMPTY){ //Where there is no piece, have block
-          shape(emptySpace, x, y, blockSize, blockSize);
-          
-        }
-        else if(field[i][j] == FILLED_TEMP){ //moving piece
-          shape(nonEmptySpace, x, y, blockSize, blockSize); 
-        }//Draw filled block
-        else if(field[i][j] == FILLED_PERM){ //empty field
-          shape(fieldColor[i][j], x, y, blockSize, blockSize);
-        }
-       noFill();
-       rectMode(CORNER);
-        rect(x, y, blockSize, blockSize); 
-      }  
+      int fieldOffsetX = width/2-(gridSize*b/2)-100;
+      int fieldOffsetY = height/2-(gridSize*a/2)-50;
+      for(int i = 4; i < a; i++){
+        for(int j = 0; j < b; j++){
+//          x = j*gridSize+width/2-(gridSize*b/2); //x and y are grid locations
+//          y = i*gridSize+height/2-(gridSize*a/2)-50;
+          x = j * gridSize + fieldOffsetX; // grid locations
+          y = i * gridSize + fieldOffsetY;
+          fill(255);
+          if(field[i][j] == EMPTY){ //Where there is no piece, have block
+            shape(emptySpace, x, y, blockSize, blockSize);
+          }
+          else if(field[i][j] == FILLED_TEMP){ //moving piece
+            shape(nonEmptySpace, x, y, blockSize, blockSize); 
+          }//Draw filled block
+          else if(field[i][j] == FILLED_PERM){ //empty field
+            shape(fieldColor[i][j], x, y, blockSize, blockSize);
+          }
+         noFill();
+         rectMode(CORNER);
+          rect(x, y, blockSize, blockSize); 
+        }  
     }
     
   } //End drawField()  
@@ -529,8 +527,6 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   }
   
   void staticDraw2(){
-    
-    
     for(int i = 0; i < pieceHeight; i ++){
       for(int j = 0; j < pieceWidth; j++){
         x = j*gridSize+width/2-(gridSize*b/2)+300; //x and y are grid locations
