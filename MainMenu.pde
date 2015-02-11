@@ -125,7 +125,7 @@ class MainMenu{
     currentStatus = status;
   }
   
-  void drawAbout2(){
+  void drawAbout(){
     rectMode(CENTER);
     noStroke();
     int menuX = width/2;

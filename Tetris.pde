@@ -67,7 +67,7 @@ int[][] I_pieceDesign = new int[][]{ {0,0,1,0,0},
 
 void setup() {
   smooth(); 
-  size(800, 600);
+  size(500, 600);
   ellipseMode(CENTER);
   rectMode(CENTER);
   scoreKeeper = new ScoreKeeper();

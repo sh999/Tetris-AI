@@ -54,12 +54,9 @@ class PieceType {
     pieceWidth = pieceDesign[0].length;
     temporaryPieceDesign = pieceDesign;
     slowDropPoints = 30;
-    
-    
     for(int i = 0; i < a; i++){
       for(int j = 0; j < b; j++){
         fieldColor[i][j] = loadShape("blank.svg");
-        
       }
     }
     Iblock = loadShape("Iblock.svg");
@@ -319,17 +316,18 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   }
   return temp;
 }//End processFieldColor
-
   
   //Draw Field- Based on the value of the field element, draw a block (empty space, space occupied by piece have diff. colors
     void drawField(){
+        rectMode(CORNER);
+
       stroke(0);
-      int fieldOffsetX = width/2-(gridSize*b/2)-100;
-      int fieldOffsetY = height/2-(gridSize*a/2)-50;
+//      int fieldOffsetX = width/2-(gridSize*b/2)-100;
+//      int fieldOffsetY = height/2-(gridSize*a/2)-50;
+      int fieldOffsetX = 40;
+      int fieldOffsetY = -40;
       for(int i = 4; i < a; i++){
         for(int j = 0; j < b; j++){
-//          x = j*gridSize+width/2-(gridSize*b/2); //x and y are grid locations
-//          y = i*gridSize+height/2-(gridSize*a/2)-50;
           x = j * gridSize + fieldOffsetX; // grid locations
           y = i * gridSize + fieldOffsetY;
           fill(255);
@@ -345,7 +343,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
          noFill();
          rectMode(CORNER);
           rect(x, y, blockSize, blockSize); 
-        }  
+      }  
     }
     
   } //End drawField()  

@@ -16,7 +16,7 @@ class ScoreKeeper{
     highScoreChecked = false;
     
   }
-  void displayScore(){
+  void displayScore2(){
     fill(0);
     rectMode(CORNER);
     rect(530, 40, 240, 140);
@@ -25,6 +25,23 @@ class ScoreKeeper{
     text(currentScore, 550, 100);
     text("High Score", 550, 130);
     text(highScore, 550, 160);
+  }
+  
+  void displayScore(){
+    rectMode(CENTER);
+    noStroke();
+    int menuX = 370;
+    int menuY = 130;
+    int textOffsetX = menuX - 90;
+    int textOffsetY = menuY - 50;
+    fill(0);
+    rect(menuX, menuY, 220, 180);
+    textFont(font, 30);
+    color textColor = color(255);
+    drawLineItem("Score", textOffsetX, textOffsetY, 0, 40, textColor);
+    drawLineItem(str(currentScore), textOffsetX, textOffsetY, 1, 40, textColor);
+    drawLineItem("High Score", textOffsetX, textOffsetY, 2, 40, textColor);
+    drawLineItem(str(highScore), textOffsetX, textOffsetY, 3, 40, textColor);
   }
   
   void updateScore(int pts){
@@ -76,5 +93,11 @@ class ScoreKeeper{
       newListStr[i] = str(newList[i]);
     }
     saveStrings("data/scores.txt",newListStr); 
+  }
+  
+  void drawLineItem(String lineName, int x, int y, int lineNum, int lineSpacing, int lineColor){
+    fill(lineColor);
+    y = y + (lineSpacing * lineNum);  
+    text(lineName, x, y);
   }
 } // end class
