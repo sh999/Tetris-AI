@@ -34,7 +34,6 @@ class PieceType {
   int[][] temporaryPieceDesign;
   int tempOriginX, tempOriginY;
   boolean canGoDown = true;
-  boolean stopPieceFromMoving = false;
   boolean colorFallenPieces = false;
   PShape Iblock, squareblock, Tblock, Sblock, Zblock, Lblock, Jblock, thisBlock;
   
@@ -69,6 +68,7 @@ class PieceType {
     thisBlock = loadShape(svgFileURL);
     emptySpace = loadShape("blank.svg");
     resetPiece();
+    nonEmptySpace = loadShape(svgFileURL);
     
   }
   
@@ -82,12 +82,11 @@ class PieceType {
   //PB = Piece behavior class?
   void runPiece() {
     if(gameStatus == PLAYING){
-      initialize(); // Sets non empty space to a colored block
       clearSpace(); //F Allows "movement" by clearing transitive blocks
       matchField(); //F Matches pieceDesign with field (if pd = 1, field = 1)
       checkAllowableMoves(); //I Has collision detection algorithm.  Restricts illegal movements that result in collisions
 
-      if (stopPieceFromMoving == true){
+      if (canGoDown == false){
         make_piece_permanent(); //I-Piece will stop and change field permanently; allows for proper coloring of fallen blocks 
         checkTetris(); //I- Sets lineStatus to complete where there should be tetris
         if(linesToClear > 0){
@@ -97,15 +96,23 @@ class PieceType {
           updateScore(slowDropPoints);
         }
         multiClear(); //I- Calls processField which actually does the line clearing
+
+        if(isGameOver() == true){
+          gameStatus = GAMEOVER;
+        }
+        resetPiece(); // Sets next piece to random.  Sets position, rotation, etc.
       } 
+      /*
       if (canGoDown == false) {  
         if(isGameOver() == true){
           gameStatus = GAMEOVER;
         }
         resetPiece(); // Sets next piece to random.  Sets position, rotation, etc.
-      }
+      }*/
+      if (gameStatus != GAMEOVER){  
         drawField(); //F- Draw field based on color and filled status
         dropSlowly(); // Slow drop depends on clock and dropSpeed (set by level)
+      }
     }
     if(gameStatus == GAMEOVER && canSetHighScore == true){
       checkHighScore();
@@ -113,10 +120,6 @@ class PieceType {
       canSetHighScore = false;
     }
   }// End voidDisplay()
-  
-  void initialize(){ 
-    nonEmptySpace = loadShape(svgFileURL);
-  }// End initialize()
   
   // Clears space where piece is moving but leaves filled field intact
   void clearSpace(){
@@ -182,7 +185,6 @@ class PieceType {
           }         
           if (pieceDesign[i][j] == 1 && i + originY > a-2){
             canGoDown = false;
-            stopPieceFromMoving = true;
             break test;
           } 
           else{
@@ -198,7 +200,6 @@ class PieceType {
       for(int i = 0; i < pieceHeight; i++){
         for(int j = 0; j < pieceWidth; j++){        
           if (pieceDesign[i][j] == 1 && field[i+tempOriginY][j+tempOriginX] == FILLED_PERM){
-            stopPieceFromMoving = true;
             canGoDown = false;
             break;
           } 
@@ -222,7 +223,6 @@ class PieceType {
       originX = 2;
       rotation_status = 1;
       canGoDown = true;
-      stopPieceFromMoving = false;
   }
   
   

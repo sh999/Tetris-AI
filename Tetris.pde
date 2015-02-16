@@ -83,8 +83,10 @@ void setup() {
   currentPiece = randomPiece();
   nextPiece = randomPiece();
   
-  backgroundDesign = loadShape("Gamebackgroundv1.svg");
+  backgroundDesign = loadShape("Gamebackgroundv2.svg");
   shape(backgroundDesign);
+  
+  
   int x = 1;
   
 
