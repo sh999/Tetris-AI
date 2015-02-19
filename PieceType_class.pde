@@ -86,7 +86,7 @@ class PieceType {
       matchField(); //F Matches pieceDesign with field (if pd = 1, field = 1)
       checkAllowableMoves(); //I Has collision detection algorithm.  Restricts illegal movements that result in collisions
 
-      if (canGoDown == false){
+      if(canGoDown == false){
         make_piece_permanent(); //I-Piece will stop and change field permanently; allows for proper coloring of fallen blocks 
         checkTetris(); //I- Sets lineStatus to complete where there should be tetris
         if(linesToClear > 0){
@@ -96,12 +96,15 @@ class PieceType {
           updateScore(slowDropPoints);
         }
         multiClear(); //I- Calls processField which actually does the line clearing
-
-        if(isGameOver() == true){
+        // print("isGameOver() = " + isGameOver());
+        /*if(isGameOver() == true){
           gameStatus = GAMEOVER;
-        }
+        }*/
         resetPiece(); // Sets next piece to random.  Sets position, rotation, etc.
       } 
+      else{
+        
+      }
       /*
       if (canGoDown == false) {  
         if(isGameOver() == true){
@@ -109,7 +112,7 @@ class PieceType {
         }
         resetPiece(); // Sets next piece to random.  Sets position, rotation, etc.
       }*/
-      if (gameStatus != GAMEOVER){  
+      if(gameStatus != GAMEOVER){  
         drawField(); //F- Draw field based on color and filled status
         dropSlowly(); // Slow drop depends on clock and dropSpeed (set by level)
       }
@@ -160,7 +163,6 @@ class PieceType {
       // Wall collision detection
       for(int i = 0; i < pieceHeight; i++){
         for(int j = 0; j < pieceWidth; j++){           
-          
           if ((pieceDesign[i][j] == 1 && j + originX == 0) ||
               (pieceDesign[i][j] == 1 && field[i+originY][j+originX-1] == FILLED_PERM) &&
               checkLeft == true){
@@ -172,7 +174,6 @@ class PieceType {
             
           }
           else {
-
           } 
           if ((pieceDesign[i][j] == 1 && j + originX == 9) || 
               (pieceDesign[i][j] == 1 && field[i+originY][j+originX+1] == FILLED_PERM) &&
@@ -219,13 +220,25 @@ class PieceType {
       int randompiece = int(random(1, 8));
       setToNextPiece();
       int topY = topY();
-      originY = 4 - topY;
+      int dropPosY = getDropPositionY();
+      println("dropPosY = "+dropPosY);
+      originY = 4 - topY; // Ensures piece starts dropping right below top of screen
+      
+      for(int i = 0; i < pieceHeight; i++){
+         
+        for(int j = 0; j < pieceWidth; j++){  
+          
+          if(pieceDesign[i][j] == 1 && i + dropPosY < 10){
+            print("too close to top");
+            originY = dropPosY;
+            gameStatus = GAMEOVER;
+          }
+        }
+      }
       originX = 2;
       rotation_status = 1;
       canGoDown = true;
   }
-  
-  
   
   int topY(){
     int i, j, topY;
@@ -319,8 +332,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   
   //Draw Field- Based on the value of the field element, draw a block (empty space, space occupied by piece have diff. colors
     void drawField(){
-        rectMode(CORNER);
-
+      rectMode(CORNER);
       stroke(0);
 //      int fieldOffsetX = width/2-(gridSize*b/2)-100;
 //      int fieldOffsetY = height/2-(gridSize*a/2)-50;
@@ -340,9 +352,15 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
           else if(field[i][j] == FILLED_PERM){ //empty field
             shape(fieldColor[i][j], x, y, blockSize, blockSize);
           }
-         noFill();
-         rectMode(CORNER);
+          noFill();
+          rectMode(CORNER);
           rect(x, y, blockSize, blockSize); 
+          if(i == 5 || i == 10 || i == 15 || i == 20 || i == 25){
+            stroke(200, 200, 0);
+            noFill();
+            rect(x, y, blockSize, blockSize);
+            stroke(0);
+          }
       }  
     }
     
@@ -356,7 +374,6 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
     }
     else clock++;
   }
-  
   
   void make_piece_permanent(){//Called when piece is supposed to be fixed on field
     for(int i = 0; i < pieceHeight; i++){
@@ -390,7 +407,6 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
         }
       }
     }
-      
   }//End make piece permanent()
   
   //Decide what happens when the user presses a button
@@ -418,8 +434,6 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
     case 'Z': //Anticlockwise turn.  Still need to implement
       pieceRotate("clockwise");
       break;  
-    
-    
     default:
       if(key == 'v'){
           instantDrop();
@@ -488,12 +502,17 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   } //End checkValidRotation()
   
   void instantDrop(){
+    originY = getDropPositionY();
+  }
+
+  int getDropPositionY(){
     //Drop phantom piece down until it hits something
     boolean droppable = true; //Assume piece can be dropped
     int phantomOriginY = originY;
     int phantomOriginX = originX;
+    int dropPosY = originY; // Dummy initial value.  Will be calculated below
     while(droppable == true){
-      phantomOriginY = phantomOriginY + 1;
+      phantomOriginY = phantomOriginY + 1; // Imaginary dropping of phantom piece
       //check if there is overlap between field and pieceDesign
       //Iterate over pieceDesign
       for(int i = 0; i < pieceHeight; i++){
@@ -505,24 +524,24 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
             droppable = false;  
           }
           if(droppable == false){
-            originY = i+phantomOriginY-5;  //-5 is because iteration goes up to i = 5 (pieceHeight), so have to normalize back up  
+            dropPosY = i+phantomOriginY-5; // Where a dropped piece's Y position should be
           }
         }
       }
-    } 
-  } // End instantDrop() 
-  
+    }
+    return dropPosY;
+  }
+
   void getComputerResponse(Computer _computer){
   }
-  
-  
+  /*
   boolean isGameOver(){
     int topY = topY() + originY; // Coordinate of top of block
       if(topY == 4){
-      return true;      
+      return true; 
     }
     else return false;
-  }
+  }*/
   
   void staticDraw2(){
     for(int i = 0; i < pieceHeight; i ++){

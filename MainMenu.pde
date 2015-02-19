@@ -1,10 +1,10 @@
-color startColor, controlColor, aboutColor, hsColor, pausedColor, resumeColor, goToTitleColor, quitColor;
-String selectedOption;
-int selectedOptionID;
-int maxSelectID;
+class MainMenu {
+  color startColor, controlColor, aboutColor, hsColor, pausedColor, resumeColor, goToTitleColor, restartPlayColor, quitColor;
+  String selectedOption;
+  int selectedOptionID;
+  int maxSelectID;
+  Status currentStatus;
 
-Status currentStatus;
-class MainMenu{
   MainMenu(){
     startColor = color(255,0,0);
     controlColor = color(0);
@@ -14,6 +14,7 @@ class MainMenu{
     resumeColor = color(0);
     goToTitleColor = color(0);
     quitColor = color(0);
+    restartPlayColor = color(0);
     selectedOption = "Start";
     selectedOptionID = 0;
     currentStatus = Status.MAINMENU;
@@ -85,6 +86,9 @@ class MainMenu{
             setup();
           }
           else if(selectedOptionID == 2){
+            restartPlay();
+          } 
+          else if(selectedOptionID == 3){
             exit();
           } 
         }
@@ -97,6 +101,7 @@ class MainMenu{
     pausedColor = color(0);
     resumeColor = color(0);
     goToTitleColor = color(0);
+    restartPlayColor = color(0);
     quitColor = color(0);
     switch(selectedOptionID){
       case 0:
@@ -109,10 +114,11 @@ class MainMenu{
         break;
       case 2:
         aboutColor = color(255, 0, 0);
-        quitColor = color(255, 0, 0);
+        restartPlayColor = color(255, 0, 0);
         break;
       case 3:
         hsColor = color(255, 0, 0);
+        quitColor = color(255, 0, 0);
         break;   
     }
   }
@@ -165,23 +171,28 @@ class MainMenu{
   }
   
   void drawPause(){
-    maxSelectID = 3; // Makes scrolling of highlighted menu item work
+    maxSelectID = 4; // Makes scrolling of highlighted menu item work
     rectMode(CENTER);
     noStroke();
     int menuX = width/2+20;
     int menuY = height/2;
     int textOffsetX = menuX-140;
-    int textOffsetY = menuY-50;
+    int textOffsetY = menuY-70;
     fill(255);
-    rect(menuX, menuY, 330, 200);
+    rect(menuX, menuY, 330, 250);
     textFont(font, 30);
     drawLineItem("Paused", textOffsetX+70, textOffsetY, 0, 40, pausedColor);
     drawLineItem("Resume Game", textOffsetX, textOffsetY, 1, 40, resumeColor);
     drawLineItem("Go to title screen", textOffsetX, textOffsetY, 2, 40, goToTitleColor);
-    drawLineItem("Quit", textOffsetX, textOffsetY, 3, 40, quitColor);
+    drawLineItem("Restart Play", textOffsetX, textOffsetY, 3, 40, restartPlayColor);
+    drawLineItem("Quit", textOffsetX, textOffsetY, 4, 40, quitColor);
   }
   
+  void restartPlay(){
+
+  }
+
   void gameOver(){
-  
+    
   }
 }
