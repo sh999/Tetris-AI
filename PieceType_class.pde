@@ -85,6 +85,7 @@ class PieceType {
       clearSpace(); //F Allows "movement" by clearing transitive blocks
       matchField(); //F Matches pieceDesign with field (if pd = 1, field = 1)
       checkAllowableMoves(); //I Has collision detection algorithm.  Restricts illegal movements that result in collisions
+      print("gdp = "+getDropPositionY());
 
       if(canGoDown == false){
         make_piece_permanent(); //I-Piece will stop and change field permanently; allows for proper coloring of fallen blocks 
@@ -221,13 +222,11 @@ class PieceType {
       setToNextPiece();
       int topY = topY();
       int dropPosY = getDropPositionY();
-      println("dropPosY = "+dropPosY);
+      // println("dropPosY = "+dropPosY);
       originY = 4 - topY; // Ensures piece starts dropping right below top of screen
-      
       for(int i = 0; i < pieceHeight; i++){
-         
         for(int j = 0; j < pieceWidth; j++){  
-          
+          // println ("i + dropPosY = " + (dropPosY));
           if(pieceDesign[i][j] == 1 && i + dropPosY < 10){
             print("too close to top");
             originY = dropPosY;
@@ -338,7 +337,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
 //      int fieldOffsetY = height/2-(gridSize*a/2)-50;
       int fieldOffsetX = 40;
       int fieldOffsetY = -40;
-      for(int i = 4; i < a; i++){
+      for(int i = 4; i < a; i++){ //  Field has rows of indices 4-28 (row[0] to row[3] are hidden for gameplay purpose)
         for(int j = 0; j < b; j++){
           x = j * gridSize + fieldOffsetX; // grid locations
           y = i * gridSize + fieldOffsetY;
@@ -355,11 +354,17 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
           noFill();
           rectMode(CORNER);
           rect(x, y, blockSize, blockSize); 
-          if(i == 5 || i == 10 || i == 15 || i == 20 || i == 25){
+          if(i == 5 || i == 10 || i == 15 || i == 20 || i == 25){ // Draw yellow rows at row 5, 10, etc.
             stroke(200, 200, 0);
             noFill();
             rect(x, y, blockSize, blockSize);
             stroke(0);
+          }
+          if(j == 0){ // Label row numbers
+            fill(255, 0, 0);
+            rect(x, y, 5, 5);  
+            textSize(10);
+            text(i, x, y);
           }
       }  
     }
@@ -524,11 +529,14 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
             droppable = false;  
           }
           if(droppable == false){
-            dropPosY = i+phantomOriginY-5; // Where a dropped piece's Y position should be
+            // dropPosY = i+phantomOriginY-5; // Where a dropped piece's Y position should be
+            dropPosY = phantomOriginY;
           }
         }
       }
     }
+    
+    println("dropPosY = "+dropPosY);
     return dropPosY;
   }
 
