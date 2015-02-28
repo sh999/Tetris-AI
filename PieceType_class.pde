@@ -85,7 +85,7 @@ class PieceType {
       clearSpace(); //F Allows "movement" by clearing transitive blocks
       matchField(); //F Matches pieceDesign with field (if pd = 1, field = 1)
       checkAllowableMoves(); //I Has collision detection algorithm.  Restricts illegal movements that result in collisions
-      print("gdp = "+getDropPositionY());
+      println("Drop position = "+getDropPositionY());
 
       if(canGoDown == false){
         make_piece_permanent(); //I-Piece will stop and change field permanently; allows for proper coloring of fallen blocks 
@@ -222,18 +222,16 @@ class PieceType {
       setToNextPiece();
       int topY = topY();
       int dropPosY = getDropPositionY();
-      // println("dropPosY = "+dropPosY);
       originY = 4 - topY; // Ensures piece starts dropping right below top of screen
+      /*
       for(int i = 0; i < pieceHeight; i++){
         for(int j = 0; j < pieceWidth; j++){  
-          // println ("i + dropPosY = " + (dropPosY));
           if(pieceDesign[i][j] == 1 && i + dropPosY < 10){
-            print("too close to top");
             originY = dropPosY;
             gameStatus = GAMEOVER;
           }
         }
-      }
+      }*/
       originX = 2;
       rotation_status = 1;
       canGoDown = true;
@@ -529,14 +527,11 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
             droppable = false;  
           }
           if(droppable == false){
-            // dropPosY = i+phantomOriginY-5; // Where a dropped piece's Y position should be
-            dropPosY = phantomOriginY;
+            dropPosY = i+phantomOriginY-5; // Where a dropped piece's Y position should be
           }
         }
       }
     }
-    
-    println("dropPosY = "+dropPosY);
     return dropPosY;
   }
 
