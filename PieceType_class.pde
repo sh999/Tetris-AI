@@ -85,8 +85,6 @@ class PieceType {
       clearSpace(); //F Allows "movement" by clearing transitive blocks
       matchField(); //F Matches pieceDesign with field (if pd = 1, field = 1)
       checkAllowableMoves(); //I Has collision detection algorithm.  Restricts illegal movements that result in collisions
-      println("Drop position = "+getDropPositionY());
-
       if(canGoDown == false){
         make_piece_permanent(); //I-Piece will stop and change field permanently; allows for proper coloring of fallen blocks 
         checkTetris(); //I- Sets lineStatus to complete where there should be tetris
@@ -172,7 +170,6 @@ class PieceType {
           } 
           else if(pieceDesign[i][j] == 1 && j + originX != 0 &&  checkLeft == true){
             canGoLeft = true;
-            
           }
           else {
           } 
@@ -196,7 +193,6 @@ class PieceType {
       }//end "test" loop
     tempOriginX = originX;
     tempOriginY = originY+1;
-    
     //Checks if there are already fallen pieces below the falling piece 
     if (canGoDown == true){
       for(int i = 0; i < pieceHeight; i++){
@@ -208,7 +204,6 @@ class PieceType {
         }  
       }
     }
-    
     //Check floor
     if (originY>133) {
       canGoDown = false;
@@ -222,7 +217,13 @@ class PieceType {
       setToNextPiece();
       int topY = topY();
       int dropPosY = getDropPositionY();
-      originY = 4 - topY; // Ensures piece starts dropping right below top of screen
+      int desiredOriginY = 10; // Where top of piece should start dropping
+      originY = desiredOriginY - topY; // Ensures piece starts dropping right below top of screen taking to account that top of array is not necessarily top of piece
+      // println("desiredOriginY = "+desiredOriginY+" topY = "+topY );
+      print("originY = "+originY);
+      if(originY < 10){
+        // println("desiredOriginY = "+desiredOriginY+" topY = "+topY );
+      }
       /*
       for(int i = 0; i < pieceHeight; i++){
         for(int j = 0; j < pieceWidth; j++){  
@@ -254,6 +255,7 @@ class PieceType {
       j = 0;
       i = i + 1;
     }
+    // println("topY = "+topY);
     return topY;
   }
   
@@ -307,7 +309,6 @@ int[][] processField(int[][] _field, int lineToClear){
         temp[i][j] = _field[i-1][j];
       }
   }
-  
   linesToClear = 0;
   return temp;
   
@@ -600,7 +601,6 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
           {0, 0, 1, 0, 0}, 
           {0, 0, 1, 0, 0},
           {0, 0, 1, 1, 0},
-          
         }; 
         break;
       case 2:
