@@ -103,10 +103,7 @@ class PieceType {
         resetPiece(); // Sets next piece to random.  Sets position, rotation, etc.
         println("CANT go down");
         originX = 0;
-
-
       } 
-
       else{
       }
       /*
@@ -249,7 +246,6 @@ class PieceType {
           }
         }
       }*/
-      // originX = 2;
       rotation_status = 1;
       canGoDown = true;
   }
