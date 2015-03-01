@@ -1,4 +1,5 @@
 class PieceType {
+  boolean topWasHit = false;
   int linesToClear = 0; 
   boolean canSetHighScore = true;
   int check = 0; //unused?
@@ -23,7 +24,7 @@ class PieceType {
   int[][] pieceDesign;
   int[][] nextPieceDesign;
   
-  int originX = 2; //Origins = where pieces start falling
+  int originX = 3; //Origins = where pieces start falling
   int originY = 1;
   int blockSize = 20; //Pixelsize of svg object  
   int pieceHeight;
@@ -45,7 +46,7 @@ class PieceType {
   
 
   PieceType(String pieceName, int[][] pieceDesign, String svgFileURL) {
-    gameStatus = PLAYING;
+    gameStatus = PLAYING; 
     this.pieceName = pieceName;
     this.svgFileURL = svgFileURL;
     this.pieceDesign = pieceDesign;
@@ -82,6 +83,7 @@ class PieceType {
   //PB = Piece behavior class?
   void runPiece() {
     if(gameStatus == PLAYING){
+      // println("runPiece");
       clearSpace(); //F Allows "movement" by clearing transitive blocks
       matchField(); //F Matches pieceDesign with field (if pd = 1, field = 1)
       checkAllowableMoves(); //I Has collision detection algorithm.  Restricts illegal movements that result in collisions
@@ -95,14 +97,17 @@ class PieceType {
           updateScore(slowDropPoints);
         }
         multiClear(); //I- Calls processField which actually does the line clearing
-        // print("isGameOver() = " + isGameOver());
         /*if(isGameOver() == true){
           gameStatus = GAMEOVER;
         }*/
         resetPiece(); // Sets next piece to random.  Sets position, rotation, etc.
+        println("CANT go down");
+        originX = 0;
+
+
       } 
+
       else{
-        
       }
       /*
       if (canGoDown == false) {  
@@ -112,6 +117,7 @@ class PieceType {
         resetPiece(); // Sets next piece to random.  Sets position, rotation, etc.
       }*/
       if(gameStatus != GAMEOVER){  
+        println(".  OriginX = "+originX);
         drawField(); //F- Draw field based on color and filled status
         dropSlowly(); // Slow drop depends on clock and dropSpeed (set by level)
       }
@@ -213,17 +219,27 @@ class PieceType {
     
   //Called when a piece has fallen and another random one has to appear on top
   void resetPiece(){
+      // println("resetPiece()");
       int randompiece = int(random(1, 8));
       setToNextPiece();
+
       int topY = topY();
       int dropPosY = getDropPositionY();
-      int desiredOriginY = 10; // Where top of piece should start dropping
+      int desiredOriginY = 15; // Where top of piece should start dropping
       originY = desiredOriginY - topY; // Ensures piece starts dropping right below top of screen taking to account that top of array is not necessarily top of piece
-      // println("desiredOriginY = "+desiredOriginY+" topY = "+topY );
-      print("originY = "+originY);
-      if(originY < 10){
-        // println("desiredOriginY = "+desiredOriginY+" topY = "+topY );
+      
+      iterate:
+      for(int i = 0; i < pieceHeight; i++){
+        for(int j = 0; j < pieceWidth; j++){
+          if(pieceDesign[i][j] == 1 && field[i+originY][j+originX] == FILLED_PERM){
+            topWasHit = true;
+            originY = 1;
+            break iterate;
+            // gameStatus = GAMEOVER;  
+          }
+        }
       }
+      // originY = 1;
       /*
       for(int i = 0; i < pieceHeight; i++){
         for(int j = 0; j < pieceWidth; j++){  
@@ -233,7 +249,7 @@ class PieceType {
           }
         }
       }*/
-      originX = 2;
+      // originX = 2;
       rotation_status = 1;
       canGoDown = true;
   }
@@ -255,7 +271,6 @@ class PieceType {
       j = 0;
       i = i + 1;
     }
-    // println("topY = "+topY);
     return topY;
   }
   
@@ -330,8 +345,14 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   
   //Draw Field- Based on the value of the field element, draw a block (empty space, space occupied by piece have diff. colors
     void drawField(){
+      // println("drawField()");
       rectMode(CORNER);
       stroke(0);
+      if(topWasHit == true){
+        topWasHit = false;
+      }
+
+      // originY = 1;
 //      int fieldOffsetX = width/2-(gridSize*b/2)-100;
 //      int fieldOffsetY = height/2-(gridSize*a/2)-50;
       int fieldOffsetX = 40;
@@ -447,6 +468,9 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
       }
       else if(key == 'y'){
         multiClear();
+      }
+      else if(key == 's'){
+        originX = 0;
       }
       break;
     }//switch

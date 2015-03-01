@@ -171,6 +171,7 @@ void keyPressed() {
       if(key == 'p'){
         mainMenu.setStatus(Status.PAUSE);
       }
+      
     }
     currentPiece.userInput();
   }
