@@ -39,6 +39,7 @@ class PieceType {
   int gameStatus;
   int PLAYING = 1;
   int GAMEOVER = 0;
+  boolean initialized = false;
 
   PieceType(String pieceName, int[][] pieceDesign, String svgFileURL) {
     gameStatus = PLAYING; 
@@ -77,26 +78,30 @@ class PieceType {
   //PB = Piece behavior class?
   void runPiece() {
     if(gameStatus == PLAYING){
-      clearSpace(); //F Allows "movement" by clearing transitive blocks
-      matchField(); //F Matches pieceDesign with field (if pd = 1, field = 1)
-      checkAllowableMoves(); //I Has collision detection algorithm.  Restricts illegal movements that result in collisions
-      if(canGoDown == false){
-        make_piece_permanent(); //I-Piece will stop and change field permanently; allows for proper coloring of fallen blocks 
-        checkTetris(); //I- Sets lineStatus to complete where there should be tetris
-        if(linesToClear > 0){
-          updateScore((linesToClear+1)*slowDropPoints);
-        }
-        else{
-          updateScore(slowDropPoints);
-        }
-        multiClear(); //I- Calls processField which actually does the line clearing
-        /*if(isGameOver() == true){
-          gameStatus = GAMEOVER;
-        }*/
-        resetPiece(); // Sets next piece to random.  Sets position, rotation, etc.
-      } 
-      else{
+      if(initialized == false){  // Initialize once per piece appearance
+        initializePosition();
+        initialized = true;
+    }
+    clearSpace(); //F Allows "movement" by clearing transitive blocks
+    matchField(); //F Matches pieceDesign with field (if pd = 1, field = 1)
+    checkAllowableMoves(); //I Has collision detection algorithm.  Restricts illegal movements that result in collisions
+    if(canGoDown == false){
+      make_piece_permanent(); //I-Piece will stop and change field permanently; allows for proper coloring of fallen blocks 
+      checkTetris(); //I- Sets lineStatus to complete where there should be tetris
+      if(linesToClear > 0){
+        updateScore((linesToClear+1)*slowDropPoints);
       }
+      else{
+        updateScore(slowDropPoints);
+      }
+      multiClear(); //I- Calls processField which actually does the line clearing
+      /*if(isGameOver() == true){
+        gameStatus = GAMEOVER;
+      }*/
+      resetPiece(); // Sets next piece to random.  Sets position, rotation, etc.
+    } 
+    else{
+    }
       /*
       if (canGoDown == false) {  
         if(isGameOver() == true){
@@ -116,6 +121,15 @@ class PieceType {
     }
   }// End voidDisplay()
   
+  void initializePosition(){
+    int topY = topY();
+    int dropPosY = getDropPositionY();
+    int desiredOriginY = 15; // Where top of piece should start dropping
+    // originY = desiredOriginY - topY; // Ensures piece starts dropping right below top of screen taking to account that top of array is not necessarily top of piece
+    println("pieceName = "+pieceName+". topY = "+topY+".  dropPosY = "+dropPosY+".  originY = "+originY);
+    initialized = false; // Reset so piece can be initialized again
+  }
+
   // Clears space where piece is moving but leaves filled field intact
   void clearSpace(){
     for(int i = 0; i < a; i++){
@@ -208,12 +222,6 @@ class PieceType {
   void resetPiece(){
       int randompiece = int(random(1, 8));
       setToNextPiece();
-
-      int topY = topY();
-      int dropPosY = getDropPositionY();
-      int desiredOriginY = 15; // Where top of piece should start dropping
-      originY = desiredOriginY - topY; // Ensures piece starts dropping right below top of screen taking to account that top of array is not necessarily top of piece
-      println("pieceName = "+pieceName+". topY = "+topY+".  dropPosY = "+dropPosY+".  originY = "+originY);
       /*
       iterate:
       for(int i = 0; i < pieceHeight; i++){
