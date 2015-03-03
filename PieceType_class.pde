@@ -19,11 +19,9 @@ class PieceType {
   boolean tetris = false;
   int[][] tempField = new int[a][b];
   PShape[][] tempFieldColor = new PShape[a][b];
-  
   String pieceName;
   int[][] pieceDesign;
   int[][] nextPieceDesign;
-  
   int originX = 3; //Origins = where pieces start falling
   int originY = 1;
   int blockSize = 20; //Pixelsize of svg object  
@@ -37,13 +35,10 @@ class PieceType {
   boolean canGoDown = true;
   boolean colorFallenPieces = false;
   PShape Iblock, squareblock, Tblock, Sblock, Zblock, Lblock, Jblock, thisBlock;
-  
   int slowDropPoints;
-  
   int gameStatus;
   int PLAYING = 1;
   int GAMEOVER = 0;
-  
 
   PieceType(String pieceName, int[][] pieceDesign, String svgFileURL) {
     gameStatus = PLAYING; 
@@ -70,7 +65,6 @@ class PieceType {
     emptySpace = loadShape("blank.svg");
     resetPiece();
     nonEmptySpace = loadShape(svgFileURL);
-    
   }
   
   void incrLevel(){
@@ -83,7 +77,6 @@ class PieceType {
   //PB = Piece behavior class?
   void runPiece() {
     if(gameStatus == PLAYING){
-      // println("runPiece");
       clearSpace(); //F Allows "movement" by clearing transitive blocks
       matchField(); //F Matches pieceDesign with field (if pd = 1, field = 1)
       checkAllowableMoves(); //I Has collision detection algorithm.  Restricts illegal movements that result in collisions
@@ -101,8 +94,6 @@ class PieceType {
           gameStatus = GAMEOVER;
         }*/
         resetPiece(); // Sets next piece to random.  Sets position, rotation, etc.
-        println("CANT go down");
-        originX = 0;
       } 
       else{
       }
@@ -114,7 +105,6 @@ class PieceType {
         resetPiece(); // Sets next piece to random.  Sets position, rotation, etc.
       }*/
       if(gameStatus != GAMEOVER){  
-        println(".  OriginX = "+originX);
         drawField(); //F- Draw field based on color and filled status
         dropSlowly(); // Slow drop depends on clock and dropSpeed (set by level)
       }
@@ -216,7 +206,6 @@ class PieceType {
     
   //Called when a piece has fallen and another random one has to appear on top
   void resetPiece(){
-      // println("resetPiece()");
       int randompiece = int(random(1, 8));
       setToNextPiece();
 
@@ -224,7 +213,8 @@ class PieceType {
       int dropPosY = getDropPositionY();
       int desiredOriginY = 15; // Where top of piece should start dropping
       originY = desiredOriginY - topY; // Ensures piece starts dropping right below top of screen taking to account that top of array is not necessarily top of piece
-      
+      println("pieceName = "+pieceName+". topY = "+topY+".  dropPosY = "+dropPosY+".  originY = "+originY);
+      /*
       iterate:
       for(int i = 0; i < pieceHeight; i++){
         for(int j = 0; j < pieceWidth; j++){
@@ -235,8 +225,8 @@ class PieceType {
             // gameStatus = GAMEOVER;  
           }
         }
-      }
-      // originY = 1;
+      }*/
+
       /*
       for(int i = 0; i < pieceHeight; i++){
         for(int j = 0; j < pieceWidth; j++){  
@@ -341,7 +331,6 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
   
   //Draw Field- Based on the value of the field element, draw a block (empty space, space occupied by piece have diff. colors
     void drawField(){
-      // println("drawField()");
       rectMode(CORNER);
       stroke(0);
       if(topWasHit == true){
