@@ -77,10 +77,14 @@ class PieceType {
   //F = Field class.  P = Piece class.  I = "Interactor" class-Deals with piece-field interaction
   //PB = Piece behavior class?
   void runPiece() {
+    println("originY = " + originY);
     if(gameStatus == PLAYING){
       if(initialized == false){  // Initialize once per piece appearance
-        initializePosition();
-        initialized = true;
+        initializePosition(); // Drops from top of screen
+        if(pieceAlreadyThere() == true){  // Checks if dropping piece will cause gameover scenario
+          originY = 3;
+        }
+        initialized = true; // Reset so that next piece will initialize position
     }
     clearSpace(); //F Allows "movement" by clearing transitive blocks
     matchField(); //F Matches pieceDesign with field (if pd = 1, field = 1)
@@ -124,10 +128,32 @@ class PieceType {
   void initializePosition(){
     int topY = topY();
     int dropPosY = getDropPositionY();
-    int desiredOriginY = 15; // Where top of piece should start dropping
-    // originY = desiredOriginY - topY; // Ensures piece starts dropping right below top of screen taking to account that top of array is not necessarily top of piece
-    println("pieceName = "+pieceName+". topY = "+topY+".  dropPosY = "+dropPosY+".  originY = "+originY);
+    int desiredOriginY = 10; // Where top of piece should start dropping
+    originY = desiredOriginY - topY; // Ensures piece starts dropping right below top of screen taking to account that top of array is not necessarily top of piece
+    // println("pieceName = "+pieceName+". topY = "+topY+".  dropPosY = "+dropPosY+".  originY = "+originY);
     initialized = false; // Reset so piece can be initialized again
+  }
+
+  boolean pieceAlreadyThere(){
+    int ay = getDropPositionY() + topY();
+    if (ay < 15){
+      originX = 0;
+    }
+    // print("getDropPositionY = " + ay);
+
+    /*
+      iterate:
+      for(int i = 0; i < pieceHeight; i++){
+        for(int j = 0; j < pieceWidth; j++){
+          if(pieceDesign[i][j] == 1 && field[i+originY][j+originX] == FILLED_PERM){
+            topWasHit = true;
+            originY = 1;
+            break iterate;
+            // gameStatus = GAMEOVER;  
+          }
+        }
+      }*/
+    return false;
   }
 
   // Clears space where piece is moving but leaves filled field intact
@@ -222,19 +248,6 @@ class PieceType {
   void resetPiece(){
       int randompiece = int(random(1, 8));
       setToNextPiece();
-      /*
-      iterate:
-      for(int i = 0; i < pieceHeight; i++){
-        for(int j = 0; j < pieceWidth; j++){
-          if(pieceDesign[i][j] == 1 && field[i+originY][j+originX] == FILLED_PERM){
-            topWasHit = true;
-            originY = 1;
-            break iterate;
-            // gameStatus = GAMEOVER;  
-          }
-        }
-      }*/
-
       /*
       for(int i = 0; i < pieceHeight; i++){
         for(int j = 0; j < pieceWidth; j++){  
