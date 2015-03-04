@@ -45,7 +45,8 @@ class ScoreKeeper{
   }
   
   void updateScore(int pts){
-    currentScore += pts;
+    // currentScore += pts;
+    currentScore += 1;
   }
   
   void checkHighScore(){
@@ -74,7 +75,6 @@ class ScoreKeeper{
       if(scoreInserted == false){ 
         if(currentScore >= scoreList[i]){  // Insert highest score at top of page
           print("updating with score = "+currentScore);
-
           newList[i] = currentScore;  
           scoreInserted = true;
         }

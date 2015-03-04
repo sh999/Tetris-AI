@@ -49,7 +49,8 @@ class PieceType {
     pieceHeight = pieceDesign.length;
     pieceWidth = pieceDesign[0].length;
     temporaryPieceDesign = pieceDesign;
-    slowDropPoints = 30;
+    // slowDropPoints = 30;
+    slowDropPoints = 1;
     for(int i = 0; i < a; i++){
       for(int j = 0; j < b; j++){
         fieldColor[i][j] = loadShape("blank.svg");
@@ -92,24 +93,16 @@ class PieceType {
       make_piece_permanent(); //I-Piece will stop and change field permanently; allows for proper coloring of fallen blocks 
       checkTetris(); //I- Sets lineStatus to complete where there should be tetris
       if(linesToClear > 0){
-        updateScore((linesToClear+1)*slowDropPoints);
+        // updateScore((linesToClear+1)*slowDropPoints);
+        updateScore(1);
       }
       else{
-        updateScore(slowDropPoints);
+        // updateScore(slowDropPoints);
+        updateScore(1);
       }
       multiClear(); //I- Calls processField which actually does the line clearing
-      /*if(isGameOver() == true){
-        gameStatus = GAMEOVER;
-      }*/
       resetPiece(); // Sets next piece to random.  Sets position, rotation, etc.
     }
-      /*
-      if (canGoDown == false) {  
-        if(isGameOver() == true){
-          gameStatus = GAMEOVER;
-        }
-        resetPiece(); // Sets next piece to random.  Sets position, rotation, etc.
-      }*/
       if(gameStatus != GAMEOVER){  
         drawField(); //F- Draw field based on color and filled status
         dropSlowly(); // Slow drop depends on clock and dropSpeed (set by level)
@@ -117,7 +110,6 @@ class PieceType {
     }
     if(gameStatus == GAMEOVER && canSetHighScore == true){
       checkHighScore();
-//      endGame();
       canSetHighScore = false;
     }
   }// End runPiece()
@@ -606,7 +598,7 @@ PShape[][] processFieldColor(PShape[][] _field, int lineToClear){
     }//End staticDraw
   
   void updateScore(int points){
-    points = points + int(random(0,20));
+    // points = points + int(random(0,20));
     scoreKeeper.updateScore(points);
   }
   
