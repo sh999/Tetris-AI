@@ -77,15 +77,14 @@ class PieceType {
   //F = Field class.  P = Piece class.  I = "Interactor" class-Deals with piece-field interaction
   //PB = Piece behavior class?
   void runPiece() {
-    println("originY = " + originY);
     if(gameStatus == PLAYING){
-      if(initialized == false){  // Initialize once per piece appearance
+      /*if(initialized == false){  // Initialize once per piece appearance
         initializePosition(); // Drops from top of screen
         if(pieceAlreadyThere() == true){  // Checks if dropping piece will cause gameover scenario
           originY = 3;
         }
         initialized = true; // Reset so that next piece will initialize position
-    }
+      }*/
     clearSpace(); //F Allows "movement" by clearing transitive blocks
     matchField(); //F Matches pieceDesign with field (if pd = 1, field = 1)
     checkAllowableMoves(); //I Has collision detection algorithm.  Restricts illegal movements that result in collisions
@@ -103,8 +102,6 @@ class PieceType {
         gameStatus = GAMEOVER;
       }*/
       resetPiece(); // Sets next piece to random.  Sets position, rotation, etc.
-    } 
-    else{
     }
       /*
       if (canGoDown == false) {  
@@ -123,7 +120,7 @@ class PieceType {
 //      endGame();
       canSetHighScore = false;
     }
-  }// End voidDisplay()
+  }// End runPiece()
   
   void initializePosition(){
     int topY = topY();
@@ -174,6 +171,7 @@ class PieceType {
         x = j*gridSize+width/2-(gridSize*b/2); //x and y are grid locations
         y = i*gridSize+height/2-(gridSize*a/2); 
         if(pieceDesign[i][j] == 1){
+          print("i + originY = " + (i+originY) + "...");
           field[i+originY][j+originX] = pieceDesign[i][j];//where matching occurs
         }
         else if(pieceDesign[i][j] == 0){
