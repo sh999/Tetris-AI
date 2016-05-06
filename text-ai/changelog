@@ -1,0 +1,8 @@
+5/5/16
+-Bare-bones design of main.cpp, options.cpp
+-options.cpp asks user dimension of tetris field
+-working on parsing string input to integers
+	issues with istringstream not getting both values
+
+Tasks:
+-Allow for user to provide file and have program parse it
