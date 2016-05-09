@@ -6,7 +6,7 @@
 #include "field.h"
 using namespace std;
 
-void defaultf(){
+void default_field(){
 // Use a preset field size
 	Field field(10, 20);
 	field.display();

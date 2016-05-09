@@ -5,5 +5,5 @@ using namespace std;
 
 int main(){
 	//options();
-	defaultf();
+	default_field();
 }
