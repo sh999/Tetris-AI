@@ -8,18 +8,8 @@ using namespace std;
 
 void default_field(){
 // Use a preset field size
-	Field field(10, 20);
+	Field field(20, 10);
 	field.display();
-}
-
-void display_field(int row, int col){
-// Print empty tetris field of size (row, col)
-	for(int i = 0; i < row; i++){
-		for(int j = 0; j < col; j++){
-			cout << "*";
-		}
-		cout << "\n";
-	}
 }
 
 void options(){
@@ -37,5 +27,6 @@ void options(){
 	col = 10;
 	cout << "row = " << row;
 	cout << "\ncol = " << col << "\n";
-	display_field(row, col);	// Draw empty field	
+	Field f(row, col);
+	f.display();
 }

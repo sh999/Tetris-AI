@@ -3,6 +3,7 @@
 		-Need to create separate Field class
 -Created field class with own display
 -Main program can now call either options to ask for user options or just run default_field() function 
+-Parsing in options() still doesn't really work; it's still set as dummy values
 
 5/5/16
 -Bare-bones design of main.cpp, options.cpp

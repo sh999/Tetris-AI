@@ -4,6 +4,6 @@
 using namespace std;
 
 int main(){
-	//options();
-	default_field();
+	options();
+	//default_field();
 }
