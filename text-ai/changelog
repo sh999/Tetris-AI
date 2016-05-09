@@ -1,9 +1,20 @@
 5/8/16
 -In options.cpp, need to create function default(), which sets up field size of 10 x 20
-		-Need to create separate Field class
+	-Need to create separate Field class
 -Created field class with own display
 -Main program can now call either options to ask for user options or just run default_field() function 
 -Parsing in options() still doesn't really work; it's still set as dummy values
+	-Stopped using stringstream and just used cin >> row >> col
+	-Need to add error handling for input
+	-Optional: Add ability to run program with dimensions
+		-e.g.: ./main 10 20
+
+-Progress summary:
+	-Created separate Field class
+-Important tasks:
+	-Expand on the class; make random fields to test AI with
+-Misc:
+	-Custom field size nice to have but not that important to implement
 
 5/5/16
 -Bare-bones design of main.cpp, options.cpp

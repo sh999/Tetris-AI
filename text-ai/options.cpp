@@ -18,13 +18,8 @@ void options(){
 	cout << "dimensions: <width> <height>\n";
 	cout << "> ";
 	string input;
-	cin >> input;
-	istringstream input_ss(input);	
 	int row, col; 
-	input_ss >> row >> col;		// Should parse string into 2 ints
-					//  but not working
-	row = 20; 			// Use dummy values for now
-	col = 10;
+	cin >> row >> col;
 	cout << "row = " << row;
 	cout << "\ncol = " << col << "\n";
 	Field f(row, col);
