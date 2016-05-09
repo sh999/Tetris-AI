@@ -3,7 +3,14 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include "field.h"
 using namespace std;
+
+void defaultf(){
+// Use a preset field size
+	Field field(10, 20);
+	field.display();
+}
 
 void display_field(int row, int col){
 // Print empty tetris field of size (row, col)

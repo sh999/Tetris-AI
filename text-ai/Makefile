@@ -4,7 +4,7 @@ CC = g++
 # for clang
 CFLAGS = 
 
-OBJECTS = main.o options.o
+OBJECTS = main.o options.o field.o
 TARGET = main
 main : $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) -o main
