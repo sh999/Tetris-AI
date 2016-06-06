@@ -29,3 +29,14 @@ Ask user to open data file or enter dimensions
 	Field f(row, col);
 	f.display();
 }
+
+void input_field(){
+/*
+Open text file and create field based on it
+task: read data from file after opening
+*/
+	Field field(20, 10);
+	ifstream input;
+	input.open("input_field");
+	input.close();
+}

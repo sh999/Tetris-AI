@@ -1,5 +1,8 @@
 6/7/16
 -Edited commenting
+-Created function to take in field data file
+Idea: First, calculate "score" of field to measure ruggedness
+	Eventually, AI will minimize this ruggedness
 
 5/8/16
 -In options.cpp, need to create function default(), which sets up field size of 10 x 20
