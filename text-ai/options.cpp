@@ -25,3 +25,7 @@ void options(){
 	Field f(row, col);
 	f.display();
 }
+
+void process_file(){
+// Process text file to get field object
+}
