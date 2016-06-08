@@ -1,3 +1,9 @@
+6/7/16
+-Edited commenting
+-Created function to take in field data file
+Idea: First, calculate "score" of field to measure ruggedness
+	Eventually, AI will minimize this ruggedness
+
 5/15/16
 -Making process_file(), which takes in a text file of field
 

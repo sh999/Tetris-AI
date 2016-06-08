@@ -6,5 +6,6 @@ using namespace std;
 int main(){
 	//options();
 	//default_field();
-	process_file();
+	//process_file();
+	input_field();
 }
