@@ -1,7 +1,13 @@
+changelog for tetris ai text experiment
+List of things that were done (-), ideas (+), and tasks (-)
+
+6/8/16
+-Made process_file() obsolete because input_field does the same thing
++Idea: Collect functions so far in a namespace
+
 6/7/16
--Edited commenting
--Created function to take in field data file
-Idea: First, calculate "score" of field to measure ruggedness
+-Created function input_field() to take in field data file
++Idea: First, calculate "score" of field to measure ruggedness
 	Eventually, AI will minimize this ruggedness
 
 5/15/16
@@ -32,4 +38,4 @@ Idea: First, calculate "score" of field to measure ruggedness
 	issues with istringstream not getting both values
 
 Tasks:
--Allow for user to provide file and have program parse it
+*Allow for user to provide file and have program parse it

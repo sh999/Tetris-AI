@@ -30,10 +30,6 @@ Ask user to open data file or enter dimensions
 	f.display();
 }
 
-void process_file(){
-// Process text file to get field object
-}
-
 void input_field(){
 /*
 Open text file and create field based on it
