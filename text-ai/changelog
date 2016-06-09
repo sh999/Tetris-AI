@@ -2,7 +2,8 @@ changelog for tetris ai text experiment
 List of things that were done (-), ideas (+), and tasks (*)
 
 6/9/16
--Create namespace setup() to group functions that sets up field
+-Created namespace setup() to group functions that sets up field
+-Created Stored_input class to store lines from file into vector of strings
 
 6/8/16
 -Made process_file() obsolete because input_field does the same thing

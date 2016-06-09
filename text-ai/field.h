@@ -6,4 +6,14 @@ public:
 	Field(int r, int c);	// Default constructor
 	void display();		// Print field
 };
+
+class Stored_input{
+/*
+ Text input file will be parsed into a vector of
+ strings, where each string is a line from the
+ file
+*/
+public:
+private:
+};
 #endif
