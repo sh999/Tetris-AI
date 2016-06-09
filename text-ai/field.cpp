@@ -6,7 +6,6 @@ Field::Field(int r, int c){
 			row = r;
 			col = c;
 	}
-
 void Field::display(){
 /*
 	Print field with asterisks

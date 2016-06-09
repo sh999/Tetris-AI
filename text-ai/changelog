@@ -1,5 +1,8 @@
 changelog for tetris ai text experiment
-List of things that were done (-), ideas (+), and tasks (-)
+List of things that were done (-), ideas (+), and tasks (*)
+
+6/9/16
+-Create namespace setup() to group functions that sets up field
 
 6/8/16
 -Made process_file() obsolete because input_field does the same thing

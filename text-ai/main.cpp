@@ -7,5 +7,5 @@ int main(){
 	//options();
 	//default_field();
 	//process_file();
-	input_field();
+	setup::input_field();
 }
